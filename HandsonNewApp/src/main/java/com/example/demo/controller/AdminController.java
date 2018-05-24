@@ -38,15 +38,20 @@ public class AdminController {
 	
 	/*=======================================Child Add Update Delete Operations================================*/
 	
-	@RequestMapping(value="addchildpage")
+	@RequestMapping(value="/childview")
+	public String viewChild(){
+		return "child/viewChild";
+	}
+	
+	@RequestMapping(value="/addchildpage")
 	public String addChildPage(ChildInfo childInfo){
 		
 		return "child/addChild";
 	}
 	
 	@RequestMapping(value="addchildaction",method=RequestMethod.POST)
-	public String addChildAction(){
-		
+	public String addChildAction(ChildInfo childInfo){
+		childDao.addChild(childInfo);
 		return "child/viewChild";
 	}
 	

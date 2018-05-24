@@ -1,0 +1,15 @@
+.current-status-div{
+	position:static;
+	width: 70%;
+	height: 200px;
+	float:right;
+	border: 1px solid;
+}
+
+
+.search-children{
+	position:absolute;
+	width: 27%;
+	height: 600px;
+	border: 1px solid;
+}
