@@ -18,41 +18,239 @@
 	<div class="main-container">
 		<div class="small-header">
 			<div style="float: right;">
-				<button class="add-child-form">AddChild</button>
+				<button class="add-child-form btn btn-success">AddChild</button>
 			</div>
 		</div>
 	</div>
 	
-	
+	<form th:action="@{/admin/addchildaction}" th:object="${childInfo}" method="post">
 	<div class="floating-form-div">
 		<ul class="nav nav-tabs">
-		  <li class="active"><a data-toggle="tab" href="#home">ChildDetails</a></li>
-		  <li><a data-toggle="tab" href="#menu1">MotherDetails</a></li>
-		  <li><a data-toggle="tab" href="#menu2">FatherDetails</a></li>
-		  <li style="float: right;"><button class="close-floating-div">close</button></li>
+		  <li class="active"><a data-toggle="tab" href="#home">Child Details</a></li>
+		  <li><a data-toggle="tab" href="#menu1">Other Details</a></li>
+		  <li style="float: right;"><a class="close-floating-div btn btn-success">close</a></li>
 		</ul>
 		
 		<div class="tab-content">
 			  <div id="home" class="tab-pane fade in active">
+			  <!-- ============Top Portion Of Form==================================== -->
 			    <div class="detail-div">
-			    	<input type="text" >
+			    	<div style="float: left;width: 70%;">
+			    		<div class="h-line"><label>Child Details</label> </div>
+				    	<div class="h-line">
+					    	<div class=text-input-md>
+					    		<input type="text" name="firstname" class="input" placeholder="First Name">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text" name="middlename" class="input" placeholder="Millde Name">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text" name="lastname" class="input" placeholder="Last Name">			    		
+					    	</div>
+				    	</div>
+				    	
+				    	<div class="h-line">
+					    	<div class=text-input-md>
+					    		<input type="text" name="phone" class="input" placeholder="Mobile">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text"  class="input" placeholder="Age">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="date" name="dob" class="input" placeholder="Date Of Birth">			    		
+					    	</div>
+				    	</div>
+				    	
+				    	<div class="h-line">
+					    	<div class=text-input-md>
+					    		<input type="text" name="email" class="input" placeholder="Email">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text" class="input" placeholder="Photo">			    		
+					    	</div>
+					    	<!-- <div class="text-input-md">
+					    		<input type="text" class="input" placeholder="Address Line 2">			    		
+					    	</div> -->
+				    	</div>
+			    	</div>
+			    	
+			    	<div class="image-div"></div>
 			    </div>
+			     <!-- ============Middle Portion Of Form==================================== -->
 			     <div class="detail-div">
-			    
+				     <div style="float: left;width: 70%;">
+				     <div class="h-line"><label>Mother Details</label></div>
+				    	<div class="h-line">
+					    	<div class=text-input-md>
+					    		<input type="text" name="mother_name" class="input" placeholder="First Name">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text" class="input" placeholder="Middle Name">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text" class="input" placeholder="Last Name">			    		
+					    	</div>
+				    	</div>
+				    	
+				    	<div class="h-line">
+					    	<div class=text-input-md>
+					    		<input type="text" name="mother_profession" class="input" placeholder="Mother Profession">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text" name="mother_mobile" class="input" placeholder="Mother Mobile">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="date" name="mother_dob" class="input" placeholder="Date Of Birth">			    		
+					    	</div>
+				    	</div>
+				    	
+				    	<div class="h-line">
+					    	<div class=text-input-md>
+					    		<input type="file" name="mother_ather" class="input" placeholder="Aadhar">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text" name="adhar_no" class="input" placeholder="Aadhar No">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text" name="mother_photo" class="input" placeholder="Photo">			    		
+					    	</div>
+				    	</div>
+				    </div>
+				    
+				    <div class="image-div"></div>
 			    </div>
+			     <!-- ============Bottom Portion Of Form==================================== -->
 			     <div class="detail-div">
-			    
+				     <div style="float: left;width: 95%;">
+				     <div class="h-line"><label>Other Details</label></div>
+				    	<div class="h-line">
+					    	<div class=text-input-md>
+					    		<input type="text" name="blood_group" class="input" placeholder="Blood Group">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text" name="remark" class="input" placeholder="Remarks">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text" name="school" class="input" placeholder="School Name">			    		
+					    	</div>
+				    	</div>
+				    	
+				    	<div class="h-line">
+					    	<div class=text-input-md>
+					    		<input type="text" name="address" class="input" placeholder="Address Line 1">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text" class="input" placeholder="Address Line 2">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text" class="input" placeholder="">			    		
+					    	</div>
+				    	</div>
+				    	
+				    	<div class="h-line">
+					    	<div class=text-input-md>
+					    		<input type="text" class="input" placeholder="">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text" class="input" placeholder="">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="submit" class="btn btn-primary">			    		
+					    	</div>
+				    	</div>
+				    </div>
 			    </div>
 			  </div>
 			  <div id="menu1" class="tab-pane fade">
-			    <h3>Menu 1</h3>
-			    <p>Some content in menu 1.</p>
-			  </div>
-			  <div id="menu2" class="tab-pane fade">
-			    <h3>Menu 2</h3>
-			    <p>Some content in menu 2.</p>
+			  
+			     <div class="detail-div">
+				     <div style="float: left;width: 70%;">
+				     <div class="h-line"><label>Father Details</label> </div>
+				    	<div class="h-line">
+					    	<div class=text-input-md>
+					    		<input type="text" class="input" placeholder="First Name">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text" class="input" placeholder="Middle Name">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text" class="input" placeholder="Last Name">			    		
+					    	</div>
+				    	</div>
+				    	
+				    	<div class="h-line">
+					    	<div class=text-input-md>
+					    		<input type="text" class="input" placeholder="Father Profession">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text" class="input" placeholder="">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text" class="input" placeholder="">			    		
+					    	</div>
+				    	</div>
+				    	
+				    	<div class="h-line">
+					    	<div class=text-input-md>
+					    		<input type="text" class="input" placeholder="">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text" class="input" placeholder="">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text" class="input" placeholder="">			    		
+					    	</div>
+				    	</div>
+				    </div>
+				    
+				    <div class="image-div"></div>
+			    </div>
+			    
+			     <div class="detail-div">
+				     <div style="float: left;width: 70%;">
+				     <div class="h-line"><label>Guardian Details</label> </div>
+				    	<div class="h-line">
+					    	<div class=text-input-md>
+					    		<input type="text" class="input" placeholder="First Name">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text" class="input" placeholder="Middle Name">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text" class="input" placeholder="Last Name">			    		
+					    	</div>
+				    	</div>
+				    	
+				    	<div class="h-line">
+					    	<div class=text-input-md>
+					    		<input type="text" class="input" placeholder=" Guardian Profession">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text" class="input" placeholder="">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text" class="input" placeholder="">			    		
+					    	</div>
+				    	</div>
+				    	
+				    	<div class="h-line">
+					    	<div class=text-input-md>
+					    		<input type="text" class="input" placeholder="">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text" class="input" placeholder="">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text" class="input" placeholder="">			    		
+					    	</div>
+				    	</div>
+				    </div>
+				    
+				    <div class="image-div"></div>
+			    </div>
 			  </div>
 		</div>
 	</div>
+	</form>
 </body>
 </html>

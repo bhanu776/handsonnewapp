@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +24,8 @@ public class AdminController {
 	ChildDao childDao;
 
 	@RequestMapping("/login")
-	public String login(){
+	public String login(HttpSession session){
+		session.setAttribute("admin_id", 1);
 		return "loginPage";
 	}
 	
@@ -49,15 +52,19 @@ public class AdminController {
 		return "child/addChild";
 	}
 	
-	@RequestMapping(value="addchildaction",method=RequestMethod.POST)
-	public String addChildAction(ChildInfo childInfo){
-		childDao.addChild(childInfo);
+	@RequestMapping(value="/addchildaction",method=RequestMethod.POST)
+	public String addChildAction(ChildInfo childInfo,HttpSession session){
+		childInfo.setAdmin_id(Integer.parseInt((String)session.getAttribute("admin")));
+		System.err.println(childInfo.toString());
+		
+		//childDao.addChild(childInfo);
 		return "child/viewChild";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="getchilddetails")
 	public List<ChildInfo> getChildDetails(@RequestParam("id")Integer id){
+		
 		return Arrays.asList(new ChildInfo());
 	}
 	
