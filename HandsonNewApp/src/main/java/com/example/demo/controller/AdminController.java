@@ -1,20 +1,29 @@
 package com.example.demo.controller;
 
-import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dao.ChildDao;
+import com.example.demo.dao.SettingsDao;
 import com.example.demo.model.ChildInfo;
+import com.example.demo.model.ChildVisitDetails;
+import com.example.demo.model.ChildVisitTransaction;
+import com.example.demo.model.Settings;
+import com.example.demo.utility.UtilityDao;
+import com.mysql.fabric.xmlrpc.base.Data;
 
 @Controller
 @RequestMapping("/admin/")
@@ -22,6 +31,12 @@ public class AdminController {
 	
 	@Autowired
 	ChildDao childDao;
+	
+	@Autowired
+	SettingsDao settingsDao;
+	
+	@Autowired
+	UtilityDao utilityDao;
 
 	@RequestMapping("/login")
 	public String login(HttpSession session){
@@ -54,18 +69,17 @@ public class AdminController {
 	
 	@RequestMapping(value="/addchildaction",method=RequestMethod.POST)
 	public String addChildAction(ChildInfo childInfo,HttpSession session){
-		childInfo.setAdmin_id(Integer.parseInt((String)session.getAttribute("admin")));
+		//childInfo.setAdmin_id(Integer.parseInt((String)session.getAttribute("admin")));
+		childInfo.setAdmin_id(1);
 		System.err.println(childInfo.toString());
-		
-		//childDao.addChild(childInfo);
+		childDao.addChild(childInfo);
 		return "child/viewChild";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="getchilddetails")
-	public List<ChildInfo> getChildDetails(@RequestParam("id")Integer id){
-		
-		return Arrays.asList(new ChildInfo());
+	public List<ChildInfo> getChildDetails(){
+		return childDao.childInfosList();
 	}
 	
 	@ResponseBody
@@ -94,30 +108,102 @@ public class AdminController {
 	
 	/*=======================================Child Add Update Delete Operations=================================*/
 	
-	@RequestMapping(value="addsiblingpage")
+	@RequestMapping(value="/addsiblingpage")
 	public String addSiblingPage(ChildInfo childInfo) {
 		return "";
 	}
 	
 	
-	@RequestMapping(value="addsiblingaction",method=RequestMethod.POST)
+	@RequestMapping(value="/addsiblingaction",method=RequestMethod.POST)
 	public String addSiblingAction(ChildInfo childInfo) {
 		return "";
 	}
 	
-	@RequestMapping(value="updatesibling")
+	@RequestMapping(value="/updatesibling")
 	public String updateSibblingg(@RequestParam("id")Integer id){
 		return "";
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="deletesibling")
+	@RequestMapping(value="/deletesibling")
 	public String deleteSibbling(@RequestParam("id")Integer id){
 		return "";
 	}
 	
 	/*=======================================Check in Check Out Api=============================================*/
 	
+	@RequestMapping(value="/scancardforchildcheckin",method=RequestMethod.POST)
+	public String scanCardForChildCheckin(@RequestParam("childId") Integer childId,Model model){
+		model.addAttribute("childId", childId);
+		return "scancard/scanCardForCheckin";
+	}
+	
+	@RequestMapping(value="/addadvanceamountpage",method=RequestMethod.POST)
+	public String addAdvanceAmount(@RequestParam("childId")Integer childId,@RequestParam("cardId")String cardId,
+			ChildVisitDetails childVisitDetails,Model model){
+		Optional<ChildInfo> childInfo = childDao.getChildInfo(childId);
+		model.addAttribute("childDetail", childInfo.get());
+		model.addAttribute("cardId", cardId);
+		return "child/advanceAmountPage";
+	}
+	
+	@RequestMapping(value="/childcheckinaction")
+	public String childCheckInAction(ChildVisitDetails childVisitDetails){
+		
+		childVisitDetails.setAdmin_id(1);
+		childVisitDetails.setStart_date(new Date());
+		childDao.saveChildVisitDetail(childVisitDetails);
+		return "redirect:dashboard";
+	}
+	
+	@RequestMapping(value="/scancardforcheckout")
+	public String scanCardForCheckout(@RequestParam("childId")Integer childId,Model model){
+		model.addAttribute("childId", childId);
+		return "scancard/scanCardForCheckout";
+	}
+	
+	@RequestMapping(value="/playzonebillingdetails")
+	public String billingDetails(@RequestParam("childId")Integer childId,@RequestParam("cardId")String cardId,
+			Model model,ChildVisitTransaction childVisitTransaction){
+		ChildVisitDetails childVisitDetails = childDao.getChildVisitDetails(cardId);
+		if(childVisitDetails==null)
+			return "redirect:/dashboard";
+		model.addAttribute("childId", childId);
+		model.addAttribute("cardId", cardId);
+		model.addAttribute("visitDetail", childVisitDetails);
+		
+		return "child/playzoneBillingDetails";
+	}
+	
+	@RequestMapping(value="childcheckoutaction")
+	public String childCheckoutAction(){
+		
+		return "redirect:dashboard";
+	}
+	
+	/*====================================Settings====================================================*/
+	
+	@RequestMapping(value="/settingpage")
+	public String settingPage(Settings settings,Model model){
+		model.addAttribute("settings", settingsDao.getSettings(1));
+		return "master/settings";
+	}
+	
+	@RequestMapping(value="/addsetting",method=RequestMethod.POST)
+	public String addSetting(Settings settings){
+		System.out.println(settings.toString());
+		settingsDao.saveSettings(settings);
+		return "redirect:/admin/settingpage";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/getsettings",method=RequestMethod.GET)
+	public Map<String,Object> getSettings(){
+		Map<String, Object> model = new HashMap<>();
+		model.put("settings", settingsDao.getSettings(1));
+		model.put("isWeekend", utilityDao.isWeekend());
+		return model;
+	}
 	
 	
 	

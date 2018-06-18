@@ -27,3 +27,63 @@ $(document).ready(function(){
 	
 	
 });
+
+
+/*========================================Settings==================================================*/
+
+var settingApp = angular.module("settingApp",[]);
+settingApp.controller("settingController",function($scope,$http){
+	$http({
+        method : "GET",
+        url : "/admin/getsettings"
+	    }).then(function mySuccess(response) {
+	    	console.log(response);
+	        return response.data;
+	    }, function myError(response) {
+	        $scope.error = response.statusText;
+	    });
+});
+
+
+
+$(document).ready(function(){
+	$("#playzone").click(function(){
+		 if(this.checked) {
+			$("#library").prop("checked", false);
+			$("#special").prop("checked", false);
+			$("#visitor").prop("checked", false);
+		 }
+	});
+
+	$("#library").click(function(){
+		console.log("click")
+		 if(this.checked) {
+		$("#playzone").prop("checked", false);
+		$("#special").prop("checked", false);
+		$("#visitor").prop("checked", false);
+		}
+	});
+
+	$("#special").click(function(){
+	 if(this.checked) {
+		$("#library").prop("checked", false);
+		$("#playzone").prop("checked", false);
+		$("#visitor").prop("checked", false);
+		}
+	});
+	
+	$("#visitor").click(function(){
+	 if(this.checked) {
+		$("#library").prop("checked", false);
+		$("#playzone").prop("checked", false);
+		$("#special").prop("checked", false);
+		}
+	});
+});
+
+
+
+
+
+
+

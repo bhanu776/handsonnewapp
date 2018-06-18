@@ -36,8 +36,8 @@ left: 0;
 }
 
 .main-container{
-	margin-left: 5%;
-	width: 90%;
+	margin-left: 2.5%;
+	width: 95%;
 	height: 600px;
 	border: 1px groove;
 	z-index: 0;
@@ -85,7 +85,7 @@ left: 0;
 
 .text-input-sm{
 	float: left;
-	width: 15%;
+	width: 20%;
 	height: 35px;
 	margin-left: 3%;
 	margin-top: 10px;
@@ -107,10 +107,29 @@ left: 0;
 
 .h-line{
 	width: 100%;
-	
 }
 
 .form-input-field{
 	
 	
 }
+
+.header-label{
+	font-size: 2em;
+	font-family: sans-serif;
+	font-style: normal;
+	font-weight: bold;
+}
+
+.common-footer{
+	width: 100%;
+	border: 1px solid;
+}
+
+.inline-button{
+	margin-top:10px;
+	width: 10%;
+	display: inline-block;
+	float: left;
+}
+

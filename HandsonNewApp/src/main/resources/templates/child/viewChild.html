@@ -4,24 +4,68 @@
 <link rel="stylesheet" th:href="@{/style/master/style.css}">
 <link rel="stylesheet" th:href="@{/style/master/bootstrap.min.css}">
 <link rel="stylesheet" th:href="@{/style/child/child.css}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+	
+	<!-- 
+<script type="text/javascript" th:src="@{/script/angular-1.6.10/angular.js}"></script> -->
+<script type="text/javascript" th:src="@{/script/angular-1.6.10/angular.min.js}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.js"></script>
+ 
 <script type="text/javascript" th:src="@{/script/master/jquery-3.3.1.js}" ></script>
 <script type="text/javascript" th:src="@{/script/master/jquery.min.js}" ></script>
 <script type="text/javascript" th:src="@{/script/master/jquery-ui.js}"></script>	
+
 <script type="text/javascript" th:src="@{/script/master/bootstrap.min.js}" ></script>
 <script type="text/javascript" th:src="@{/script/master/script.js}" ></script>
+<script type="text/javascript" th:src="@{/script/child/child.js}"></script>
+<!-- <script type="text/javascript" th:src="@{/script/master/jquery.stickytableheaders.js}"></script> -->
+
 <title>Child</title>
 </head>
-<body>
+<body ng-app="childApp" >
+
 	<div th:replace="/fragments/header :: header">&nbsp;</div>
 	<div th:replace="/fragments/menu :: menu">&nbsp;</div>
 	
-	<div class="main-container">
+	<div class="main-container" ng-controller="childController">
 		<div class="small-header">
+			<div style="float: left;"><label class="header-label">Children Sort Details</label></div>
 			<div style="float: right;">
 				<button class="add-child-form btn btn-success">AddChild</button>
 			</div>
 		</div>
-	</div>
+		<form action="" method="post">
+			<div id="scrollable-area">
+				<table ng-table="tableParams" class="table table-condensed table-bordered table-striped" fixed-table-headers="scrollable-area">
+				    <tr ng-repeat="child in $data">
+				      <td data-title="'Select'"><input type="radio" value="{{child.id}}" name="childId" required="required"></td>
+				      <td data-title="'Id'" sortable="'id'">{{child.id}}</td>
+				      <td data-title="'Image'" sortable="'id'"></td>
+				      <td data-title="'First_Name'" sortable="'firstname'">{{child.firstname}}</td>
+				      <td data-title="'Last_Name'" sortable="'lastname'">{{child.lastname}}</td>
+				      <td data-title="'Mother_Name'" sortable="'mother_name'">{{child.mother_name}}</td>
+				      <td data-title="'Phone'" sortable="'phone'">{{child.phone}}</td>
+				      <td data-title="'Remarks'" sortable="'remarks'">{{child.remarks}}</td>
+				      <td data-title="'School'" sortable="'school'">{{child.school}}</td>
+				      <td data-title="'Allargies'" sortable="'allergies'">{{child.allergies}}</td>
+				      <td data-title="'DOB'" sortable="'dob'">{{child.dob}}</td>
+				      <td data-title="'Email'" sortable="'email'">{{child.email}}</td>
+				      <td data-title="'Delete'"></td>
+				      <td data-title="'edit'"></td>
+				    </tr>
+				  </table>
+			</div>
+			<div class="common-footer" style="height: 50px;">
+			<div class="inline-button"><button th:formaction="@{/admin/scancardforchildcheckin}" class="btn btn-success">Check In</button></div>
+			<div class="inline-button"><button th:formaction="@{/admin/scancardforcheckout}" class="btn btn-success">Check Out</button></div>
+			<div class="inline-button"><a href="" class="btn btn-success">User Info</a></div>
+			</div>
+			</form>
+		</div>
+	
 	
 	<form th:action="@{/admin/addchildaction}" th:object="${childInfo}" method="post">
 	<div class="floating-form-div">
@@ -51,13 +95,13 @@
 				    	
 				    	<div class="h-line">
 					    	<div class=text-input-md>
-					    		<input type="text" name="phone" class="input" placeholder="Mobile">			    		
-					    	</div>
-					    	<div class="text-input-md">
-					    		<input type="text"  class="input" placeholder="Age">			    		
+					    		<input type="number" name="phone" class="input" placeholder="Mobile">			    		
 					    	</div>
 					    	<div class="text-input-md">
 					    		<input type="date" name="dob" class="input" placeholder="Date Of Birth">			    		
+					    	</div>
+					    	<div class="text-input-md">
+					    		<input type="text"  class="input" placeholder="Age">			    		
 					    	</div>
 				    	</div>
 				    	
@@ -97,7 +141,7 @@
 					    		<input type="text" name="mother_profession" class="input" placeholder="Mother Profession">			    		
 					    	</div>
 					    	<div class="text-input-md">
-					    		<input type="text" name="mother_mobile" class="input" placeholder="Mother Mobile">			    		
+					    		<input type="number" name="mother_mobile" class="input" placeholder="Mother Mobile">			    		
 					    	</div>
 					    	<div class="text-input-md">
 					    		<input type="date" name="mother_dob" class="input" placeholder="Date Of Birth">			    		
@@ -183,19 +227,19 @@
 					    		<input type="text" class="input" placeholder="Father Profession">			    		
 					    	</div>
 					    	<div class="text-input-md">
-					    		<input type="text" class="input" placeholder="">			    		
+					    		<input type="text" class="input" placeholder="Father Mobile">			    		
 					    	</div>
 					    	<div class="text-input-md">
-					    		<input type="text" class="input" placeholder="">			    		
+					    		<input type="text" class="input" placeholder="Date Of Birth">			    		
 					    	</div>
 				    	</div>
 				    	
 				    	<div class="h-line">
 					    	<div class=text-input-md>
-					    		<input type="text" class="input" placeholder="">			    		
+					    		<input type="text" class="input" placeholder="Adhar Card">			    		
 					    	</div>
 					    	<div class="text-input-md">
-					    		<input type="text" class="input" placeholder="">			    		
+					    		<input type="text" class="input" placeholder="Adhar No">			    		
 					    	</div>
 					    	<div class="text-input-md">
 					    		<input type="text" class="input" placeholder="">			    		
