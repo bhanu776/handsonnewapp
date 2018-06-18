@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" th:href="@{/style/master/style.css}">
+<link rel="stylesheet" th:href="@{/style/master/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/style/child/child.css}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+	
+	<!-- 
+<script type="text/javascript" th:src="@{/script/angular-1.6.10/angular.js}"></script> -->
+<script type="text/javascript" th:src="@{/script/angular-1.6.10/angular.min.js}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.js"></script>
+ 
+<script type="text/javascript" th:src="@{/script/master/jquery-3.3.1.js}" ></script>
+<script type="text/javascript" th:src="@{/script/master/jquery.min.js}" ></script>
+<script type="text/javascript" th:src="@{/script/master/jquery-ui.js}"></script>	
+
+<script type="text/javascript" th:src="@{/script/master/bootstrap.min.js}" ></script>
+<script type="text/javascript" th:src="@{/script/master/script.js}" ></script>
+<script type="text/javascript" th:src="@{/script/child/child.js}"></script>
+<!-- <script type="text/javascript" th:src="@{/script/master/jquery.stickytableheaders.js}"></script> -->
+
+<title>Child</title>
+</head>
+<body ng-app="advanceAmount" >
+
+	<div th:replace="/fragments/header :: header">&nbsp;</div>
+	<div th:replace="/fragments/menu :: menu">&nbsp;</div>
+	
+	<div class="main-container" ng-controller="advanceAmountController">
+		<div class="small-header">
+			<div style="float: left;"><label class="header-label">Price Details</label></div>
+		</div>
+		<form action="" th:action="@{/admin/childcheckinaction}" th:object="${childVisitDetails}" method="post">
+		<input type="hidden" name="card_id" th:value="${cardId}">
+		<input type="hidden" name="child_id" th:value="${childDetail.id}">
+		<input type="hidden" name="child_name" th:value="${childDetail.firstname+' '+childDetail.lastname}">
+		<div class="detail-div">
+			<div class="h-line" ng-if="settings.isWeekend">
+				<div class="text-input-sm">
+					<label>Play Zone Cost ({{settings.settings.playzone_cost_weekend}})</label> 
+					<input type="checkbox" name="playzone_cost" id="playzone" value="{{settings.settings.playzone_cost_weekend}}">
+				</div>
+				<div class="text-input-sm">
+					<label>Library Cost ({{settings.settings.library_cost_weekend}})</label> 
+					<input type="checkbox" name="library_cost" id="library" value="{{settings.settings.library_cost_weekend}}">
+				</div>
+				<div class="text-input-sm">
+					<label>Special Cost ({{settings.settings.special_cost}})</label> 
+					<input type="checkbox" name="special" id="special" value="{{settings.settings.special_cost}}">
+				</div>
+				<div class="text-input-sm">
+					<label>Visitor</label> 
+					<input type="checkbox" name="visitor" id="visitor" value="{{settings.settings.special_cost}}">
+				</div>
+			</div>
+			
+			<div class="h-line" ng-if="!settings.isWeekend">
+				<div class="text-input-sm">
+					<label>Play Zone Cost ({{settings.settings.playzone_cost}})</label> 
+					<input type="checkbox" name="playzone" id="playzone" value="{{settings.settings.playzone_cost}}">
+				</div>
+				<div class="text-input-sm">
+					<label>Library Cost ({{settings.settings.library_cost}})</label> 
+					<input type="checkbox" name="library" id="library" value="{{settings.settings.library_cost}}">
+				</div>
+				<div class="text-input-sm">
+					<label>Special Cost ({{settings.settings.special_cost}})</label> 
+					<input type="checkbox" name="special" id="special" value="{{settings.settings.special_cost}}">
+				</div>
+				<div class="text-input-sm">
+					<label>Visitor</label> 
+					<input type="checkbox" name="visitor" id="visitor" value="{{settings.settings.special_cost}}">
+				</div>			
+			</div>
+			<div class="h-line">
+				<div class="text-input-sm">
+					<label>Discount ({{settings.settings.discount}})</label> 
+					<input type="checkBox" name="discount" id="discount" value="{{settings.settings.discount}}">
+				</div>	
+				<div class="text-input-sm">
+					<label>Advance Amount</label> 
+					<input type="text" name="advance_amount" id="advance-amount">
+				</div>				
+				<div class="text-input-sm">
+					<input type="submit">
+				</div>
+			</div>
+		</div>
+		<div class="detail-div">
+			
+		</div>
+		</form>
+	</div>
+</body>
+</html>

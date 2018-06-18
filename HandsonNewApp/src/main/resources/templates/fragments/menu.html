@@ -4,7 +4,15 @@
 </head>
 <body>
 <div th:fragment="menu">
+	<div class="menu-slide-button"></div>
 	<div class="menu">
+	<ul>
+		<li><a th:href="@{/admin/dashboard}">Dash Board</a></li>
+		<li><a th:href="@{/admin/childview}">Child</a></li>
+		<li>Teacher</li>
+		<li>Classes</li>
+		<li><a th:href="@{/admin/settingpage}">Settings</a></li>
+	</ul>
 		
 	</div>
 </div>

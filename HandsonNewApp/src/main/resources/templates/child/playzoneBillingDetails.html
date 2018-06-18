@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" th:href="@{/style/master/style.css}">
+<link rel="stylesheet" th:href="@{/style/master/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/style/child/child.css}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+	
+	<!-- 
+<script type="text/javascript" th:src="@{/script/angular-1.6.10/angular.js}"></script> -->
+<script type="text/javascript" th:src="@{/script/angular-1.6.10/angular.min.js}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.js"></script>
+ 
+<script type="text/javascript" th:src="@{/script/master/jquery-3.3.1.js}" ></script>
+<script type="text/javascript" th:src="@{/script/master/jquery.min.js}" ></script>
+<script type="text/javascript" th:src="@{/script/master/jquery-ui.js}"></script>	
+
+<script type="text/javascript" th:src="@{/script/master/bootstrap.min.js}" ></script>
+<script type="text/javascript" th:src="@{/script/master/script.js}" ></script>
+<script type="text/javascript" th:src="@{/script/child/child.js}"></script>
+<!-- <script type="text/javascript" th:src="@{/script/master/jquery.stickytableheaders.js}"></script> -->
+
+<title>Billing Details</title>
+</head>
+<body ng-app="playzonebilling">
+	<div th:replace="/fragments/header :: header">&nbsp;</div>
+	<div th:replace="/fragments/menu :: menu">&nbsp;</div>
+	
+	<div class="main-container" ng-controller="playzoneBillingController">
+		<div class="small-header">
+			<div style="float: left;"><label class="header-label">Billing Details</label></div>
+			<div style="float: right;">
+				<button class="add-child-form btn btn-success">close</button>
+			</div>
+		</div>
+		<div class="small-header">
+			<div style="float: left;"><label class="header-label" th:text="${'Child Name :'+visitDetail.child_name}"></label></div>
+		</div>
+		
+		<form action="" th:action="@{/admin/}" th:object="${childVisitTransaction}" method="post">
+		<div class="detail-div">
+			<div class="h-line" style="height: 50px;">
+				<div class="text-input-sm">
+					<label>PlayZone Cost</label>
+					<br>
+					<label th:text="${visitDetail.playzone_cost}"></label>
+				</div>
+				<div class="text-input-sm">
+					<label>Library Cost</label>
+					<br>
+					<label th:text="${visitDetail.library_cost}"></label>
+				</div>
+				<!-- <div class="text-input-sm">
+					<label>Special Cost</label>
+					<br>
+					<label th:text="${visitDetail}"></label>
+				</div> -->
+				<div class="text-input-sm">
+					<label>Advance Amount</label>
+					<br>
+					<label th:text="${visitDetail.advance_amount}"></label>
+				</div>
+			</div>
+			<div class="h-line" style="height: 50px;">
+				<div class="text-input-sm">
+					<label>Miscellaneous</label>
+					<br>
+					<input type="text" name="" value="">
+				</div>
+				<div class="text-input-sm">
+					<label>Extra Socks</label>
+					<br>
+					<input type="text" name="" value="">
+				</div>
+				<div class="text-input-sm">
+					<label>Miscellaneous</label>
+					<br>
+					<input type="text" name="miscellaneous" value="">
+				</div>
+				<div class="text-input-sm">
+					<label></label>
+					<br>
+					<input type="submit">
+				</div>
+			</div>
+		</div>
+		</form>	
+			
+			
+		</div>
+</body>
+</html>

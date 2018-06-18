@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Settings</title>
+<link rel="stylesheet" th:href="@{/style/master/style.css}">
+<link rel="stylesheet" th:href="@{/style/master/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/style/child/child.css}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+	
+	<!-- 
+<script type="text/javascript" th:src="@{/script/angular-1.6.10/angular.js}"></script> -->
+<script type="text/javascript" th:src="@{/script/angular-1.6.10/angular.min.js}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.js"></script>
+ 
+<script type="text/javascript" th:src="@{/script/master/jquery-3.3.1.js}" ></script>
+<script type="text/javascript" th:src="@{/script/master/jquery.min.js}" ></script>
+<script type="text/javascript" th:src="@{/script/master/jquery-ui.js}"></script>	
+
+<script type="text/javascript" th:src="@{/script/master/bootstrap.min.js}" ></script>
+<script type="text/javascript" th:src="@{/script/master/script.js}" ></script>
+<script type="text/javascript" th:src="@{/script/child/child.js}"></script>
+<!-- <script type="text/javascript" th:src="@{/script/master/jquery.stickytableheaders.js}"></script> -->
+<style type="text/css">
+.h-line{
+border-bottom: 2px groove;
+}
+</style>
+</head>
+<body ng-app="settingApp">
+	<div th:replace="/fragments/header :: header">&nbsp;</div>
+	<div th:replace="/fragments/menu :: menu">&nbsp;</div>
+	
+	<div class="main-container" ng-controller="settingController">
+		<div class="small-header">
+			<div style="float: left;"><label class="header-label">Price Details</label></div>
+		</div>
+		<form action="" th:action="@{/admin/addsetting}" th:object="${settings}" method="post"> 
+		<div class="detail-div" style="width: 100%;"> 
+		
+			<div class="h-line" style="height: 70px;">
+				<div class="text-input-sm">
+					<label>Library Cost</label><br> <input type="text" name="library_cost" th:value="${settings.library_cost}">
+				</div>
+				<div class="text-input-sm">
+					<label>Library Weekend Cost</label> <input type="text" name="library_cost_weekend" th:value="${settings.library_cost_weekend}">
+				</div>
+			<!-- 	<div class="text-input-sm">
+					<label>Library Second Hr. Cost</label> <input type="text" name="">
+				</div>
+				<div class="text-input-sm">
+					<label>Library Weekend Second Hr. Cost</label> <input type="text" name="">
+				</div> -->
+			</div>
+			
+			<div class="h-line" style="height: 70px;">
+				<div class="text-input-sm">
+					<label>Play Zone Cost</label><br> <input type="text" name="playzone_cost" th:value="${settings.playzone_cost}">
+				</div>
+				<div class="text-input-sm">
+					<label>Play Zone Weekend Cost</label> <input type="text" name="playzone_cost_weekend" th:value="${settings.playzone_cost_weekend}">
+				</div>
+				<div class="text-input-sm">
+					<label>Weekday SecondHr Cost</label> <input type="text" name="weekday_secondhr_cost" th:value="${settings.weekday_secondhr_cost}">
+				</div>
+				<div class="text-input-sm">
+					<label>Weekend SecondHr Cost</label> <input type="text" name="weekend_secondhr_cost" th:value="${settings.weekend_secondhr_cost}">
+				</div>
+			</div>
+		
+			
+		</div>
+		
+		<div class="detail-div"> 
+				
+			<div class="h-line" style="height: 70px;">
+				<div class="text-input-sm">
+					<label>Membership Cost PlayZone</label> <input type="text" name="membership_cost_playzone" th:value="${settings.membership_cost_playzone}">
+				</div>
+				<div class="text-input-sm">
+					<label>Membership Cost Library</label> <input type="text" name="membership_cost_library" th:value="${settings.membership_cost_library}">
+				</div>
+				<div class="text-input-sm">
+					<label>CGST</label><br> <input type="text" name="cgst" th:value="${settings.cgst}">
+				</div>
+				<div class="text-input-sm">
+					<label>SGST</label><br> <input type="text" name="sgst" th:value="${settings.sgst}">
+				</div>
+			</div>
+			
+			<div class="h-line" style="height: 70px;">
+				<div class="text-input-sm">
+					<label>Special Cost</label><br> <input type="text" name="special_cost" th:value="${settings.special_cost}">
+				</div>
+				<div class="text-input-sm">
+					<label>Discount(%)</label><br> <input type="text" name="discount" th:value="${settings.discount}">
+				</div>
+				<div class="text-input-sm">
+					<label>Grace Time</label><br> <input type="text" name="grace_time" th:value="${settings.grace_time}">
+				</div>
+				<div class="text-input-sm">
+					<label>Phone</label><br> <input type="text" name="phone" th:value="${settings.phone}">
+				</div>
+			</div>
+		</div>
+		
+		<div class="detail-div"> 
+			<div class="h-line" style="height: 70px;">
+				<div class="text-input-sm">
+					<input type="submit" value="Save">
+				</div>
+			</div>
+		</div>
+		</form>
+		
+	</div>
+</body>
+</html>
