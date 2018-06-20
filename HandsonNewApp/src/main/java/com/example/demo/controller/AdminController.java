@@ -131,7 +131,7 @@ public class AdminController {
 	
 	/*=======================================Check in Check Out Api=============================================*/
 	
-	@RequestMapping(value="/scancardforchildcheckin",method=RequestMethod.POST)
+	@RequestMapping(value="/scancardforchildcheckin",method=RequestMethod.GET)
 	public String scanCardForChildCheckin(@RequestParam("childId") Integer childId,Model model){
 		model.addAttribute("childId", childId);
 		return "scancard/scanCardForCheckin";
@@ -140,13 +140,17 @@ public class AdminController {
 	@RequestMapping(value="/addadvanceamountpage",method=RequestMethod.POST)
 	public String addAdvanceAmount(@RequestParam("childId")Integer childId,@RequestParam("cardId")String cardId,
 			ChildVisitDetails childVisitDetails,Model model){
+		
+		if(childDao.getChildVisitDetails(cardId)!=null){
+			return "redirect:scancardforchildcheckin?childId="+childId;
+		}
 		Optional<ChildInfo> childInfo = childDao.getChildInfo(childId);
 		model.addAttribute("childDetail", childInfo.get());
 		model.addAttribute("cardId", cardId);
 		return "child/advanceAmountPage";
 	}
 	
-	@RequestMapping(value="/childcheckinaction")
+	@RequestMapping(value="/childcheckinaction",method=RequestMethod.GET)
 	public String childCheckInAction(ChildVisitDetails childVisitDetails){
 		
 		childVisitDetails.setAdmin_id(1);
@@ -155,14 +159,15 @@ public class AdminController {
 		return "redirect:dashboard";
 	}
 	
-	@RequestMapping(value="/scancardforcheckout")
+	@RequestMapping(value="/scancardforcheckout",method=RequestMethod.GET)
 	public String scanCardForCheckout(Model model){
 		return "scancard/scanCardForCheckout";
 	}
 	
-	@RequestMapping(value="/playzonebillingdetails")
+	@RequestMapping(value="/playzonebillingdetails",method=RequestMethod.GET)
 	public String billingDetails(@RequestParam("cardId")String cardId,
 			Model model,ChildVisitTransaction childVisitTransaction){
+		
 		ChildVisitDetails childVisitDetails = childDao.getChildVisitDetails(cardId);
 		if(childVisitDetails==null)
 			return "redirect:/admin/dashboard";
@@ -178,7 +183,7 @@ public class AdminController {
 		return "child/playzoneBillingDetails";
 	}
 	
-	@RequestMapping(value="childcheckoutaction")
+	@RequestMapping(value="childcheckoutaction",method=RequestMethod.GET)
 	public String childCheckoutAction(ChildVisitTransaction childVisitTransaction){
 		ChildVisitDetails childVisitDetails = childDao.getChildVisitDetailsById(childVisitTransaction.getChild_visit_id());
 		
