@@ -45,6 +45,11 @@ public class ChildDao {
 		return childVisitDetailRepository.save(childVisitDetails);
 	}
 	
+	public ChildVisitDetails getChildVisitDetailsById(int childVisitId){
+		Optional<ChildVisitDetails> chOptional = childVisitDetailRepository.findById(childVisitId);
+		return chOptional.get();
+	}
+	
 	public ChildVisitDetails getChildVisitDetails(String cardId){
 		List<ChildVisitDetails> childVisitDetails = childVisitDetailRepository.getVisitDetailthroughCardId(cardId);
 		if(!childVisitDetails.isEmpty())

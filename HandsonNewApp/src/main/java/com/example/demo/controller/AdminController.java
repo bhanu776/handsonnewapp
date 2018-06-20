@@ -23,7 +23,6 @@ import com.example.demo.model.ChildVisitDetails;
 import com.example.demo.model.ChildVisitTransaction;
 import com.example.demo.model.Settings;
 import com.example.demo.utility.UtilityDao;
-import com.mysql.fabric.xmlrpc.base.Data;
 
 @Controller
 @RequestMapping("/admin/")
@@ -157,27 +156,33 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/scancardforcheckout")
-	public String scanCardForCheckout(@RequestParam("childId")Integer childId,Model model){
-		model.addAttribute("childId", childId);
+	public String scanCardForCheckout(Model model){
 		return "scancard/scanCardForCheckout";
 	}
 	
 	@RequestMapping(value="/playzonebillingdetails")
-	public String billingDetails(@RequestParam("childId")Integer childId,@RequestParam("cardId")String cardId,
+	public String billingDetails(@RequestParam("cardId")String cardId,
 			Model model,ChildVisitTransaction childVisitTransaction){
 		ChildVisitDetails childVisitDetails = childDao.getChildVisitDetails(cardId);
 		if(childVisitDetails==null)
 			return "redirect:/admin/dashboard";
-		model.addAttribute("childId", childId);
+		
+		childVisitDetails.setEnd_date(new Date());
+		ChildVisitDetails childVisitDetailnew = childDao.saveChildVisitDetail(childVisitDetails);
+		
+		model.addAttribute("childId", childVisitDetails.getChild_id());
 		model.addAttribute("cardId", cardId);
-		model.addAttribute("visitDetail", childVisitDetails);
+		model.addAttribute("totalTime", utilityDao.timeDifference(childVisitDetailnew.getStart_date(), childVisitDetailnew.getEnd_date()));
+		model.addAttribute("visitDetail", childVisitDetailnew);
 		
 		return "child/playzoneBillingDetails";
 	}
 	
 	@RequestMapping(value="childcheckoutaction")
-	public String childCheckoutAction(){
+	public String childCheckoutAction(ChildVisitTransaction childVisitTransaction){
+		ChildVisitDetails childVisitDetails = childDao.getChildVisitDetailsById(childVisitTransaction.getChild_visit_id());
 		
+		//generate bill code
 		return "redirect:/dashboard";
 	}
 	

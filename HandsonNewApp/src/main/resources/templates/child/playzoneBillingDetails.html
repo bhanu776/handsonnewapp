@@ -40,7 +40,10 @@
 			<div style="float: left;"><label class="header-label" th:text="${'Child Name :'+visitDetail.child_name}"></label></div>
 		</div>
 		
-		<form action="" th:action="@{/admin/}" th:object="${childVisitTransaction}" method="post">
+		<form action="" th:action="@{/admin/childcheckoutaction}" th:object="${childVisitTransaction}" method="post">
+		<input type="hidden" name="child_visit_id" th:value="${visitDetail.id}">
+		<input type="hidden" name="child_id" th:value="${childId}">
+		<input type="hidden" name="cardId" th:value="${cardId}">
 		<div class="detail-div">
 			<div class="h-line" style="height: 50px;">
 				<div class="text-input-sm">
@@ -53,15 +56,15 @@
 					<br>
 					<label th:text="${visitDetail.library_cost}"></label>
 				</div>
-				<!-- <div class="text-input-sm">
-					<label>Special Cost</label>
-					<br>
-					<label th:text="${visitDetail}"></label>
-				</div> -->
 				<div class="text-input-sm">
 					<label>Advance Amount</label>
 					<br>
 					<label th:text="${visitDetail.advance_amount}"></label>
+				</div>
+				<div class="text-input-sm">
+					<label>Total Time</label>
+					<br>
+					<label th:text="${totalTime.get('diffHours')+':'+totalTime.get('diffMinutes')+':'+totalTime.get('diffSeconds')}"></label>
 				</div>
 			</div>
 			<div class="h-line" style="height: 50px;">
