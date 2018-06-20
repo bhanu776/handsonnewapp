@@ -167,7 +167,7 @@ public class AdminController {
 			Model model,ChildVisitTransaction childVisitTransaction){
 		ChildVisitDetails childVisitDetails = childDao.getChildVisitDetails(cardId);
 		if(childVisitDetails==null)
-			return "redirect:/dashboard";
+			return "redirect:/admin/dashboard";
 		model.addAttribute("childId", childId);
 		model.addAttribute("cardId", cardId);
 		model.addAttribute("visitDetail", childVisitDetails);
@@ -178,7 +178,7 @@ public class AdminController {
 	@RequestMapping(value="childcheckoutaction")
 	public String childCheckoutAction(){
 		
-		return "redirect:dashboard";
+		return "redirect:/dashboard";
 	}
 	
 	/*====================================Settings====================================================*/
