@@ -44,6 +44,9 @@
 		<input type="hidden" name="child_visit_id" th:value="${visitDetail.id}">
 		<input type="hidden" name="child_id" th:value="${childId}">
 		<input type="hidden" name="cardId" th:value="${cardId}">
+		<input type="hidden" name="library_cost" th:value="${visitDetail.library_cost}">
+		<input type="hidden" name="playzone_cost" th:value="${visitDetail.playzone_cost}">
+		<input type="hidden" name="advanceAmount" th:value="${visitDetail.advance_amount}">
 		<div class="detail-div">
 			<div class="h-line" style="height: 50px;">
 				<div class="text-input-sm">
@@ -71,17 +74,17 @@
 				<div class="text-input-sm">
 					<label>Miscellaneous</label>
 					<br>
-					<input type="text" name="" value="">
+					<input type="text" name="miscellaneous_cost">
 				</div>
 				<div class="text-input-sm">
 					<label>Extra Socks</label>
 					<br>
-					<input type="text" name="" value="">
+					<input type="text" name="extra_socks">
 				</div>
 				<div class="text-input-sm">
-					<label>Miscellaneous</label>
+					<label>Extra Amount</label>
 					<br>
-					<input type="text" name="miscellaneous" value="">
+					<input type="text" name="extra_amount">
 				</div>
 				<div class="text-input-sm">
 					<label></label>

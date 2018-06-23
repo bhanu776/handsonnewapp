@@ -150,7 +150,7 @@ public class AdminController {
 		return "child/advanceAmountPage";
 	}
 	
-	@RequestMapping(value="/childcheckinaction",method=RequestMethod.GET)
+	@RequestMapping(value="/childcheckinaction",method=RequestMethod.POST)
 	public String childCheckInAction(ChildVisitDetails childVisitDetails){
 		
 		childVisitDetails.setAdmin_id(1);
@@ -164,7 +164,7 @@ public class AdminController {
 		return "scancard/scanCardForCheckout";
 	}
 	
-	@RequestMapping(value="/playzonebillingdetails",method=RequestMethod.GET)
+	@RequestMapping(value="/playzonebillingdetails",method=RequestMethod.POST)
 	public String billingDetails(@RequestParam("cardId")String cardId,
 			Model model,ChildVisitTransaction childVisitTransaction){
 		
@@ -183,11 +183,25 @@ public class AdminController {
 		return "child/playzoneBillingDetails";
 	}
 	
-	@RequestMapping(value="childcheckoutaction",method=RequestMethod.GET)
+	@RequestMapping(value="childcheckoutaction",method=RequestMethod.POST)
 	public String childCheckoutAction(ChildVisitTransaction childVisitTransaction){
+		System.out.println(childVisitTransaction.toString());
 		ChildVisitDetails childVisitDetails = childDao.getChildVisitDetailsById(childVisitTransaction.getChild_visit_id());
+		childVisitDetails.setStatus(1);
+		
+		float total = ((childVisitTransaction.getPlayzone_cost()+childVisitTransaction.getLibrary_cost())-childVisitTransaction.getAdvanceAmount());
+		total = total+childVisitTransaction.getMiscellaneous_cost()+childVisitTransaction.getExtra_amount()+childVisitTransaction.getExtra_socks();
+		if(total>=0) {
+			childVisitTransaction.setTotal_amount(total);
+			childVisitTransaction.setRefund_amount(0.0f);
+		}else {
+			childVisitTransaction.setTotal_amount(0.0f);
+			childVisitTransaction.setRefund_amount(total*(-1));
+		}
 		
 		//generate bill code
+		
+		//childDao.saveChildVisitDetail(childVisitDetails);
 		return "redirect:/dashboard";
 	}
 	
