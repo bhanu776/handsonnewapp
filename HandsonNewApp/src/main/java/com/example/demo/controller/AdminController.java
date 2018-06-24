@@ -188,8 +188,12 @@ public class AdminController {
 		System.out.println(childVisitTransaction.toString());
 		ChildVisitDetails childVisitDetails = childDao.getChildVisitDetailsById(childVisitTransaction.getChild_visit_id());
 		childVisitDetails.setStatus(1);
+		float total = 0.0f;
 		
-		float total = (childVisitTransaction.getPlayzone_cost()+childVisitTransaction.getLibrary_cost())-childVisitTransaction.getAdvanceAmount();
+		total = childVisitTransaction.getPlayzone_cost()+childVisitTransaction.getLibrary_cost();
+			
+		if(childVisitTransaction.getAdvanceAmount()!=null)
+			total = total - childVisitTransaction.getAdvanceAmount();
 		if(childVisitTransaction.getMiscellaneous_cost() != null)
 			total = total+childVisitTransaction.getMiscellaneous_cost();
 		if(childVisitTransaction.getExtra_amount() != null)
@@ -204,12 +208,12 @@ public class AdminController {
 			childVisitTransaction.setTotal_amount(0.0f);
 			childVisitTransaction.setRefund_amount(total*(-1));
 		}
-		
+		childDao.saveTransactionDetail(childVisitTransaction);
 		//generate bill code
 		
 		
 		
-		//childDao.saveChildVisitDetail(childVisitDetails);
+		childDao.saveChildVisitDetail(childVisitDetails);
 		return "redirect:/admin/dashboard";
 	}
 	
