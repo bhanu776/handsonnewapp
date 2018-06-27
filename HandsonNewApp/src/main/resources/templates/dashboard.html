@@ -3,16 +3,16 @@
 <head>
 <link rel="stylesheet" th:href="@{/style/master/style.css}">
 <link rel="stylesheet" th:href="@{/style/master/bootstrap.min.css}">
-<link rel="stylesheet" th:href="@{/style/master/autocomplete.css}">
 <link rel="stylesheet" th:href="@{/style/dashboard/dashboard.css}">
+<link rel="stylesheet" th:href="@{/style/master/jquery-ui.css}">
 
 <script type="text/javascript" th:src="@{/script/master/jquery-3.3.1.js}" ></script>
 <script type="text/javascript" th:src="@{/script/master/jquery-ui.js}"></script>	
 <script type="text/javascript" th:src="@{/script/master/bootstrap.min.js}" ></script>
 <script type="text/javascript" th:src="@{/script/master/script.js}" ></script>
-<script type="text/javascript" th:src="@{/script/master/autocomplete.js}" ></script>
 <script type="text/javascript" th:src="@{/script/angular-1.6.10/angular.min.js}"></script>
 <script type="text/javascript" th:src="@{/script/dashboard/dashboard.js}"></script>
+
 <title>Dashboard</title>
 </head>
 <body ng-app="dashboardApp">
@@ -21,7 +21,7 @@
 	
 	<div class="main-container" ng-controller="dashboardController">
 		<div class="current-status-div">
-		
+			
 		</div>
 		<div class="current-status-div">
 		
@@ -30,7 +30,8 @@
 		
 		</div>
 		<div class="search-children">
-			
+			<label for="tags">Tags: </label>
+  			<input type="text" id="search-box" >
 		</div>
 		
 	</div>

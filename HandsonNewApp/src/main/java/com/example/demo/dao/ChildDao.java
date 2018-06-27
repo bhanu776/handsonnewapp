@@ -42,6 +42,9 @@ public class ChildDao {
 		childRepository.deleteById(id);
 	}
 	
+	public List<ChildInfo> searchChild(String keyword){
+		return childRepository.searchChildByName(keyword);
+	}
 	
 	
 	/*==================child visit details=============================== */
