@@ -15,7 +15,7 @@
 
 <title>Dashboard</title>
 </head>
-<body ng-app="dashboardApp">
+<body ng-app="dashboard">
 	<div th:replace="/fragments/header :: header">&nbsp;</div>
 	<div th:replace="/fragments/menu :: menu">&nbsp;</div>
 	
@@ -30,8 +30,34 @@
 		
 		</div>
 		<div class="search-children">
-			<label for="tags">Tags: </label>
-  			<input type="text" id="search-box" >
+			<div class="small-header">
+				<div style="float: left;"><label class="header-label">Search Child</label></div>
+					<div style="float: right;">
+						<button class="add-child-form btn btn-success">ViewChild</button>
+					</div>
+			</div>
+			<div class="h-line" style="height: 30px;">
+				<input type="text" id="search-input" ng-keyup="searchChild()" ng-model="keyword" autofocus="autofocus" placeholder="Search Child">
+	  		</div>
+	  		<br>
+	  		<div class="h-line" style="height: 400px;">
+	  			<table class="i-table">
+	  			<tr>
+	  				<th>Radio</th>
+	  				<th>Id</th>
+	  				<th>Name</th>
+	  				<th>DOB</th>
+	  				<th>Check_in</th>
+	  			</tr>
+	  			<tr ng-repeat="child in childDetails">
+	  				<td><input type="radio" name="childId" value="{{child.id}}" required="required"></td>
+	  				<td>{{child.id}}</td>
+	  				<td>{{child.firstname+' '+child.lastname}}</td>
+	  				<td>{{child.dob}}</td>
+	  				<td><a href="/admin/scancardforchildcheckin?childId={{child.id}}" class="btn btn-primary" style="height: 30px;">Check_In</a> </td>
+	  			</tr>
+	  			</table>
+	  		</div>
 		</div>
 		
 	</div>

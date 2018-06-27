@@ -133,3 +133,17 @@ left: 0;
 	float: left;
 }
 
+.i-table{
+	width: 100%;
+	border: 1px solid grey;
+	border-collapse: collapse;
+	padding: 5px;
+}
+
+.i-table tr:nth-child(odd) {
+	background-color: #f1f1f1;
+  }
+.i-table tr:nth-child(even) {
+	background-color: #ffffff;
+  }
+

@@ -1,4 +1,4 @@
-$(document).ready(function(){
+
   /*  $( "#search-box" ).autocomplete({
     	autoFocus:true,
         source: function(request, response) {
@@ -31,16 +31,19 @@ $(document).ready(function(){
           }
     });
 */
-	  $("#search-box").on('keyup',function(event){
-		  $.ajax({
-              url: "/admin/search_child",
-              dataType: "json",
-              data: 'keyword='+$("#search-box").val(),
-              success: function( data, textStatus, jqXHR) {
-                  console.log(data);
-              }
-		  });
-	  });
+	var dashboard = angular.module("dashboard",[]);
+	dashboard.controller('dashboardController',function($scope,$http){
+		
+		$scope.searchChild = function(){
+			console.log($scope.keyword);
+			$http({
+		        method : "GET",
+		        url : "/admin/search_child/"+$scope.keyword
+			    }).then(function mySuccess(response) {
+			    	$scope.childDetails = response.data;
+			    }, function myError(response) {
+			        $scope.error = response.statusText;
+			    });
+		}
+	});
                  
-        
-});

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -106,9 +107,8 @@ public class AdminController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="search_child")
-	public List<ChildInfo> searchCild(@RequestParam("keyword")String keyword){
-		System.out.println(keyword);
+	@RequestMapping(value="search_child/{keyword}")
+	public List<ChildInfo> searchCild(@PathVariable("keyword")String keyword){
 		return childDao.searchChild(keyword);
 	}
 	
