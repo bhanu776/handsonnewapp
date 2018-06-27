@@ -105,6 +105,13 @@ public class AdminController {
 		return "child/viewChild";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="search_child")
+	public List<ChildInfo> searchCild(@RequestParam("keyword")String keyword){
+		System.out.println(keyword);
+		return childDao.searchChild(keyword);
+	}
+	
 	/*=======================================Child Add Update Delete Operations=================================*/
 	
 	@RequestMapping(value="/addsiblingpage")
