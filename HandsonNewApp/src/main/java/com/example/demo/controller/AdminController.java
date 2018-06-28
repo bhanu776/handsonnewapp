@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -109,6 +110,8 @@ public class AdminController {
 	@ResponseBody
 	@RequestMapping(value="search_child/{keyword}")
 	public List<ChildInfo> searchCild(@PathVariable("keyword")String keyword){
+		if(keyword==null)
+			return new ArrayList<>();
 		return childDao.searchChild(keyword);
 	}
 	

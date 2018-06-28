@@ -43,6 +43,7 @@
 			    	$scope.childDetails = response.data;
 			    }, function myError(response) {
 			        $scope.error = response.statusText;
+			        $scope.childDetails=[];
 			    });
 		}
 	});
