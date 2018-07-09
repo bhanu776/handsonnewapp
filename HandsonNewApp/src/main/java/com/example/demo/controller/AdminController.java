@@ -197,10 +197,17 @@ public class AdminController {
 	public String childCheckoutAction(ChildVisitTransaction childVisitTransaction){
 		System.out.println(childVisitTransaction.toString());
 		ChildVisitDetails childVisitDetails = childDao.getChildVisitDetailsById(childVisitTransaction.getChild_visit_id());
+		Settings settings = settingsDao.getSettings(1);
 		childVisitDetails.setStatus(1);
 		float total = 0.0f;
 		
 		total = childVisitTransaction.getPlayzone_cost()+childVisitTransaction.getLibrary_cost();
+		
+		Map<String, Long> timedifferece = utilityDao.timeDifference(childVisitDetails.getStart_date(), new Date());
+		long diffInMin = timedifferece.get("diffHours") * 60 +timedifferece.get("diffMinutes");
+		diffInMin = diffInMin - settings.getGrace_time();
+		
+		total = total * (diffInMin/60);
 			
 		if(childVisitTransaction.getAdvanceAmount()!=null)
 			total = total - childVisitTransaction.getAdvanceAmount();
