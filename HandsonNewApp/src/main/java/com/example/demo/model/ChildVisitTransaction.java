@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,12 +15,23 @@ public class ChildVisitTransaction {
 	private Integer child_id;
 	private String child_name;
 	private Integer total_time;
+	@Column(nullable=false,columnDefinition="float default 0.0f")
 	private Float playzone_cost = 0.0f;
+	@Column(nullable=false,columnDefinition="float default 0.0f")
 	private Float library_cost = 0.0f;
+	@Column(nullable=false,columnDefinition="float default 0.0f")
+	private Float advanceAmount = 0.0f;
+	@Column(nullable=false,columnDefinition="float default 0.0f")
 	private Float paid_amount = 0.0f;
+	@Column(nullable=false,columnDefinition="float default 0.0f")
 	private Float total_amount = 0.0f;
+	@Column(nullable=false,columnDefinition="float default 0.0f")
 	private Float extra_amount = 0.0f;
+	@Column(nullable=false,columnDefinition="float default 0.0f")
+	private Float extra_socks = 0.0f;
+	@Column(nullable=false,columnDefinition="float default 0.0f")
 	private Float refund_amount = 0.0f;
+	@Column(nullable=false,columnDefinition="float default 0.0f")
 	private Float miscellaneous_cost = 0.0f;
 	private String comment;
 	private String date;
@@ -107,14 +119,27 @@ public class ChildVisitTransaction {
 	}
 	public void setComment(String comment) {
 		this.comment = comment;
+	} 
+	public Float getAdvanceAmount() {
+		return advanceAmount;
+	}
+	public void setAdvanceAmount(Float advanceAmount) {
+		this.advanceAmount = advanceAmount;
+	}
+	public Float getExtra_socks() {
+		return extra_socks;
+	}
+	public void setExtra_socks(Float extra_socks) {
+		this.extra_socks = extra_socks;
 	}
 	@Override
 	public String toString() {
 		return "ChildVisitTransaction [id=" + id + ", child_visit_id=" + child_visit_id + ", child_id=" + child_id
 				+ ", child_name=" + child_name + ", total_time=" + total_time + ", playzone_cost=" + playzone_cost
-				+ ", library_cost=" + library_cost + ", paid_amount=" + paid_amount + ", total_amount=" + total_amount
-				+ ", extra_amount=" + extra_amount + ", refund_amount=" + refund_amount + ", miscellaneous_cost="
-				+ miscellaneous_cost + ", comment=" + comment + ", date=" + date + "]";
+				+ ", library_cost=" + library_cost + ", advanceAmount=" + advanceAmount + ", paid_amount=" + paid_amount
+				+ ", total_amount=" + total_amount + ", extra_amount=" + extra_amount + ", extra_socks=" + extra_socks
+				+ ", refund_amount=" + refund_amount + ", miscellaneous_cost=" + miscellaneous_cost + ", comment="
+				+ comment + ", date=" + date + "]";
 	}
 	
 }

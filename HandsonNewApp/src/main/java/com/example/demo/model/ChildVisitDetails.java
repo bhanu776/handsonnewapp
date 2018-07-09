@@ -59,9 +59,6 @@ public class ChildVisitDetails {
 	public void setStart_date(Date start_date) {
 		this.start_date = start_date;
 	}
-	public void setEnd_date(Date end_date) {
-		this.end_date = end_date;
-	}
 	public String getStart_time() {
 		return start_time;
 	}
@@ -122,6 +119,12 @@ public class ChildVisitDetails {
 	}
 	public void setDiscount(Integer discount) {
 		this.discount = discount;
+	}
+	public Date getEnd_date() {
+		return end_date;
+	}
+	public void setEnd_date(Date end_date) {
+		this.end_date = end_date;
 	}
 	@Override
 	public String toString() {

@@ -40,7 +40,13 @@
 			<div style="float: left;"><label class="header-label" th:text="${'Child Name :'+visitDetail.child_name}"></label></div>
 		</div>
 		
-		<form action="" th:action="@{/admin/}" th:object="${childVisitTransaction}" method="post">
+		<form action="" th:action="@{/admin/childcheckoutaction}" th:object="${childVisitTransaction}" method="post">
+		<input type="hidden" name="child_visit_id" th:value="${visitDetail.id}">
+		<input type="hidden" name="child_id" th:value="${childId}">
+		<input type="hidden" name="cardId" th:value="${cardId}">
+		<input type="hidden" name="library_cost" th:value="${visitDetail.library_cost}">
+		<input type="hidden" name="playzone_cost" th:value="${visitDetail.playzone_cost}">
+		<input type="hidden" name="advanceAmount" th:value="${visitDetail.advance_amount}">
 		<div class="detail-div">
 			<div class="h-line" style="height: 50px;">
 				<div class="text-input-sm">
@@ -53,32 +59,32 @@
 					<br>
 					<label th:text="${visitDetail.library_cost}"></label>
 				</div>
-				<!-- <div class="text-input-sm">
-					<label>Special Cost</label>
-					<br>
-					<label th:text="${visitDetail}"></label>
-				</div> -->
 				<div class="text-input-sm">
 					<label>Advance Amount</label>
 					<br>
 					<label th:text="${visitDetail.advance_amount}"></label>
+				</div>
+				<div class="text-input-sm">
+					<label>Total Time</label>
+					<br>
+					<label th:text="${totalTime.get('diffHours')+':'+totalTime.get('diffMinutes')+':'+totalTime.get('diffSeconds')}"></label>
 				</div>
 			</div>
 			<div class="h-line" style="height: 50px;">
 				<div class="text-input-sm">
 					<label>Miscellaneous</label>
 					<br>
-					<input type="text" name="" value="">
+					<input type="text" name="miscellaneous_cost">
 				</div>
 				<div class="text-input-sm">
 					<label>Extra Socks</label>
 					<br>
-					<input type="text" name="" value="">
+					<input type="text" name="extra_socks">
 				</div>
 				<div class="text-input-sm">
-					<label>Miscellaneous</label>
+					<label>Extra Amount</label>
 					<br>
-					<input type="text" name="miscellaneous" value="">
+					<input type="text" name="extra_amount">
 				</div>
 				<div class="text-input-sm">
 					<label></label>

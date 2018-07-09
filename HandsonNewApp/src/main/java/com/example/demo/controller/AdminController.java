@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +25,6 @@ import com.example.demo.model.ChildVisitDetails;
 import com.example.demo.model.ChildVisitTransaction;
 import com.example.demo.model.Settings;
 import com.example.demo.utility.UtilityDao;
-import com.mysql.fabric.xmlrpc.base.Data;
 
 @Controller
 @RequestMapping("/admin/")
@@ -106,6 +107,14 @@ public class AdminController {
 		return "child/viewChild";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="search_child/{keyword}")
+	public List<ChildInfo> searchCild(@PathVariable("keyword")String keyword){
+		if(keyword==null)
+			return new ArrayList<>();
+		return childDao.searchChild(keyword);
+	}
+	
 	/*=======================================Child Add Update Delete Operations=================================*/
 	
 	@RequestMapping(value="/addsiblingpage")
@@ -132,7 +141,7 @@ public class AdminController {
 	
 	/*=======================================Check in Check Out Api=============================================*/
 	
-	@RequestMapping(value="/scancardforchildcheckin",method=RequestMethod.POST)
+	@RequestMapping(value="/scancardforchildcheckin",method=RequestMethod.GET)
 	public String scanCardForChildCheckin(@RequestParam("childId") Integer childId,Model model){
 		model.addAttribute("childId", childId);
 		return "scancard/scanCardForCheckin";
@@ -141,13 +150,17 @@ public class AdminController {
 	@RequestMapping(value="/addadvanceamountpage",method=RequestMethod.POST)
 	public String addAdvanceAmount(@RequestParam("childId")Integer childId,@RequestParam("cardId")String cardId,
 			ChildVisitDetails childVisitDetails,Model model){
+		
+		if(childDao.getChildVisitDetails(cardId)!=null){
+			return "redirect:scancardforchildcheckin?childId="+childId;
+		}
 		Optional<ChildInfo> childInfo = childDao.getChildInfo(childId);
 		model.addAttribute("childDetail", childInfo.get());
 		model.addAttribute("cardId", cardId);
 		return "child/advanceAmountPage";
 	}
 	
-	@RequestMapping(value="/childcheckinaction")
+	@RequestMapping(value="/childcheckinaction",method=RequestMethod.POST)
 	public String childCheckInAction(ChildVisitDetails childVisitDetails){
 		
 		childVisitDetails.setAdmin_id(1);
@@ -156,29 +169,69 @@ public class AdminController {
 		return "redirect:dashboard";
 	}
 	
-	@RequestMapping(value="/scancardforcheckout")
-	public String scanCardForCheckout(@RequestParam("childId")Integer childId,Model model){
-		model.addAttribute("childId", childId);
+	@RequestMapping(value="/scancardforcheckout",method=RequestMethod.GET)
+	public String scanCardForCheckout(Model model){
 		return "scancard/scanCardForCheckout";
 	}
 	
-	@RequestMapping(value="/playzonebillingdetails")
-	public String billingDetails(@RequestParam("childId")Integer childId,@RequestParam("cardId")String cardId,
+	@RequestMapping(value="/playzonebillingdetails",method=RequestMethod.POST)
+	public String billingDetails(@RequestParam("cardId")String cardId,
 			Model model,ChildVisitTransaction childVisitTransaction){
+		
 		ChildVisitDetails childVisitDetails = childDao.getChildVisitDetails(cardId);
 		if(childVisitDetails==null)
-			return "redirect:/dashboard";
-		model.addAttribute("childId", childId);
+			return "redirect:/admin/dashboard";
+		
+		childVisitDetails.setEnd_date(new Date());
+		ChildVisitDetails childVisitDetailnew = childDao.saveChildVisitDetail(childVisitDetails);
+		
+		model.addAttribute("childId", childVisitDetails.getChild_id());
 		model.addAttribute("cardId", cardId);
-		model.addAttribute("visitDetail", childVisitDetails);
+		model.addAttribute("totalTime", utilityDao.timeDifference(childVisitDetailnew.getStart_date(), childVisitDetailnew.getEnd_date()));
+		model.addAttribute("visitDetail", childVisitDetailnew);
 		
 		return "child/playzoneBillingDetails";
 	}
 	
-	@RequestMapping(value="childcheckoutaction")
-	public String childCheckoutAction(){
+	@RequestMapping(value="childcheckoutaction",method=RequestMethod.POST)
+	public String childCheckoutAction(ChildVisitTransaction childVisitTransaction){
+		System.out.println(childVisitTransaction.toString());
+		ChildVisitDetails childVisitDetails = childDao.getChildVisitDetailsById(childVisitTransaction.getChild_visit_id());
+		Settings settings = settingsDao.getSettings(1);
+		childVisitDetails.setStatus(1);
+		float total = 0.0f;
 		
-		return "redirect:dashboard";
+		total = childVisitTransaction.getPlayzone_cost()+childVisitTransaction.getLibrary_cost();
+		
+		Map<String, Long> timedifferece = utilityDao.timeDifference(childVisitDetails.getStart_date(), new Date());
+		long diffInMin = timedifferece.get("diffHours") * 60 +timedifferece.get("diffMinutes");
+		diffInMin = diffInMin - settings.getGrace_time();
+		
+		total = total * (diffInMin/60);
+			
+		if(childVisitTransaction.getAdvanceAmount()!=null)
+			total = total - childVisitTransaction.getAdvanceAmount();
+		if(childVisitTransaction.getMiscellaneous_cost() != null)
+			total = total+childVisitTransaction.getMiscellaneous_cost();
+		if(childVisitTransaction.getExtra_amount() != null)
+			total = total+childVisitTransaction.getExtra_amount();
+		if(childVisitTransaction.getExtra_socks() != null)
+			total = total+childVisitTransaction.getExtra_socks();
+		
+		if(total>=0) {
+			childVisitTransaction.setTotal_amount(total);
+			childVisitTransaction.setRefund_amount(0.0f);
+		}else {
+			childVisitTransaction.setTotal_amount(0.0f);
+			childVisitTransaction.setRefund_amount(total*(-1));
+		}
+		childDao.saveTransactionDetail(childVisitTransaction);
+		//generate bill code
+		
+		
+		
+		childDao.saveChildVisitDetail(childVisitDetails);
+		return "redirect:/admin/dashboard";
 	}
 	
 	/*====================================Settings====================================================*/

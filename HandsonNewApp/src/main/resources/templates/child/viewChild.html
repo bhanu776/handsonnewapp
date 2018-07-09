@@ -32,12 +32,12 @@
 	
 	<div class="main-container" ng-controller="childController">
 		<div class="small-header">
-			<div style="float: left;"><label class="header-label">Children Sort Details</label></div>
+			<div style="float: left;"><label class="header-label">Children Details</label></div>
 			<div style="float: right;">
 				<button class="add-child-form btn btn-success">AddChild</button>
 			</div>
 		</div>
-		<form action="" method="post">
+		<form action="">
 			<div id="scrollable-area">
 				<table ng-table="tableParams" class="table table-condensed table-bordered table-striped" fixed-table-headers="scrollable-area">
 				    <tr ng-repeat="child in $data">
@@ -60,7 +60,7 @@
 			</div>
 			<div class="common-footer" style="height: 50px;">
 			<div class="inline-button"><button th:formaction="@{/admin/scancardforchildcheckin}" class="btn btn-success">Check In</button></div>
-			<div class="inline-button"><button th:formaction="@{/admin/scancardforcheckout}" class="btn btn-success">Check Out</button></div>
+			<div class="inline-button"><a th:href="@{/admin/scancardforcheckout}" class="btn btn-success">Check Out</a></div>
 			<div class="inline-button"><a href="" class="btn btn-success">User Info</a></div>
 			</div>
 			</form>

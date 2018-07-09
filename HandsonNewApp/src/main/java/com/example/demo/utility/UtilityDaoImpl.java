@@ -2,6 +2,8 @@ package com.example.demo.utility;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
@@ -20,4 +22,18 @@ public class UtilityDaoImpl implements UtilityDao{
 		return isWeekend;
 	}
 
+	@Override
+	public Map<String, Long> timeDifference(Date startDate, Date endDate) {
+		Map<String, Long> timeDetails = new HashMap<>();
+		long diff = endDate.getTime() - startDate.getTime();
+	    long diffSeconds = diff / 1000 % 60;
+	    long diffMinutes = diff / (60 * 1000) % 60;
+	    long diffHours = diff / (60 * 60 * 1000);
+	    timeDetails.put("diffSeconds", diffSeconds);
+	    timeDetails.put("diffMinutes", diffMinutes);
+	    timeDetails.put("diffHours", diffHours);
+		return timeDetails;
+	}
+
+	
 }
