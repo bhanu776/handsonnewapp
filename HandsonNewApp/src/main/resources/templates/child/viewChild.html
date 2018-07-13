@@ -7,9 +7,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
-	
-	<!-- 
-<script type="text/javascript" th:src="@{/script/angular-1.6.10/angular.js}"></script> -->
+
 <script type="text/javascript" th:src="@{/script/angular-1.6.10/angular.min.js}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.js"></script>
@@ -50,8 +48,10 @@
 				      <td data-title="'Phone'" sortable="'phone'">{{child.phone}}</td>
 				      <td data-title="'Remarks'" sortable="'remarks'">{{child.remarks}}</td>
 				      <td data-title="'School'" sortable="'school'">{{child.school}}</td>
-				      <td data-title="'Allargies'" sortable="'allergies'">{{child.allergies}}</td>
-				      <td data-title="'DOB'" sortable="'dob'">{{child.dob}}</td>
+				      <td data-title="'Allergies'" sortable="'allergies'">{{child.allergies}}</td>
+				      <td data-title="'Date_Of_Birth'" sortable="'dob'">{{child.dob}}</td>
+				      <td data-title="'Blood_Group'" sortable="'blood_group'">{{child.blood_group}}</td>
+				      <td data-title="'Age'" sortable="'age'">{{child.age}}</td>
 				      <td data-title="'Email'" sortable="'email'">{{child.email}}</td>
 				      <td data-title="'Delete'"></td>
 				      <td data-title="'edit'"></td>
@@ -59,9 +59,9 @@
 				  </table>
 			</div>
 			<div class="common-footer" style="height: 50px;">
-			<div class="inline-button"><button th:formaction="@{/admin/scancardforchildcheckin}" class="btn btn-success">Check In</button></div>
-			<div class="inline-button"><a th:href="@{/admin/scancardforcheckout}" class="btn btn-success">Check Out</a></div>
-			<div class="inline-button"><a href="" class="btn btn-success">User Info</a></div>
+			<div class="inline-button"><button th:formaction="@{/admin/scancardforchildcheckin}" class="btn btn-primary">Check In</button></div>
+			<div class="inline-button"><a th:href="@{/admin/scancardforcheckout}" class="btn btn-primary">Check Out</a></div>
+			<div class="inline-button"><a href="" class="btn btn-primary">User Info</a></div>
 			</div>
 			</form>
 		</div>

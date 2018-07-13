@@ -33,31 +33,37 @@
 			<div class="small-header">
 				<div style="float: left;"><label class="header-label">Search Child</label></div>
 					<div style="float: right;">
-						<button class="add-child-form btn btn-success">ViewChild</button>
+						<a class="add-child-form btn btn-success" th:href="@{/admin/childview}">ViewChild</a>
 					</div>
 			</div>
 			<div class="h-line" style="height: 30px;">
 				<input type="text" id="search-input" ng-keyup="searchChild()" ng-model="keyword" autofocus="autofocus" placeholder="Search Child">
 	  		</div>
 	  		<br>
-	  		<div class="h-line" style="height: 400px;">
-	  			<table class="i-table">
-	  			<tr>
-	  				<th>Radio</th>
-	  				<th>Id</th>
-	  				<th>Name</th>
-	  				<th>DOB</th>
-	  				<th>Check_in</th>
-	  			</tr>
-	  			<tr ng-repeat="child in childDetails">
-	  				<td><input type="radio" name="childId" value="{{child.id}}" required="required"></td>
-	  				<td>{{child.id}}</td>
-	  				<td>{{child.firstname+' '+child.lastname}}</td>
-	  				<td>{{child.dob}}</td>
-	  				<td><a href="/admin/scancardforchildcheckin?childId={{child.id}}" class="btn btn-primary" style="height: 30px;">Check_In</a> </td>
-	  			</tr>
-	  			</table>
-	  		</div>
+	  		<form action="">
+		  		<div class="h-line" style="height: 470px;">
+		  			<table class="i-table">
+			  			<tr>
+			  				<th>Radio</th>
+			  				<th>Id</th>
+			  				<th>Name</th>
+			  				<th>DOB</th>
+			  				<th>Check_in</th>
+			  			</tr>
+			  			<tr ng-repeat="child in childDetails">
+			  				<td><input type="radio" name="childId" value="{{child.id}}" required="required"></td>
+			  				<td>{{child.id}}</td>
+			  				<td>{{child.firstname+' '+child.lastname}}</td>
+			  				<td>{{child.dob}}</td>
+			  				<td><a href="/admin/scancardforchildcheckin?childId={{child.id}}" class="small-button-v">Check_In</a> </td>
+			  			</tr>
+		  			</table>
+		  		</div>
+		  		<div class="h-line" style="height: 40px;">
+	  				<button class="btn btn-primary">Child Info</button>
+	  				<a class="btn btn-primary"th:href="@{/admin/scancardforcheckout}">Check Out</a>
+		  		</div>
+	  		</form>
 		</div>
 		
 	</div>
