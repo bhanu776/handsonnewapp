@@ -1,6 +1,6 @@
 body{
-top: 0;
-left: 0;	
+	top: 0;
+	left: 0;
 }
 
 .header{
@@ -9,7 +9,7 @@ left: 0;
 	height: 50px;
 	border: 1px solid !important; 
 	z-index: 1;
-	background: #64a0b7;
+	background: #687eb9;
 }
 
 a,a:hover,a:active,a:focus{
@@ -24,21 +24,25 @@ a,a:hover,a:active,a:focus{
 	height: 600px;
 	border: 1px solid;
 	z-index: 1;
-	background: #64a0b7;
+	background: #687eb9;
 }
 
 .menu-ul{
 	list-style: none;
 	text-align: center;
 	padding: 0px;
-	color: black;
-	font-family: serif;
+	font-family: Times New Roman;
 	font-style: normal;
+	font-weight: bold;
 }
 
 .menu-li{
 	margin-top: 5px;
 	height:30px;
+	color: white;
+	font-size: 15px;
+	background-color: #7418990a;
+	border-bottom: 1px groove #070024
 }
 
 .menu-li:hover{
@@ -63,8 +67,9 @@ a,a:hover,a:active,a:focus{
 	margin-left: 2.5%;
 	width: 95%;
 	height: 600px;
-	border: 1px groove;
 	z-index: 0;
+	font-family: Arial;
+	font-size: 12px;	
 }
 
 .floating-form-div{
@@ -147,7 +152,6 @@ a,a:hover,a:active,a:focus{
 
 .common-footer{
 	width: 100%;
-	border: 1px solid;
 }
 
 .inline-button{
@@ -169,5 +173,12 @@ a,a:hover,a:active,a:focus{
   }
 .i-table tr:nth-child(even) {
 	background-color: #ffffff;
+  }
+
+.small-button-v{
+	max-width: 70px;
+	max-height: 30px;
+	background-color: #203775;
+	color: white;
   }
 
