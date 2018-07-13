@@ -4,10 +4,10 @@
 	overflow-y: auto; /* <-- here is what is important*/
 }
 
-body {
+/* body {
 	font-family: Arial;
 	font-size: 12px;
-}
+} */
 
 thead {
 	background: #efefef;

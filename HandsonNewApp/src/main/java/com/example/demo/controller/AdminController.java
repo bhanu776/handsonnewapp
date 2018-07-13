@@ -207,7 +207,15 @@ public class AdminController {
 		long diffInMin = timedifferece.get("diffHours") * 60 +timedifferece.get("diffMinutes");
 		diffInMin = diffInMin - settings.getGrace_time();
 		
-		total = total * (diffInMin/60);
+		while(diffInMin>60) {
+			
+			if(utilityDao.isWeekend())
+				total = total + settings.getWeekend_secondhr_cost();
+			else
+				total = total + settings.getWeekday_secondhr_cost();
+			
+			diffInMin = diffInMin - 60;
+		}
 			
 		if(childVisitTransaction.getAdvanceAmount()!=null)
 			total = total - childVisitTransaction.getAdvanceAmount();
