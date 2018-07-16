@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dao.ChildDao;
 import com.example.demo.dao.SettingsDao;
+import com.example.demo.dao.UserDao;
 import com.example.demo.model.ChildInfo;
 import com.example.demo.model.ChildVisitDetails;
 import com.example.demo.model.ChildVisitTransaction;
@@ -38,39 +40,59 @@ public class AdminController {
 	
 	@Autowired
 	UtilityDao utilityDao;
+	
+	@Autowired
+	UserDao userDao;
 
 	@RequestMapping("/login")
 	public String login(HttpSession session){
-		session.setAttribute("admin_id", 1);
+		
 		return "loginPage";
 	}
 	
 	@RequestMapping("/loginaction")
-	public String loginAction(){
-		return "";
+	public String loginAction(HttpSession session,@RequestParam("uname")String userName,@RequestParam("password")String password){
+		String role = userDao.getRole(userName, password);
+		
+		if(StringUtils.isEmpty(role))
+			return "redirect:login";
+		
+		session.setAttribute("admin_id", 1);
+		session.setAttribute("user", role);
+		return "redirect:dashboard";
 	}
 	
 	@RequestMapping("/dashboard")
-	public String dashboard(){
+	public String dashboard(HttpSession session){
+		if(utilityDao.sessionExpired(session))
+			return "redirest:/login";
+		
 		return "dashboard";
 	}
 	
 	/*=======================================Child Add Update Delete Operations================================*/
 	
 	@RequestMapping(value="/childview")
-	public String viewChild(){
+	public String viewChild(HttpSession session){
+		if(utilityDao.sessionExpired(session))
+			return "redirest:/login";
+		
 		return "child/viewChild";
 	}
 	
 	@RequestMapping(value="/addchildpage")
-	public String addChildPage(ChildInfo childInfo){
+	public String addChildPage(ChildInfo childInfo,HttpSession session){
+		if(utilityDao.sessionExpired(session))
+			return "redirest:/login";
 		
 		return "child/addChild";
 	}
 	
 	@RequestMapping(value="/addchildaction",method=RequestMethod.POST)
 	public String addChildAction(ChildInfo childInfo,HttpSession session){
-		//childInfo.setAdmin_id(Integer.parseInt((String)session.getAttribute("admin")));
+		if(utilityDao.sessionExpired(session))
+			return "redirest:/login";
+		
 		childInfo.setAdmin_id(1);
 		System.err.println(childInfo.toString());
 		childDao.addChild(childInfo);

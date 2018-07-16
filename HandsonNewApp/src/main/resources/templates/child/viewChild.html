@@ -40,19 +40,19 @@
 				<table ng-table="tableParams" class="table table-condensed table-bordered table-striped" fixed-table-headers="scrollable-area">
 				    <tr ng-repeat="child in $data">
 				      <td data-title="'Select'"><input type="radio" value="{{child.id}}" name="childId" required="required"></td>
-				      <td data-title="'Id'" sortable="'id'">{{child.id}}</td>
+				      <td data-title="'Id'" sortable="'child.id'">{{child.id}}</td>
 				      <td data-title="'Image'" sortable="'id'"></td>
-				      <td data-title="'First_Name'" sortable="'firstname'">{{child.firstname}}</td>
-				      <td data-title="'Last_Name'" sortable="'lastname'">{{child.lastname}}</td>
-				      <td data-title="'Mother_Name'" sortable="'mother_name'">{{child.mother_name}}</td>
-				      <td data-title="'Phone'" sortable="'phone'">{{child.phone}}</td>
-				      <td data-title="'Remarks'" sortable="'remarks'">{{child.remarks}}</td>
-				      <td data-title="'School'" sortable="'school'">{{child.school}}</td>
-				      <td data-title="'Allergies'" sortable="'allergies'">{{child.allergies}}</td>
-				      <td data-title="'Date_Of_Birth'" sortable="'dob'">{{child.dob}}</td>
-				      <td data-title="'Blood_Group'" sortable="'blood_group'">{{child.blood_group}}</td>
-				      <td data-title="'Age'" sortable="'age'">{{child.age}}</td>
-				      <td data-title="'Email'" sortable="'email'">{{child.email}}</td>
+				      <td data-title="'First_Name'" sortable="'child.firstname'">{{child.firstname}}</td>
+				      <td data-title="'Last_Name'" sortable="'child.lastname'">{{child.lastname}}</td>
+				      <td data-title="'Mother_Name'" sortable="'child.mother_name'">{{child.mother_name}}</td>
+				      <td data-title="'Phone'" sortable="'child.phone'">{{child.phone}}</td>
+				      <td data-title="'Remarks'" sortable="'child.remarks'">{{child.remarks}}</td>
+				      <td data-title="'School'" sortable="'child.school'">{{child.school}}</td>
+				      <td data-title="'Allergies'" sortable="'child.allergies'">{{child.allergies}}</td>
+				      <td data-title="'Date_Of_Birth'" sortable="'childdob'">{{child.dob}}</td>
+				      <td data-title="'Blood_Group'" sortable="'child.blood_group'">{{child.blood_group}}</td>
+				      <td data-title="'Age'" sortable="'child.age'">{{child.age}}</td>
+				      <td data-title="'Email'" sortable="'child.email'">{{child.email}}</td>
 				      <td data-title="'Delete'"></td>
 				      <td data-title="'edit'"></td>
 				    </tr>
@@ -69,10 +69,10 @@
 	
 	<form th:action="@{/admin/addchildaction}" th:object="${childInfo}" method="post">
 	<div class="floating-form-div">
-		<ul class="nav nav-tabs">
+		<ul class="nav nav-tabs" style="background-color: #687eb9;">
 		  <li class="active"><a data-toggle="tab" href="#home">Child Details</a></li>
 		  <li><a data-toggle="tab" href="#menu1">Other Details</a></li>
-		  <li style="float: right;"><a class="close-floating-div btn btn-success">close</a></li>
+		  <li style="float: right;"><a class="close-floating-div"><img alt="" width="30" height="21" src="/images/closebtn.png"></a></li>
 		</ul>
 		
 		<div class="tab-content">

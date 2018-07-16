@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -33,6 +35,25 @@ public class UtilityDaoImpl implements UtilityDao{
 	    timeDetails.put("diffMinutes", diffMinutes);
 	    timeDetails.put("diffHours", diffHours);
 		return timeDetails;
+	}
+
+	@Override
+	public boolean sessionExpired(HttpSession session) {
+		if(session != null)
+			return false;
+			else
+				return true;
+	}
+
+	@Override
+	public boolean isAdmin(HttpSession session) {
+		if(session!=null)
+		{
+			String user = (String) session.getAttribute("user");
+			if(user.equalsIgnoreCase("admin"))
+				return true;
+		}
+		return false;
 	}
 
 	

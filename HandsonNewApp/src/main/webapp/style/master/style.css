@@ -69,7 +69,7 @@ a,a:hover,a:active,a:focus{
 	height: 600px;
 	z-index: 0;
 	font-family: Arial;
-	font-size: 12px;	
+	font-size: 12px;
 }
 
 .floating-form-div{
@@ -180,5 +180,31 @@ a,a:hover,a:active,a:focus{
 	max-height: 30px;
 	background-color: #203775;
 	color: white;
+  }
+
+
+  .login-div{
+	  margin-top: 100px;
+	  margin-left: 33%;
+	  width: 30%;
+	  height: 250px;
+	  border: 2px groove #203775;
+	  text-align: center;
+  }
+
+  .login-ul{
+	padding: 0px;
+	width: 100%;
+  }
+
+  .login-li{
+	margin-top: 10px;
+	list-style: none;
+	width: 100%;
+  }
+
+  .login-text{
+	width: 90%;
+	height: 35px;
   }
 
