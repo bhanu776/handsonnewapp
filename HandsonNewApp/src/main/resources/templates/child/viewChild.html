@@ -23,23 +23,23 @@
 
 <title>Child</title>
 </head>
-<body ng-app="childApp" >
+<body ng-app="childApp" ng-controller="childController">
 
 	<div th:replace="/fragments/header :: header">&nbsp;</div>
 	<div th:replace="/fragments/menu :: menu">&nbsp;</div>
 	
-	<div class="main-container" ng-controller="childController">
+	<div class="main-container" >
 		<div class="small-header">
 			<div style="float: left;"><label class="header-label">Children Details</label></div>
 			<div style="float: right;">
-				<button class="add-child-form btn btn-success">AddChild</button>
+				<button class="add-child-form btn btn-success" ng-click = "childInfo = {}">AddChild</button>
 			</div>
 		</div>
 		<form action="">
 			<div id="scrollable-area">
 				<table ng-table="tableParams" class="table table-condensed table-bordered table-striped" fixed-table-headers="scrollable-area">
 				    <tr ng-repeat="child in $data">
-				      <td data-title="'Select'"><input type="radio" value="{{child.id}}" name="childId" required="required"></td>
+				      <td data-title="'Select'"><input type="radio" ng-click="setChildId(child.id)" ng-value="child.id" name="childId" required="required">{{childId}}</td>
 				      <td data-title="'Id'" sortable="'child.id'">{{child.id}}</td>
 				      <td data-title="'Image'" sortable="'id'"></td>
 				      <td data-title="'First_Name'" sortable="'child.firstname'">{{child.firstname}}</td>
@@ -49,7 +49,7 @@
 				      <td data-title="'Remarks'" sortable="'child.remarks'">{{child.remarks}}</td>
 				      <td data-title="'School'" sortable="'child.school'">{{child.school}}</td>
 				      <td data-title="'Allergies'" sortable="'child.allergies'">{{child.allergies}}</td>
-				      <td data-title="'Date_Of_Birth'" sortable="'childdob'">{{child.dob}}</td>
+				      <td data-title="'Date_Of_Birth'" sortable="'child.dob'">{{child.dob}}</td>
 				      <td data-title="'Blood_Group'" sortable="'child.blood_group'">{{child.blood_group}}</td>
 				      <td data-title="'Age'" sortable="'child.age'">{{child.age}}</td>
 				      <td data-title="'Email'" sortable="'child.email'">{{child.email}}</td>
@@ -62,12 +62,14 @@
 			<div class="inline-button"><button th:formaction="@{/admin/scancardforchildcheckin}" class="btn btn-primary">Check In</button></div>
 			<div class="inline-button"><a th:href="@{/admin/scancardforcheckout}" class="btn btn-primary">Check Out</a></div>
 			<div class="inline-button"><a href="" class="btn btn-primary">User Info</a></div>
+			<div class="inline-button"><a ng-click="getChildDetails(childId)" class="btn btn-primary update-child">Update User</a></div>
 			</div>
 			</form>
 		</div>
 	
 	
 	<form th:action="@{/admin/addchildaction}" th:object="${childInfo}" method="post">
+	<input type="hidden" name="id" value="{{childInfo.id}}">
 	<div class="floating-form-div">
 		<ul class="nav nav-tabs" style="background-color: #687eb9;">
 		  <li class="active"><a data-toggle="tab" href="#home">Child Details</a></li>
@@ -83,34 +85,34 @@
 			    		<div class="h-line"><label>Child Details</label> </div>
 				    	<div class="h-line">
 					    	<div class=text-input-md>
-					    		<input type="text" name="firstname" class="input" placeholder="First Name">			    		
+					    		<input type="text" name="firstname" class="input"  placeholder="First Name" value="{{childInfo.firstname}}">			    		
 					    	</div>
 					    	<div class="text-input-md">
-					    		<input type="text" name="middlename" class="input" placeholder="Millde Name">			    		
+					    		<input type="text" name="middlename" class="input" placeholder="Millde Name" value="{{childInfo.middlename}}">			    		
 					    	</div>
 					    	<div class="text-input-md">
-					    		<input type="text" name="lastname" class="input" placeholder="Last Name">			    		
+					    		<input type="text" name="lastname" class="input" placeholder="Last Name" value="{{childInfo.lastname}}">			    		
 					    	</div>
 				    	</div>
 				    	
 				    	<div class="h-line">
 					    	<div class=text-input-md>
-					    		<input type="number" name="phone" class="input" placeholder="Mobile">			    		
+					    		<input type="number" name="phone" class="input" placeholder="Mobile" value="{{childInfo.phone}}">			    		
 					    	</div>
 					    	<div class="text-input-md">
-					    		<input type="date" name="dob" class="input" placeholder="Date Of Birth">			    		
+					    		<input type="date" name="dob" class="input" placeholder="Date Of Birth" value="{{childInfo.dob}}">			    		
 					    	</div>
 					    	<div class="text-input-md">
-					    		<input type="text"  class="input" placeholder="Age">			    		
+					    		<input type="text" name="age"  class="input" placeholder="Age" value="{{childInfo.age}}">			    		
 					    	</div>
 				    	</div>
 				    	
 				    	<div class="h-line">
 					    	<div class=text-input-md>
-					    		<input type="text" name="email" class="input" placeholder="Email">			    		
+					    		<input type="text" name="email" class="input" placeholder="Email" value="{{childInfo.email}}">			    		
 					    	</div>
 					    	<div class="text-input-md">
-					    		<input type="text" class="input" placeholder="Photo">			    		
+					    		<input type="file" class="input" placeholder="Photo" >			    		
 					    	</div>
 					    	<!-- <div class="text-input-md">
 					    		<input type="text" class="input" placeholder="Address Line 2">			    		
@@ -126,7 +128,7 @@
 				     <div class="h-line"><label>Mother Details</label></div>
 				    	<div class="h-line">
 					    	<div class=text-input-md>
-					    		<input type="text" name="mother_name" class="input" placeholder="First Name">			    		
+					    		<input type="text" name="mother_name" class="input" placeholder="First Name" value="{{childInfo.mother_name}}">			    		
 					    	</div>
 					    	<div class="text-input-md">
 					    		<input type="text" class="input" placeholder="Middle Name">			    		
@@ -138,13 +140,13 @@
 				    	
 				    	<div class="h-line">
 					    	<div class=text-input-md>
-					    		<input type="text" name="mother_profession" class="input" placeholder="Mother Profession">			    		
+					    		<input type="text" name="mother_profession" class="input" placeholder="Mother Profession" value="{{childInfo.mother_profession}}">			    		
 					    	</div>
 					    	<div class="text-input-md">
-					    		<input type="number" name="mother_mobile" class="input" placeholder="Mother Mobile">			    		
+					    		<input type="number" name="mother_mobile" class="input" placeholder="Mother Mobile" value="{{childInfo.mother_mobile}}">			    		
 					    	</div>
 					    	<div class="text-input-md">
-					    		<input type="date" name="mother_dob" class="input" placeholder="Date Of Birth">			    		
+					    		<input type="date" name="mother_dob" class="input" placeholder="Date Of Birth" value="{{childInfo.mother_dob}}">			    		
 					    	</div>
 				    	</div>
 				    	
@@ -153,10 +155,10 @@
 					    		<input type="file" name="mother_ather" class="input" placeholder="Aadhar">			    		
 					    	</div>
 					    	<div class="text-input-md">
-					    		<input type="text" name="adhar_no" class="input" placeholder="Aadhar No">			    		
+					    		<input type="text" name="adhar_no" class="input" placeholder="Aadhar No" value="{{childInfo.adhar_no}}">			    		
 					    	</div>
 					    	<div class="text-input-md">
-					    		<input type="text" name="mother_photo" class="input" placeholder="Photo">			    		
+					    		<input type="file" name="mother_photo" class="input" placeholder="Photo">			    		
 					    	</div>
 				    	</div>
 				    </div>
@@ -169,22 +171,22 @@
 				     <div class="h-line"><label>Other Details</label></div>
 				    	<div class="h-line">
 					    	<div class=text-input-md>
-					    		<input type="text" name="blood_group" class="input" placeholder="Blood Group">			    		
+					    		<input type="text" name="blood_group" class="input" placeholder="Blood Group" value="{{childInfo.blood_group}}">			    		
 					    	</div>
 					    	<div class="text-input-md">
-					    		<input type="text" name="remark" class="input" placeholder="Remarks">			    		
+					    		<input type="text" name="remark" class="input" placeholder="Remarks" value="{{childInfo.remark}}">			    		
 					    	</div>
 					    	<div class="text-input-md">
-					    		<input type="text" name="school" class="input" placeholder="School Name">			    		
+					    		<input type="text" name="school" class="input" placeholder="School Name" value="{{childInfo.school}}">			    		
 					    	</div>
 				    	</div>
 				    	
 				    	<div class="h-line">
 					    	<div class=text-input-md>
-					    		<input type="text" name="address" class="input" placeholder="Address Line 1">			    		
+					    		<input type="text" name="address" class="input" placeholder="Address Line 1" value="{{childInfo.address}}">			    		
 					    	</div>
 					    	<div class="text-input-md">
-					    		<input type="text" class="input" placeholder="Address Line 2">			    		
+					    		<input type="text" name="address1" class="input" placeholder="Address Line 2">			    		
 					    	</div>
 					    	<div class="text-input-md">
 					    		<input type="text" class="input" placeholder="">			    		

@@ -17,7 +17,7 @@ $(document).ready(function(){
 		/*}*/
 	});
 	
-	$(".add-child-form").on('click',function(){
+	$(".add-child-form, .update-child").on('click',function(){
 		$(".floating-form-div").show("scale",300);
 	})
 	

@@ -120,6 +120,14 @@ a,a:hover,a:active,a:focus{
 	margin-top: 10px;
 }
 
+.text-input-ssm{
+	float: left;
+	width: 5%;
+	height: 35px;
+	margin-left: 3%;
+	margin-top: 10px;
+}
+
 .image-div{
 	width: 20%;
 	height: 160px;

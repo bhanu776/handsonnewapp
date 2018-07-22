@@ -20,9 +20,11 @@ public class ChildVisitDetails {
 	private Date end_date;
 	private String end_time;
 	private String card_id;
+	private Integer socks_pair_no;
 	private Float advance_amount=0.0f;
 	private Float library_cost=0.0f;
 	private Float playzone_cost=0.0f;
+	private Float socks_cost=0.0f;
 	private Integer payment_status = 0;
 	private Integer payment_status_class = 0;
 	private Integer discount=0;
@@ -126,14 +128,27 @@ public class ChildVisitDetails {
 	public void setEnd_date(Date end_date) {
 		this.end_date = end_date;
 	}
+	public Float getSocks_cost() {
+		return socks_cost;
+	}
+	public void setSocks_cost(Float socks_cost) {
+		this.socks_cost = socks_cost;
+	}
+	public Integer getSocks_pair_no() {
+		return socks_pair_no;
+	}
+	public void setSocks_pair_no(Integer socks_pair_no) {
+		this.socks_pair_no = socks_pair_no;
+	}
 	@Override
 	public String toString() {
 		return "ChildVisitDetails [id=" + id + ", admin_id=" + admin_id + ", child_id=" + child_id + ", child_name="
 				+ child_name + ", start_date=" + start_date + ", start_time=" + start_time + ", end_date=" + end_date
-				+ ", end_time=" + end_time + ", card_id=" + card_id + ", advance_amount=" + advance_amount
-				+ ", library_cost=" + library_cost + ", playzone_cost=" + playzone_cost + ", payment_status="
-				+ payment_status + ", payment_status_class=" + payment_status_class + ", discount=" + discount
-				+ ", status=" + status + "]";
+				+ ", end_time=" + end_time + ", card_id=" + card_id + ", socks_pair_no=" + socks_pair_no
+				+ ", advance_amount=" + advance_amount + ", library_cost=" + library_cost + ", playzone_cost="
+				+ playzone_cost + ", socks_cost=" + socks_cost + ", payment_status=" + payment_status
+				+ ", payment_status_class=" + payment_status_class + ", discount=" + discount + ", status=" + status
+				+ "]";
 	}
 	
 }

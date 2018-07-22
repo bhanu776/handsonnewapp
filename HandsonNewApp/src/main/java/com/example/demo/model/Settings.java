@@ -23,6 +23,7 @@ public class Settings {
 	private Float discount;
 	private Integer grace_time;
 	private String phone;
+	private Integer socks;
 	
 	
 	public Integer getId() {
@@ -121,15 +122,21 @@ public class Settings {
 	public void setMembership_cost_library(Float membership_cost_library) {
 		this.membership_cost_library = membership_cost_library;
 	}
+	public Integer getSocks() {
+		return socks;
+	}
+	public void setSocks(Integer socks) {
+		this.socks = socks;
+	}
 	@Override
 	public String toString() {
-		return "ServicesConfig [id=" + id + ", library_cost=" + library_cost + ", playzone_cost=" + playzone_cost
-				+ ", library_cost_weekend=" + library_cost_weekend + ", playzone_cost_weekend=" + playzone_cost_weekend
-				+ ", weekday_secondhr_cost=" + weekday_secondhr_cost + ", weekend_secondhr_cost="
-				+ weekend_secondhr_cost + ", membership_cost_playzone=" + membership_cost_playzone
-				+ ", membership_cost_library=" + membership_cost_library + ", special_cost=" + special_cost + ", cgst="
-				+ cgst + ", sgst=" + sgst + ", discount=" + discount + ", grace_time=" + grace_time + ", phone=" + phone
-				+ "]";
+		return "Settings [id=" + id + ", admin_id=" + admin_id + ", library_cost=" + library_cost + ", playzone_cost="
+				+ playzone_cost + ", library_cost_weekend=" + library_cost_weekend + ", playzone_cost_weekend="
+				+ playzone_cost_weekend + ", weekday_secondhr_cost=" + weekday_secondhr_cost
+				+ ", weekend_secondhr_cost=" + weekend_secondhr_cost + ", membership_cost_playzone="
+				+ membership_cost_playzone + ", membership_cost_library=" + membership_cost_library + ", special_cost="
+				+ special_cost + ", cgst=" + cgst + ", sgst=" + sgst + ", discount=" + discount + ", grace_time="
+				+ grace_time + ", phone=" + phone + ", socks=" + socks + "]";
 	}
 	
 }

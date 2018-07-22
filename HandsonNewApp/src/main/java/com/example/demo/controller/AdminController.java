@@ -106,8 +106,8 @@ public class AdminController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="getchildinfo")
-	public ChildInfo getChildInfo(@RequestParam("id")Integer id){
+	@RequestMapping(value="getchildinfo/{id}")
+	public ChildInfo getChildInfo(@PathVariable("id") Integer id){
 		Optional<ChildInfo> childDetail = childDao.getChildInfo(id);
 		if(childDetail.isPresent()){
 			return childDetail.get();
@@ -117,14 +117,14 @@ public class AdminController {
 	
 	@ResponseBody
 	@RequestMapping(value="deletechild")
-	public String deleteChild(@RequestParam("id")Integer id){
+	public String deleteChild(@RequestParam("id") Integer id){
 		
 		return "Sccessfull deleted";
 	}
 	
 	
 	@RequestMapping(value="updatechild")
-	public String updateChild(@RequestParam("id")Integer id){
+	public String updateChild(@RequestParam("id") Integer id){
 		
 		return "child/viewChild";
 	}
@@ -184,6 +184,10 @@ public class AdminController {
 	
 	@RequestMapping(value="/childcheckinaction",method=RequestMethod.POST)
 	public String childCheckInAction(ChildVisitDetails childVisitDetails){
+		
+		Settings settings = settingsDao.getSettings(1);
+		if(childVisitDetails.getSocks_pair_no()>0 && settings.getSocks()>0)
+			childVisitDetails.setSocks_cost((float)childVisitDetails.getSocks_pair_no()*settings.getSocks());
 		
 		childVisitDetails.setAdmin_id(1);
 		childVisitDetails.setStart_date(new Date());
