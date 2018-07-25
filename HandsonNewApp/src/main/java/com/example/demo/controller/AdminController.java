@@ -20,11 +20,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dao.ChildDao;
+import com.example.demo.dao.MembershipDao;
 import com.example.demo.dao.SettingsDao;
 import com.example.demo.dao.UserDao;
 import com.example.demo.model.ChildInfo;
 import com.example.demo.model.ChildVisitDetails;
 import com.example.demo.model.ChildVisitTransaction;
+import com.example.demo.model.Membership;
 import com.example.demo.model.Settings;
 import com.example.demo.utility.UtilityDao;
 
@@ -43,6 +45,9 @@ public class AdminController {
 	
 	@Autowired
 	UserDao userDao;
+	
+	@Autowired
+	MembershipDao membershipDao;
 
 	@RequestMapping("/login")
 	public String login(HttpSession session){
@@ -266,6 +271,37 @@ public class AdminController {
 		
 		childDao.saveChildVisitDetail(childVisitDetails);
 		return "redirect:/admin/dashboard";
+	}
+	
+	/*====================================Membership====================================================*/
+	
+	@RequestMapping(value="membership_page",method=RequestMethod.GET)
+	public String membershipPage(){
+		return "/child/membership";
+	}
+	
+	@RequestMapping(value="save_membership",method=RequestMethod.POST)
+	public String saveMembership(Membership membership){
+		
+		return "redirect:membership_page";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/membership_list/get")
+	public List<Membership> getMembershipList(){
+		return membershipDao.listMembers();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/membership_list/get/{memberId}")
+	public Membership getMembership(@PathVariable("memberId")int memberId){
+		return membershipDao.getMembertDetail(memberId);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/membership/delete/{memberId}")
+	public boolean deleteMembbership(@PathVariable("memberId")int memberId){
+		return membershipDao.deleteMembership(memberId);
 	}
 	
 	/*====================================Settings====================================================*/
