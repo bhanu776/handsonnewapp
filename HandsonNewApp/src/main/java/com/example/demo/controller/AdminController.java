@@ -329,6 +329,5 @@ public class AdminController {
 	}
 	
 	
-	
-	
+	/*http://ng-table.com/#/formatting/demo-cell-values*/
 }

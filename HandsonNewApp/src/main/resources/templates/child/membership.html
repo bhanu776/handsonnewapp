@@ -5,21 +5,20 @@
 
 <link rel="stylesheet" th:href="@{/style/master/style.css}">
 <link rel="stylesheet" th:href="@{/style/master/bootstrap.min.css}">
-<link rel="stylesheet" th:href="@{/style/dashboard/dashboard.css}">
-<link rel="stylesheet" th:href="@{/style/master/jquery-ui.css}">
+<link rel="stylesheet" th:href="@{/style/child/child.css}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 
 <script type="text/javascript" th:src="@{/script/angular-1.6.10/angular.min.js}"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.js"></script>
 <script type="text/javascript" th:src="@{/script/master/jquery-3.3.1.js}" ></script>
+<script type="text/javascript" th:src="@{/script/master/jquery.min.js}" ></script>
 <script type="text/javascript" th:src="@{/script/master/jquery-ui.js}"></script>	
+
 <script type="text/javascript" th:src="@{/script/master/bootstrap.min.js}" ></script>
 <script type="text/javascript" th:src="@{/script/master/script.js}" ></script>
-<script type="text/javascript" th:src="@{/script/angular-1.6.10/angular.min.js}"></script>
-<script type="text/javascript" th:src="@{/script/dashboard/dashboard.js}"></script>
+<script type="text/javascript" th:src="@{/script/child/child.js}"></script>
 
 </head>
 <body ng-app="membership">
@@ -31,22 +30,22 @@
 		<div class="small-header">
 			<div style="float: left;"><label class="header-label">Membership Details</label></div>
 			<div style="float: right;">
-				<button class="add-child-form btn btn-success">Assign Membership</button>
+				<button class="add-child-form btn btn-success" ng-click = "">Assign Membership</button>
 			</div>
 		</div>
 		
 		<form action="">
 			<div id="scrollable-area">
 				<table ng-table="tableParams" class="table table-condensed table-bordered table-striped" fixed-table-headers="scrollable-area">
-				    <tr ng-repeat="child in $data">
-				      <td data-title="'Select'"><input type="radio" name="childId" required="required"></td>
+				       <tr ng-repeat="child in $data">
+				      <td data-title="'Select'"></td>
 				      <td data-title="'Id'" sortable="'child.id'"></td>
 				      <td data-title="'Image'" sortable="'id'"></td>
-				      <td data-title="'First_Name'" sortable="'member.firstname'"></td>
-				      <td data-title="'Last_Name'" sortable="'member.lastname'"></td>
-				      <td data-title="'Phone'" sortable="'member.phone'"></td>
-				      <td data-title="'Delete'"></td>
-				      <td data-title="'edit'"></td>
+				      <td data-title="'First_Name'" sortable="'child.firstname'"></td>
+				      <td data-title="'Last_Name'" sortable="'child.lastname'"></td>
+				      <td data-title="'Mother_Name'" sortable="'child.mother_name'"></td>
+				      <td data-title="'Phone'" sortable="'child.phone'"></td>
+				      <td data-title="'Remarks'" sortable="'child.remarks'"></td>
 				    </tr>
 				  </table>
 			</div>
@@ -58,5 +57,40 @@
 			</form>
 				    	
 	</div>
+	
+	<div class="floating-form-div">
+	    <div class="detail-div">
+	    	<div style="width: 100%;">
+	    		<div class="h-line" style="border-bottom: 2px groove;">
+	    			<label class="header-label">Add Membership</label>
+	    			<label style="float: right;"><a class="close-floating-div"><img alt="" width="45" height="45" src="/images/closebtn.png"></a></label> 
+	    		</div>
+		    	<div class="h-line" style="width: 100%; height:30px;">
+			    	<div class=text-input-sm>
+			    		<input type="text" name="childname" class="input"  placeholder="Child Name" value="">			    		
+			    	</div>
+			    	<div class="text-input-sm">
+			    		<input type="text" name="" class="input" placeholder="Millde Name" value="">			    		
+			    	</div>
+			    	<div class="text-input-sm">
+			    		<input type="text" name="lastname" class="input" placeholder="Last Name" value="">			    		
+			    	</div>
+			    	<div class=text-input-sm>
+			    		<input type="number" name="phone" class="input" placeholder="Mobile" value="">			    		
+			    	</div>
+		    	</div>
+		    	
+		    	<div class="h-line">
+			    	<div class="text-input-sm">
+			    		<input type="date" name="dob" class="input" placeholder="Date Of Birth" value="">			    		
+			    	</div>
+			    	<div class="text-input-sm">
+			    		<input type="text" name="age"  class="input" placeholder="Age" value="">			    		
+			    	</div>
+		    	</div>
+		    </div>
+		   </div>
+		 </div>
+			    
 </body>
 </html>
