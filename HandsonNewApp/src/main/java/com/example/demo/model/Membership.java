@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,14 +11,17 @@ public class Membership {
 
 	@Id
 	@GeneratedValue
-	Integer id;
-	Integer child_id;
-	String child_name;
-	String start_date;
-	String end_date;
-	Integer hours;
-	Integer rest_time=0;
-	Integer status=0;
+	private Integer id;
+	private Integer child_id;
+	private String child_name;
+	private String startDateStr;
+	private String endDateStr;
+	private Date start_date;
+	private Date end_date;
+	private Integer hours;
+	private Integer rest_time=0;
+	private Integer status=0;
+	private Date updatedDate;
 	
 	public Integer getId() {
 		return id;
@@ -36,16 +41,29 @@ public class Membership {
 	public void setChild_name(String child_name) {
 		this.child_name = child_name;
 	}
-	public String getStart_date() {
+	
+	public String getStartDateStr() {
+		return startDateStr;
+	}
+	public void setStartDateStr(String startDateStr) {
+		this.startDateStr = startDateStr;
+	}
+	public String getEndDateStr() {
+		return endDateStr;
+	}
+	public void setEndDateStr(String endDateStr) {
+		this.endDateStr = endDateStr;
+	}
+	public Date getStart_date() {
 		return start_date;
 	}
-	public void setStart_date(String start_date) {
+	public void setStart_date(Date start_date) {
 		this.start_date = start_date;
 	}
-	public String getEnd_date() {
+	public Date getEnd_date() {
 		return end_date;
 	}
-	public void setEnd_date(String end_date) {
+	public void setEnd_date(Date end_date) {
 		this.end_date = end_date;
 	}
 	public Integer getHours() {
@@ -54,7 +72,6 @@ public class Membership {
 	public void setHours(Integer hours) {
 		this.hours = hours;
 	}
-	
 	public Integer getRest_time() {
 		return rest_time;
 	}
@@ -66,12 +83,21 @@ public class Membership {
 	}
 	public void setStatus(Integer status) {
 		this.status = status;
+	}	
+	public Date getUpdatedDate() {
+		return updatedDate;
+	}
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
 	}
 	@Override
 	public String toString() {
-		return "Membership [id=" + id + ", child_id=" + child_id + ", child_name=" + child_name + ", start_date="
-				+ start_date + ", end_date=" + end_date + ", hours=" + hours + ", rest_time=" + rest_time + ", status="
-				+ status + "]";
+		return "Membership [id=" + id + ", child_id=" + child_id + ", child_name=" + child_name + ", startDateStr="
+				+ startDateStr + ", endDateStr=" + endDateStr + ", start_date=" + start_date + ", end_date=" + end_date
+				+ ", hours=" + hours + ", rest_time=" + rest_time + ", status=" + status + ", updatedDate="
+				+ updatedDate + "]";
 	}
+	
+	
 	
 }

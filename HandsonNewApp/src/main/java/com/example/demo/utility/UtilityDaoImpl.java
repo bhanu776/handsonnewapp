@@ -1,5 +1,7 @@
 package com.example.demo.utility;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -55,6 +57,28 @@ public class UtilityDaoImpl implements UtilityDao{
 		}
 		return false;
 	}
+
+	@Override
+	public Date uiDateStringInDate(String date) {
+		Date javaDate = null;
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");
+			javaDate =  sdf.parse(date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return javaDate;
+	}
+
+	@Override
+	public String javaDateToUiDate(Date jDate) {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
+		return sdf.format(jDate);
+	}
+	
+	
 
 	
 }
