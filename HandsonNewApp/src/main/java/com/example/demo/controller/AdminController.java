@@ -276,13 +276,17 @@ public class AdminController {
 	/*====================================Membership====================================================*/
 	
 	@RequestMapping(value="membership_page",method=RequestMethod.GET)
-	public String membershipPage(){
+	public String membershipPage(Membership membership){
 		return "/child/membership";
 	}
 	
 	@RequestMapping(value="save_membership",method=RequestMethod.POST)
 	public String saveMembership(Membership membership){
-		
+
+		membership.setStart_date(utilityDao.uiDateStringInDate(membership.getStartDateStr()));
+		membership.setEnd_date(utilityDao.uiDateStringInDate(membership.getEndDateStr()));
+		membership.setUpdatedDate(new Date());
+		membershipDao.addMember(membership);
 		return "redirect:membership_page";
 	}
 	
