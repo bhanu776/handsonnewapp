@@ -36,4 +36,13 @@ public class MembershipDao {
 		membershipRepository.deleteById(memberId);
 		return true;
 	}
+	
+	public boolean isExist(Integer child_id) {
+		List<Membership> member = membershipRepository.isMember(child_id);
+		if(member.size()>0){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }

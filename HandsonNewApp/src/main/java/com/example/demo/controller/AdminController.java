@@ -182,7 +182,10 @@ public class AdminController {
 			return "redirect:scancardforchildcheckin?childId="+childId;
 		}
 		Optional<ChildInfo> childInfo = childDao.getChildInfo(childId);
+		boolean isExist = membershipDao.isExist(childInfo.get().getId());
+				
 		model.addAttribute("childDetail", childInfo.get());
+		model.addAttribute("isMember", isExist);
 		model.addAttribute("cardId", cardId);
 		return "child/advanceAmountPage";
 	}
@@ -287,13 +290,16 @@ public class AdminController {
 		membership.setEnd_date(utilityDao.uiDateStringInDate(membership.getEndDateStr()));
 		membership.setUpdatedDate(new Date());
 		membershipDao.addMember(membership);
+		
 		return "redirect:membership_page";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/membership_list/get")
 	public List<Membership> getMembershipList(){
+		
 		return membershipDao.listMembers();
+		
 	}
 	
 	@ResponseBody
