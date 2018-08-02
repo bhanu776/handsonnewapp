@@ -86,6 +86,25 @@ playzonebilling.controller("playzoneBillingController",function($scope,$http){
 var membership = angular.module("membership",["ngTable"]);
 membership.controller("membershipController",function($scope,$http,NgTableParams){
 
+	var memberId;
+
+	$scope.setMemberId = function(id){
+		memberId = id;
+	}
+
+	$scope.getMemberDetail = function(){
+		
+		return  $http({
+			method : "GET",
+			url : "/admin/membership/get/"+memberId
+			}).then(function mySuccess(response) {
+				console.log(response.data);
+				$scope.memberDetails = response.data;
+			}, function myError(response) {
+				$scope.error = response.statusText;
+	});
+	}
+
 	$scope.tableParams = new NgTableParams({count:20}, {counts: [],
         getData: function() {
           // ajax request to api
