@@ -101,7 +101,7 @@ public class AdminController {
 		childInfo.setAdmin_id(1);
 		System.err.println(childInfo.toString());
 		childDao.addChild(childInfo);
-		return "child/viewChild";
+		return "redirect:childview";
 	}
 	
 	@ResponseBody
@@ -120,11 +120,11 @@ public class AdminController {
 		return null;
 	}
 	
-	@ResponseBody
+	
 	@RequestMapping(value="deletechild")
-	public String deleteChild(@RequestParam("id") Integer id){
-		
-		return "Sccessfull deleted";
+	public String deleteChild(@RequestParam("childId") Integer id){
+		childDao.deleteChild(id);
+		return "redirect:childview";
 	}
 	
 	
@@ -185,7 +185,7 @@ public class AdminController {
 		boolean isExist = membershipDao.isExist(childInfo.get().getId());
 				
 		model.addAttribute("childDetail", childInfo.get());
-		model.addAttribute("isMember", isExist);
+		model.addAttribute("isMember", String.valueOf(isExist));
 		model.addAttribute("cardId", cardId);
 		return "child/advanceAmountPage";
 	}
@@ -229,28 +229,33 @@ public class AdminController {
 	
 	@RequestMapping(value="childcheckoutaction",method=RequestMethod.POST)
 	public String childCheckoutAction(ChildVisitTransaction childVisitTransaction){
-		System.out.println(childVisitTransaction.toString());
+		//System.out.println(childVisitTransaction.toString());
 		ChildVisitDetails childVisitDetails = childDao.getChildVisitDetailsById(childVisitTransaction.getChild_visit_id());
 		Settings settings = settingsDao.getSettings(1);
 		childVisitDetails.setStatus(1);
 		float total = 0.0f;
-		
 		total = childVisitTransaction.getPlayzone_cost()+childVisitTransaction.getLibrary_cost();
 		
-		Map<String, Long> timedifferece = utilityDao.timeDifference(childVisitDetails.getStart_date(), new Date());
-		long diffInMin = timedifferece.get("diffHours") * 60 +timedifferece.get("diffMinutes");
-		diffInMin = diffInMin - settings.getGrace_time();
+		if(membershipDao.isExist(childVisitDetails.getChild_id())){
+			
+		}else{
+			
+			Map<String, Long> timedifferece = utilityDao.timeDifference(childVisitDetails.getStart_date(), new Date());
+			long diffInMin = timedifferece.get("diffHours") * 60 +timedifferece.get("diffMinutes");
+			diffInMin = diffInMin - settings.getGrace_time();
+			
+			while(diffInMin>60) {
+				
+				if(utilityDao.isWeekend())
+					total = total + settings.getWeekend_secondhr_cost();
+				else
+					total = total + settings.getWeekday_secondhr_cost();
+				
+				diffInMin = diffInMin - 60;
+			}
 		
-		while(diffInMin>60) {
-			
-			if(utilityDao.isWeekend())
-				total = total + settings.getWeekend_secondhr_cost();
-			else
-				total = total + settings.getWeekday_secondhr_cost();
-			
-			diffInMin = diffInMin - 60;
 		}
-			
+		
 		if(childVisitTransaction.getAdvanceAmount()!=null)
 			total = total - childVisitTransaction.getAdvanceAmount();
 		if(childVisitTransaction.getMiscellaneous_cost() != null)
@@ -268,6 +273,8 @@ public class AdminController {
 			childVisitTransaction.setRefund_amount(total*(-1));
 		}
 		childDao.saveTransactionDetail(childVisitTransaction);
+		
+		
 		//generate bill code
 		
 		

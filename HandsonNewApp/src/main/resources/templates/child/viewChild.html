@@ -52,16 +52,15 @@
 				      <td data-title="'Blood_Group'" sortable="'child.blood_group'">{{child.blood_group}}</td>
 				      <td data-title="'Age'" sortable="'child.age'">{{child.age}}</td>
 				      <td data-title="'Email'" sortable="'child.email'">{{child.email}}</td>
-				      <td data-title="'Delete'"></td>
-				      <td data-title="'edit'"></td>
 				    </tr>
 				  </table>
 			</div>
 			<div class="common-footer" style="height: 50px;">
 			<div class="inline-button"><button th:formaction="@{/admin/scancardforchildcheckin}" class="btn btn-primary">Check In</button></div>
 			<div class="inline-button"><a th:href="@{/admin/scancardforcheckout}" class="btn btn-primary">Check Out</a></div>
-			<div class="inline-button"><a href="" class="btn btn-primary">User Info</a></div>
-			<div class="inline-button"><a ng-click="getChildDetails(childId)" class="btn btn-primary update-child">Update User</a></div>
+			<div class="inline-button"><a href="" class="btn btn-primary">Child Info</a></div>
+			<div class="inline-button"><button th:formaction="@{/admin/deletechild}" class="btn btn-primary">Delete Child</button></div>
+			<div class="inline-button"><a ng-click="getChildDetails(childId)" class="btn btn-primary update-child">Update Child</a></div>
 			</div>
 			</form>
 		</div>

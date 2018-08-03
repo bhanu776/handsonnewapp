@@ -39,25 +39,17 @@
 		<input type="hidden" name="child_id" th:value="${childDetail.id}">
 		<input type="hidden" name="child_name" th:value="${childDetail.firstname+' '+childDetail.lastname}">
 		<div class="detail-div">
-			<div class="h-line" th:if="${isMember == true}">
+			<div class="h-line" th:if="${isMember}">
 				<div class="text-input-sm">
-					<label>Play Zone Cost ({{settings.settings.playzone_cost_weekend}})</label> 
+					<label>Play Zone Cost ({{settings.settings.membership_cost_playzone}})</label> 
 					<input type="checkbox" name="playzone_cost" id="playzone" value="{{settings.settings.membership_cost_playzone}}">
 				</div>
 				<div class="text-input-sm">
-					<label>Library Cost ({{settings.settings.library_cost_weekend}})</label> 
+					<label>Library Cost ({{settings.settings.membership_cost_library}})</label> 
 					<input type="checkbox" name="library_cost" id="library" value="{{settings.settings.membership_cost_library}}">
 				</div>
-				<div class="text-input-sm">
-					<label>Special Cost ({{settings.settings.special_cost}})</label> 
-					<input type="checkbox" name="special" id="special" value="{{settings.settings.special_cost}}">
-				</div>
-				<div class="text-input-sm">
-					<label>Visitor</label> 
-					<input type="checkbox" name="visitor" id="visitor" value="{{settings.settings.special_cost}}">
-				</div>
 			</div>
-			<div th:unless="${isMember == true}">
+			<div th:unless="${isMember}">
 			<div class="h-line" ng-if="settings.isWeekend">
 				<div class="text-input-sm">
 					<label>Play Zone Cost ({{settings.settings.playzone_cost_weekend}})</label> 
