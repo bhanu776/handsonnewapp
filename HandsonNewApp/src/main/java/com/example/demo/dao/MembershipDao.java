@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.example.demo.model.Membership;
 import com.example.demo.repository.MembershipRepository;
@@ -44,5 +45,13 @@ public class MembershipDao {
 		}else{
 			return false;
 		}
+	}
+	
+	public Membership getMemberUsingChildId(int childId) {
+		List<Membership> memberships = membershipRepository.isMember(childId);
+		if(!CollectionUtils.isEmpty(memberships))
+			return memberships.get(0);
+		
+		return null;
 	}
 }

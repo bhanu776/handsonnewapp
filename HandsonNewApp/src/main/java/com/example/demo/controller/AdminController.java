@@ -236,12 +236,16 @@ public class AdminController {
 		float total = 0.0f;
 		total = childVisitTransaction.getPlayzone_cost()+childVisitTransaction.getLibrary_cost();
 		
+		Map<String, Long> timedifferece = utilityDao.timeDifference(childVisitDetails.getStart_date(), new Date());
+		long diffInMin = timedifferece.get("diffHours") * 60 +timedifferece.get("diffMinutes");
+		
 		if(membershipDao.isExist(childVisitDetails.getChild_id())){
-			
+			Membership membership = membershipDao.getMemberUsingChildId(childVisitDetails.getChild_id());
+			membership.setRest_time(membership.getRest_time() - (int) diffInMin);
 		}else{
 			
-			Map<String, Long> timedifferece = utilityDao.timeDifference(childVisitDetails.getStart_date(), new Date());
-			long diffInMin = timedifferece.get("diffHours") * 60 +timedifferece.get("diffMinutes");
+			/*Map<String, Long> timedifferece = utilityDao.timeDifference(childVisitDetails.getStart_date(), new Date());
+			long diffInMin = timedifferece.get("diffHours") * 60 +timedifferece.get("diffMinutes");*/
 			diffInMin = diffInMin - settings.getGrace_time();
 			
 			while(diffInMin>60) {
@@ -295,6 +299,7 @@ public class AdminController {
 
 		membership.setStart_date(utilityDao.uiDateStringInDate(membership.getStartDateStr()));
 		membership.setEnd_date(utilityDao.uiDateStringInDate(membership.getEndDateStr()));
+		membership.setRest_time(membership.getHours() * 60);
 		membership.setUpdatedDate(new Date());
 		membershipDao.addMember(membership);
 		
@@ -310,16 +315,19 @@ public class AdminController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/membership_list/get/{memberId}")
+	@RequestMapping(value="/membership/get/{memberId}")
 	public Membership getMembership(@PathVariable("memberId")int memberId){
 		return membershipDao.getMembertDetail(memberId);
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="/membership/delete/{memberId}")
-	public boolean deleteMembbership(@PathVariable("memberId")int memberId){
-		return membershipDao.deleteMembership(memberId);
+	
+	@RequestMapping(value="/delete_membership")
+	public String deleteMembbership(@RequestParam("id")int memberId){
+		 membershipDao.deleteMembership(memberId);
+		return "redirect:membership_page";
 	}
+	
+	
 	
 	/*====================================Settings====================================================*/
 	
