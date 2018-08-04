@@ -299,8 +299,17 @@ public class AdminController {
 
 		membership.setStart_date(utilityDao.uiDateStringInDate(membership.getStartDateStr()));
 		membership.setEnd_date(utilityDao.uiDateStringInDate(membership.getEndDateStr()));
-		membership.setRest_time(membership.getHours() * 60);
+		
 		membership.setUpdatedDate(new Date());
+		
+		if(membership.getId() == null){
+			membership.setRest_time(membership.getHours() * 60);
+			
+		}else{
+			Membership membershipTemp = membershipDao.getMembertDetail(membership.getId());
+			membership.setRest_time(membershipTemp.getRest_time() + ( membership.getHours() * 60 ));
+		}
+		
 		membershipDao.addMember(membership);
 		
 		return "redirect:membership_page";

@@ -31,7 +31,7 @@ public class ChildDao {
 	}
 	
 	public List<ChildInfo> childInfosList(){
-		return (List<ChildInfo>) childRepository.findAll();
+		return childRepository.childList();
 	}
 	
 	public Optional<ChildInfo> getChildInfo(Integer id) {
