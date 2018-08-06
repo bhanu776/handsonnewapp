@@ -13,4 +13,5 @@ public interface UtilityDao {
 	public boolean isAdmin(HttpSession session);
 	public Date uiDateStringInDate(String date);
 	public String javaDateToUiDate(Date jDate);
+	public int currentYear(Date date);
 }

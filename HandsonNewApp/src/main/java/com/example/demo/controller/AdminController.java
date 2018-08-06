@@ -27,8 +27,10 @@ import com.example.demo.model.ChildInfo;
 import com.example.demo.model.ChildVisitDetails;
 import com.example.demo.model.ChildVisitTransaction;
 import com.example.demo.model.Membership;
+import com.example.demo.model.SetHolidayCalendar;
 import com.example.demo.model.Settings;
 import com.example.demo.utility.UtilityDao;
+import com.example.pojo.ResposnseHolidaysBO;
 
 @Controller
 @RequestMapping("/admin/")
@@ -360,6 +362,37 @@ public class AdminController {
 		model.put("settings", settingsDao.getSettings(1));
 		model.put("isWeekend", utilityDao.isWeekend());
 		return model;
+	}
+	
+	@SuppressWarnings("deprecation")
+	@ResponseBody
+	@RequestMapping(value="/set_calendar_holiday/{date}",method=RequestMethod.GET)
+	public List<ResposnseHolidaysBO> saveHoliday(@PathVariable("date")Date date){
+		int day = date.getDate();
+		int month = date.getMonth();
+		//System.err.println("date = "+date.getDate()+"  month = "+date.getMonth());
+		if(settingsDao.isDateExist(day, month) == 0)
+			settingsDao.saveHoliday(new SetHolidayCalendar(day, month));
+		else
+			settingsDao.deleteHoliday(settingsDao.isDateExist(day, month));
+		
+		List<SetHolidayCalendar> holidayCalendarList = settingsDao.getHolidayList();
+		List<ResposnseHolidaysBO> response = new ArrayList<>();
+		holidayCalendarList.forEach(holiday -> {
+			response.add(new ResposnseHolidaysBO(holiday.getDay(), holiday.getMonth(),utilityDao.currentYear(new Date())));
+		});
+		return response;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/get_calendar_holiday",method=RequestMethod.GET)
+	public List<ResposnseHolidaysBO> getHoliday(){
+		List<SetHolidayCalendar> holidayCalendarList = settingsDao.getHolidayList();
+		List<ResposnseHolidaysBO> response = new ArrayList<>();
+		holidayCalendarList.forEach(holiday -> {
+			response.add(new ResposnseHolidaysBO(holiday.getDay(), holiday.getMonth(),utilityDao.currentYear(new Date())));
+		});
+		return response;
 	}
 	
 	

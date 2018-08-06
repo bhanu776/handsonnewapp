@@ -77,6 +77,13 @@ public class UtilityDaoImpl implements UtilityDao{
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
 		return sdf.format(jDate);
 	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public int currentYear(Date date) {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy");
+		return Integer.parseInt(df.format(date));
+	}
 	
 	
 

@@ -31,8 +31,10 @@ $(document).ready(function(){
 
 /*========================================Settings==================================================*/
 
-var settingApp = angular.module("settingApp",[]);
+var settingApp = angular.module("settingApp",['ui.rCalendar']);
 settingApp.controller("settingController",function($scope,$http){
+	$scope.eventSource = [];
+
 	$http({
         method : "GET",
         url : "/admin/getsettings"
@@ -41,7 +43,41 @@ settingApp.controller("settingController",function($scope,$http){
 	        return response.data;
 	    }, function myError(response) {
 	        $scope.error = response.statusText;
-	    });
+		});
+
+	$http({
+		method : "GET",
+		url : "/admin/get_calendar_holiday"
+		}).then(function mySuccess(response) {
+			$scope.eventSource = [];
+				response.data.forEach(date => {
+				var startDate = new Date(Date.UTC(date.yyyy, date.mm, date.dd));
+				var endDate = new Date(Date.UTC(date.yyyy, date.mm, date.dd+1));
+				$scope.eventSource.push({title: "event", startTime:startDate, endTime:endDate, allDay:true});
+				});
+		}, function myError(response) {
+			$scope.error = response.statusText;
+		});
+	
+	$scope.onTimeSelected = function(selectedTime,event){
+		console.log(selectedTime);
+		$http({
+			method : "GET",
+			url : "/admin/set_calendar_holiday/"+selectedTime
+			}).then(function mySuccess(response) {
+				$scope.eventSource = [];
+				 response.data.forEach(date => {
+					var startDate = new Date(Date.UTC(date.yyyy, date.mm, date.dd));
+					var endDate = new Date(Date.UTC(date.yyyy, date.mm, date.dd+1));
+					$scope.eventSource.push({title: "event", startTime:startDate, endTime:endDate, allDay:true});
+				 });
+			}, function myError(response) {
+				$scope.error = response.statusText;
+			});
+	}
+	
+	$scope.$broadcast('eventSourceChanged',$scope.eventSource);
+
 });
 
 
