@@ -196,7 +196,7 @@ public class AdminController {
 	public String childCheckInAction(ChildVisitDetails childVisitDetails){
 		
 		Settings settings = settingsDao.getSettings(1);
-		if(childVisitDetails.getSocks_pair_no()>0 && settings.getSocks()>0)
+		if(childVisitDetails.getSocks_pair_no()!=null && childVisitDetails.getSocks_pair_no()>0 && settings.getSocks()>0)
 			childVisitDetails.setSocks_cost((float)childVisitDetails.getSocks_pair_no()*settings.getSocks());
 		
 		childVisitDetails.setAdmin_id(1);

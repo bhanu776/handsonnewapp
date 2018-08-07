@@ -30,9 +30,11 @@
 	<div class="main-container" >
 		<div class="small-header">
 			<div style="float: left;"><label class="header-label">Children Details</label></div>
+			
 			<div style="float: right;">
 				<button class="add-child-form btn btn-success" ng-click = "childInfo = {}">AddChild</button>
 			</div>
+			<div style="float: right; margin-right: 2%;"><input type="text" class="form-controle" ng-model="searchKeyword" ng-keyup="searchChild()"></div>
 		</div>
 		<form action="">
 			<div id="scrollable-area">

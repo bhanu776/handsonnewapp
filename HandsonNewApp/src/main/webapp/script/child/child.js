@@ -1,3 +1,4 @@
+/* =============================Child Details===================================================== */
 var childApp = angular.module("childApp", ["ngTable"]);
 
 var childId;
@@ -34,7 +35,26 @@ childApp.controller('childController',function($scope,$http,NgTableParams){
 				$scope.error = response.statusText;
 			});
 	}
+
+	$scope.searchChild = function(){
+		$scope.tableParams = new NgTableParams({count:20}, {counts: [],
+			getData: function() {
+			return $http({
+				method : "GET",
+				url : "/admin/search_child/"+$scope.searchKeyword
+				}).then(function mySuccess(response) {
+					return response.data;
+				}, function myError(response) {
+					$scope.error = response.statusText;
+					$scope.childDetails=[];
+				});
+			}
+		});
+	}
+
 });
+
+
 
 /*	childApp.directive('fixedTableHeaders', ['$timeout', function($timeout) {
 	  return {
