@@ -41,10 +41,10 @@ public class UtilityDaoImpl implements UtilityDao{
 
 	@Override
 	public boolean sessionExpired(HttpSession session) {
-		if(session != null)
-			return false;
+		if(session.isNew())
+			return true;
 			else
-				return true;
+				return false;
 	}
 
 	@Override
@@ -78,7 +78,6 @@ public class UtilityDaoImpl implements UtilityDao{
 		return sdf.format(jDate);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public int currentYear(Date date) {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy");

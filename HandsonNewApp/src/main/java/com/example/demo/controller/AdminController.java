@@ -72,7 +72,7 @@ public class AdminController {
 	@RequestMapping("/dashboard")
 	public String dashboard(HttpSession session){
 		if(utilityDao.sessionExpired(session))
-			return "redirest:/login";
+			return "redirect:/admin/login";
 		
 		return "dashboard";
 	}
@@ -82,7 +82,7 @@ public class AdminController {
 	@RequestMapping(value="/childview")
 	public String viewChild(HttpSession session){
 		if(utilityDao.sessionExpired(session))
-			return "redirest:/login";
+			return "redirect:/admin/login";
 		
 		return "child/viewChild";
 	}
@@ -90,7 +90,7 @@ public class AdminController {
 	@RequestMapping(value="/addchildpage")
 	public String addChildPage(ChildInfo childInfo,HttpSession session){
 		if(utilityDao.sessionExpired(session))
-			return "redirest:/login";
+			return "redirect:/admin/login";
 		
 		return "child/addChild";
 	}
@@ -98,7 +98,7 @@ public class AdminController {
 	@RequestMapping(value="/addchildaction",method=RequestMethod.POST)
 	public String addChildAction(ChildInfo childInfo,HttpSession session){
 		if(utilityDao.sessionExpired(session))
-			return "redirest:/login";
+			return "redirect:/admin/login";
 		
 		childInfo.setAdmin_id(1);
 		System.err.println(childInfo.toString());
@@ -124,7 +124,9 @@ public class AdminController {
 	
 	
 	@RequestMapping(value="deletechild")
-	public String deleteChild(@RequestParam("childId") Integer id){
+	public String deleteChild(@RequestParam("childId") Integer id,HttpSession session){
+		if(utilityDao.sessionExpired(session))return "redirect:/admin/login";
+		
 		childDao.deleteChild(id);
 		return "redirect:childview";
 	}
@@ -171,14 +173,17 @@ public class AdminController {
 	/*=======================================Check in Check Out Api=============================================*/
 	
 	@RequestMapping(value="/scancardforchildcheckin",method=RequestMethod.GET)
-	public String scanCardForChildCheckin(@RequestParam("childId") Integer childId,Model model){
+	public String scanCardForChildCheckin(@RequestParam("childId") Integer childId,Model model,HttpSession session){
+		if(utilityDao.sessionExpired(session))return "redirect:/admin/login";
+		
 		model.addAttribute("childId", childId);
 		return "scancard/scanCardForCheckin";
 	}
 	
 	@RequestMapping(value="/addadvanceamountpage",method=RequestMethod.POST)
 	public String addAdvanceAmount(@RequestParam("childId")Integer childId,@RequestParam("cardId")String cardId,
-			ChildVisitDetails childVisitDetails,Model model){
+			ChildVisitDetails childVisitDetails,Model model, HttpSession session){
+		if(utilityDao.sessionExpired(session))return "redirect:/admin/login";
 		
 		if(childDao.getChildVisitDetails(cardId)!=null){
 			return "redirect:scancardforchildcheckin?childId="+childId;
@@ -193,7 +198,8 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/childcheckinaction",method=RequestMethod.POST)
-	public String childCheckInAction(ChildVisitDetails childVisitDetails){
+	public String childCheckInAction(ChildVisitDetails childVisitDetails, HttpSession session){
+		if(utilityDao.sessionExpired(session))return "redirect:/admin/login";
 		
 		Settings settings = settingsDao.getSettings(1);
 		if(childVisitDetails.getSocks_pair_no()!=null && childVisitDetails.getSocks_pair_no()>0 && settings.getSocks()>0)
@@ -206,7 +212,9 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/scancardforcheckout",method=RequestMethod.GET)
-	public String scanCardForCheckout(Model model){
+	public String scanCardForCheckout(Model model, HttpSession session){
+		if(utilityDao.sessionExpired(session))return "redirect:/admin/login";
+		
 		return "scancard/scanCardForCheckout";
 	}
 	
