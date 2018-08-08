@@ -139,7 +139,7 @@ public class AdminController {
 	@ResponseBody
 	@RequestMapping(value="search_child/{keyword}")
 	public List<ChildInfo> searchCild(@PathVariable("keyword")String keyword){
-		if(keyword==null)
+		if(StringUtils.isEmpty(keyword))
 			return new ArrayList<>();
 		return childDao.searchChild(keyword);
 	}

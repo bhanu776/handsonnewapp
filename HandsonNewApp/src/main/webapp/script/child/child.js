@@ -37,19 +37,35 @@ childApp.controller('childController',function($scope,$http,NgTableParams){
 	}
 
 	$scope.searchChild = function(){
-		$scope.tableParams = new NgTableParams({count:20}, {counts: [],
-			getData: function() {
-			return $http({
-				method : "GET",
-				url : "/admin/search_child/"+$scope.searchKeyword
-				}).then(function mySuccess(response) {
-					return response.data;
-				}, function myError(response) {
-					$scope.error = response.statusText;
-					$scope.childDetails=[];
+			if(!$scope.searchKeyword){
+				$scope.tableParams = new NgTableParams({count:20}, {counts: [],
+					getData: function() {
+					return $http({
+						method : "GET",
+						url : "/admin/getchilddetails"
+						}).then(function mySuccess(response) {
+							return response.data;
+						}, function myError(response) {
+							$scope.error = response.statusText;
+							$scope.childDetails=[];
+						});
+					}
+				});
+			}else{
+				$scope.tableParams = new NgTableParams({count:20}, {counts: [],
+					getData: function() {
+					return $http({
+						method : "GET",
+						url : "/admin/search_child/"+$scope.searchKeyword
+						}).then(function mySuccess(response) {
+							return response.data;
+						}, function myError(response) {
+							$scope.error = response.statusText;
+							$scope.childDetails=[];
+						});
+					}
 				});
 			}
-		});
 	}
 
 });
