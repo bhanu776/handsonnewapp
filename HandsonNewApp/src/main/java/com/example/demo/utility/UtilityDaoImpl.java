@@ -43,8 +43,13 @@ public class UtilityDaoImpl implements UtilityDao{
 	public boolean sessionExpired(HttpSession session) {
 		if(session.isNew())
 			return true;
-			else
-				return false;
+			else{
+				String user = (String) session.getAttribute("user");
+				if(user!=null && (user.equalsIgnoreCase("admin") || user.equalsIgnoreCase("user"))){
+					return false;
+				}else
+					return true;
+			}
 	}
 
 	@Override

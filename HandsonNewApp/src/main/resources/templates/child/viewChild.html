@@ -9,6 +9,7 @@
 
 
 <script type="text/javascript" th:src="@{/script/angular-1.6.10/angular.min.js}"></script>
+<script type="text/javascript" th:src="@{/script/master/paging.js}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.js"></script>
  
@@ -20,6 +21,16 @@
 <script type="text/javascript" th:src="@{/script/master/script.js}" ></script>
 <script type="text/javascript" th:src="@{/script/child/child.js}"></script>
 
+<style type="text/css">
+ul.pagination {
+    margin-top: 0px;
+}
+.ng-isolate-scope {
+    float: right;
+    height: 10px;
+}
+</style>
+
 <title>Child</title>
 </head>
 <body ng-app="childApp" ng-controller="childController">
@@ -27,7 +38,7 @@
 	<div th:replace="/fragments/header :: header">&nbsp;</div>
 	<div th:replace="/fragments/menu :: menu">&nbsp;</div>
 	
-	<div class="main-container" >
+	<div class="main-container" ng-init="init()">
 		<div class="small-header">
 			<div style="float: left;"><label class="header-label">Children Details</label></div>
 			
@@ -56,6 +67,14 @@
 				      <td data-title="'Email'" sortable="'child.email'">{{child.email}}</td>
 				    </tr>
 				  </table>
+				  
+		            <div paging
+		                page="currentPage" 
+		                page-size="pageSize" 
+		                total="total"
+		                paging-action="DoCtrlPagingAct('Paging Clicked', page, pageSize, total)">
+		            </div>
+
 			</div>
 			<div class="common-footer" style="height: 50px;">
 			<div class="inline-button"><button th:formaction="@{/admin/scancardforchildcheckin}" class="btn btn-primary">Check In</button></div>

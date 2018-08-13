@@ -1,9 +1,16 @@
 /* =============================Child Details===================================================== */
-var childApp = angular.module("childApp", ["ngTable"]);
+var childApp = angular.module("childApp", ["ngTable","bw.paging"]);
 
 var childId;
 
 childApp.controller('childController',function($scope,$http,NgTableParams){
+
+	$scope.init = function(){
+		console.log("init working");
+		$scope.currentPage = 1;
+		$scope.total = 200;
+		$scope.pageSize = 20;
+	}
 
 	$scope.setChildId = function(id){
 		childId = id;
@@ -67,6 +74,17 @@ childApp.controller('childController',function($scope,$http,NgTableParams){
 				});
 			}
 	}
+
+
+	$scope.DoCtrlPagingAct = function(text, page, pageSize, total) {
+		console.log(text+" Page ="+page+"/ PageSize ="+pageSize+"/ Total ="+total)
+        /* $log.info({
+            text: text,
+            page: page,
+            pageSize: pageSize,
+            total: total
+        }); */
+    };
 
 });
 
