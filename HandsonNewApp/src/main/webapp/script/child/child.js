@@ -78,12 +78,7 @@ childApp.controller('childController',function($scope,$http,NgTableParams){
 
 	$scope.DoCtrlPagingAct = function(text, page, pageSize, total) {
 		console.log(text+" Page ="+page+"/ PageSize ="+pageSize+"/ Total ="+total)
-        /* $log.info({
-            text: text,
-            page: page,
-            pageSize: pageSize,
-            total: total
-        }); */
+       
     };
 
 });
