@@ -347,6 +347,13 @@ public class AdminController {
 	}
 	
 	
+	/*======================================Event=======================================================*/
+	
+	@RequestMapping(value="/event_form")
+	public String eventForm() {
+		return "event/viewEvent";
+	}
+	
 	
 	/*====================================Settings====================================================*/
 	
