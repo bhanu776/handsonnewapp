@@ -10,14 +10,18 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.example.demo.dao.ChildDao;
 import com.example.demo.dao.MembershipDao;
@@ -30,6 +34,7 @@ import com.example.demo.model.Membership;
 import com.example.demo.model.SetHolidayCalendar;
 import com.example.demo.model.Settings;
 import com.example.demo.utility.UtilityDao;
+import com.example.pojo.ListFilter;
 import com.example.pojo.ResposnseHolidaysBO;
 
 @Controller
@@ -107,15 +112,16 @@ public class AdminController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="child_list_count/get")
+	@RequestMapping(value="/child_list_count/get")
 	public Long getChildLIstCount(){
 		return childDao.getChildListCount();
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="getchilddetails")
-	public List<ChildInfo> getChildDetails(){
-		return childDao.childInfosList();
+	@RequestMapping(value="getchilddetails", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(value=HttpStatus.OK)
+	public List<ChildInfo> getChildDetails(@RequestBody ListFilter listFilter){
+		return childDao.childInfosList(listFilter);
 	}
 	
 	@ResponseBody

@@ -12,6 +12,7 @@ import com.example.demo.model.ChildVisitTransaction;
 import com.example.demo.repository.ChildRepository;
 import com.example.demo.repository.ChildVisitDetailRepository;
 import com.example.demo.repository.ChildVisitTransactionRepository;
+import com.example.pojo.ListFilter;
 
 @Service
 public class ChildDao {
@@ -31,8 +32,8 @@ public class ChildDao {
 	}
 	
 	
-	public List<ChildInfo> childInfosList(){
-		return childRepository.childList();
+	public List<ChildInfo> childInfosList(ListFilter listFilter){
+		return childRepository.childList(listFilter.getStart(), listFilter.getLimit());
 	}
 	
 	public Optional<ChildInfo> getChildInfo(Integer id) {

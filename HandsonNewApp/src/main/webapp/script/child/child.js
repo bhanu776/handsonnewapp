@@ -8,9 +8,21 @@ childApp.controller('childController',function($scope,$http,NgTableParams){
 
 	$scope.init = function(){
 		$scope.currentPage = 1;
-		$scope.pageSize = 13;
+		$scope.pageSize = 12;
 		// $scope.total = this.total;
+		$http({
+			method : "GET",
+			url : "/admin/child_list_count/get"
+			}).then(function mySuccess(response) {
+				console.log(response.data);
+				$scope.total = response.data;
+			}, function myError(response) {
+				$scope.error = response.statusText;
+			});
+
 	}
+
+	
 
 	$scope.setChildId = function(id){
 		childId = id;
@@ -20,10 +32,10 @@ childApp.controller('childController',function($scope,$http,NgTableParams){
         getData: function() {
           // ajax request to api
           return  $http({
-			        method : "GET",
+					method : "post",
+					data:{startPage:1,limit:12},
 			        url : "/admin/getchilddetails"
 				    }).then(function mySuccess(response) {
-				    	console.log(response.data);
 				        return response.data;
 				    }, function myError(response) {
 				        $scope.error = response.statusText;
@@ -48,7 +60,8 @@ childApp.controller('childController',function($scope,$http,NgTableParams){
 				$scope.tableParams = new NgTableParams({count:20}, {counts: [],
 					getData: function() {
 					return $http({
-						method : "GET",
+						method : "post",
+						data:{startPage:1,limit:12},
 						url : "/admin/getchilddetails"
 						}).then(function mySuccess(response) {
 							return response.data;
@@ -77,20 +90,23 @@ childApp.controller('childController',function($scope,$http,NgTableParams){
 
 	$scope.DoCtrlPagingAct = function(text, page, pageSize, total) {
 		console.log(text+" Page ="+page+"/ PageSize ="+pageSize+"/ Total ="+total)
-       
-	};
-	
-	$scope.total = $http({
-				method : "GET",
-				url : "/admin/child_list_count/get"
+		let startPage = (page-1)*pageSize
+		$scope.tableParams = new NgTableParams({count:20}, {counts: [],
+			getData: function() {
+			return $http({
+				method : "post",
+				data:{start:startPage,limit:pageSize},
+				url : "/admin/getchilddetails"
 				}).then(function mySuccess(response) {
-					console.log(response.data);
 					return response.data;
 				}, function myError(response) {
 					$scope.error = response.statusText;
+					$scope.childDetails=[];
 				});
-
-
+			}
+		});
+	};
+	
 });
 
 
