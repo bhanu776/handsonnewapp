@@ -30,6 +30,7 @@ public class ChildDao {
 		return childRepository.save(childInfo);
 	}
 	
+	
 	public List<ChildInfo> childInfosList(){
 		return childRepository.childList();
 	}
@@ -46,6 +47,9 @@ public class ChildDao {
 		return childRepository.searchChildByName(keyword);
 	}
 	
+	public Long getChildListCount(){
+		return childRepository.getCount();
+	}
 	
 	/*==================child visit details=============================== */
 	

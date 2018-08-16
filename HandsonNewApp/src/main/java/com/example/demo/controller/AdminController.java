@@ -107,6 +107,12 @@ public class AdminController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value="child_list_count/get")
+	public Long getChildLIstCount(){
+		return childDao.getChildListCount();
+	}
+	
+	@ResponseBody
 	@RequestMapping(value="getchilddetails")
 	public List<ChildInfo> getChildDetails(){
 		return childDao.childInfosList();

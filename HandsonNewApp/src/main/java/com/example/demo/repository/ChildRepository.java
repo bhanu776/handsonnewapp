@@ -14,5 +14,8 @@ public interface ChildRepository extends CrudRepository<ChildInfo, Integer>{
 	
 	@Query(value = "select * from child_info cf ORDER BY cf.id DESC LIMIT 12", nativeQuery = true)
 	public List<ChildInfo> childList();
+	
+	@Query(value = "select count(id) from child_info",nativeQuery = true)
+	public Long getCount();
 
 }

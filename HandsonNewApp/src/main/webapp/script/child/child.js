@@ -2,14 +2,14 @@
 var childApp = angular.module("childApp", ["ngTable","bw.paging"]);
 
 var childId;
+// var total;
 
 childApp.controller('childController',function($scope,$http,NgTableParams){
 
 	$scope.init = function(){
-		console.log("init working");
 		$scope.currentPage = 1;
-		$scope.total = 200;
-		$scope.pageSize = 20;
+		$scope.pageSize = 13;
+		// $scope.total = this.total;
 	}
 
 	$scope.setChildId = function(id){
@@ -73,13 +73,23 @@ childApp.controller('childController',function($scope,$http,NgTableParams){
 					}
 				});
 			}
-	}
-
+	} 
 
 	$scope.DoCtrlPagingAct = function(text, page, pageSize, total) {
 		console.log(text+" Page ="+page+"/ PageSize ="+pageSize+"/ Total ="+total)
        
-    };
+	};
+	
+	$scope.total = $http({
+				method : "GET",
+				url : "/admin/child_list_count/get"
+				}).then(function mySuccess(response) {
+					console.log(response.data);
+					return response.data;
+				}, function myError(response) {
+					$scope.error = response.statusText;
+				});
+
 
 });
 
@@ -96,7 +106,6 @@ childApp.controller('childController',function($scope,$http,NgTableParams){
 	    }
 	  }
 	}]);*/
-
 
 
 /*=========================================================Advance ampont page==================================================================*/
