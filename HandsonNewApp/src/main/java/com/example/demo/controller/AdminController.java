@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ import com.example.demo.model.ChildVisitTransaction;
 import com.example.demo.model.Membership;
 import com.example.demo.model.SetHolidayCalendar;
 import com.example.demo.model.Settings;
+import com.example.demo.utility.CreateBillXLS;
 import com.example.demo.utility.UtilityDao;
 import com.example.pojo.ListFilter;
 import com.example.pojo.ResposnseHolidaysBO;
@@ -250,24 +252,26 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="childcheckoutaction",method=RequestMethod.POST)
-	public String childCheckoutAction(ChildVisitTransaction childVisitTransaction){
+	public String childCheckoutAction(ChildVisitTransaction childVisitTransaction, HttpServletRequest request){
 		//System.out.println(childVisitTransaction.toString());
 		ChildVisitDetails childVisitDetails = childDao.getChildVisitDetailsById(childVisitTransaction.getChild_visit_id());
 		Settings settings = settingsDao.getSettings(1);
 		childVisitDetails.setStatus(1);
+		childVisitTransaction.setChild_name(childVisitDetails.getChild_name());
+		childVisitTransaction.setDate(utilityDao.javaDateToUiDate(new Date()));
+		
 		float total = 0.0f;
 		total = childVisitTransaction.getPlayzone_cost()+childVisitTransaction.getLibrary_cost();
 		
 		Map<String, Long> timedifferece = utilityDao.timeDifference(childVisitDetails.getStart_date(), new Date());
 		long diffInMin = timedifferece.get("diffHours") * 60 +timedifferece.get("diffMinutes");
+		childVisitTransaction.setTotal_time((int)diffInMin);
 		
 		if(membershipDao.isExist(childVisitDetails.getChild_id())){
 			Membership membership = membershipDao.getMemberUsingChildId(childVisitDetails.getChild_id());
 			membership.setRest_time(membership.getRest_time() - (int) diffInMin);
 		}else{
 			
-			/*Map<String, Long> timedifferece = utilityDao.timeDifference(childVisitDetails.getStart_date(), new Date());
-			long diffInMin = timedifferece.get("diffHours") * 60 +timedifferece.get("diffMinutes");*/
 			diffInMin = diffInMin - settings.getGrace_time();
 			
 			while(diffInMin>60) {
@@ -298,11 +302,11 @@ public class AdminController {
 			childVisitTransaction.setTotal_amount(0.0f);
 			childVisitTransaction.setRefund_amount(total*(-1));
 		}
-		childDao.saveTransactionDetail(childVisitTransaction);
+		ChildVisitTransaction childVisitTransactionForBilling = childDao.saveTransactionDetail(childVisitTransaction);
 		
 		
 		//generate bill code
-		
+		new CreateBillXLS().generateBill(request, childVisitTransactionForBilling, settings);
 		
 		
 		childDao.saveChildVisitDetail(childVisitDetails);

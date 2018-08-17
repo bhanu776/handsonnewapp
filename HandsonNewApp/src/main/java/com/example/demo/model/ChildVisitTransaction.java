@@ -1,6 +1,5 @@
 package com.example.demo.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,23 +14,14 @@ public class ChildVisitTransaction {
 	private Integer child_id;
 	private String child_name;
 	private Integer total_time;
-	@Column(nullable=false,columnDefinition="float default 0.0f")
 	private Float playzone_cost = 0.0f;
-	@Column(nullable=false,columnDefinition="float default 0.0f")
 	private Float library_cost = 0.0f;
-	@Column(nullable=false,columnDefinition="float default 0.0f")
 	private Float advanceAmount = 0.0f;
-	@Column(nullable=false,columnDefinition="float default 0.0f")
 	private Float paid_amount = 0.0f;
-	@Column(nullable=false,columnDefinition="float default 0.0f")
 	private Float total_amount = 0.0f;
-	@Column(nullable=false,columnDefinition="float default 0.0f")
 	private Float extra_amount = 0.0f;
-	@Column(nullable=false,columnDefinition="float default 0.0f")
 	private Float extra_socks = 0.0f;
-	@Column(nullable=false,columnDefinition="float default 0.0f")
 	private Float refund_amount = 0.0f;
-	@Column(nullable=false,columnDefinition="float default 0.0f")
 	private Float miscellaneous_cost = 0.0f;
 	private String comment;
 	private String date;
