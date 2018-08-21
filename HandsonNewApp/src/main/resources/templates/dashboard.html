@@ -10,23 +10,40 @@
 <script type="text/javascript" th:src="@{/script/master/jquery-ui.js}"></script>	
 <script type="text/javascript" th:src="@{/script/master/bootstrap.min.js}" ></script>
 <script type="text/javascript" th:src="@{/script/master/script.js}" ></script>
+<script type="text/javascript" th:src="@{/script/angular-1.6.10/angular.js}"></script>
 <script type="text/javascript" th:src="@{/script/angular-1.6.10/angular.min.js}"></script>
 <script type="text/javascript" th:src="@{/script/dashboard/dashboard.js}"></script>
 
 <title>Dashboard</title>
 </head>
-<body ng-app="dashboard">
+<body ng-app="dashboard" ng-controller="dashboardController">
 	<div th:replace="/fragments/header :: header">&nbsp;</div>
 	<div th:replace="/fragments/menu :: menu">&nbsp;</div>
 	
-	<div class="main-container" ng-controller="dashboardController">
-		<div class="current-status-div">
-			
+	<div class="main-container">
+		<div class="current-status-div" id="status-div1">
+			<table class="i-table">
+	  			<tr>
+	  				<th>Radio</th>
+	  				<th>Id</th>
+	  				<th>Child_Name</th>
+	  				<th>Socks_Pair</th>
+	  				<th>Date</th>
+	  				<th>Time_Left</th>
+	  			</tr>
+	  			<tr ng-repeat="cc in checkedinChildren">
+	  				<td><input type="radio" name="childId" value="{{child.id}}" required="required"></td>
+	  				<td>{{cc.id}}</td>
+	  				<td>{{cc.child_name}}</td>
+	  				<td>{{cc.socks_pair_no}}</td>
+	  				<td>{{cc.start_date | date : format : shortDate}}</td>
+	  			</tr>
+  			</table>
 		</div>
-		<div class="current-status-div">
+		<div class="current-status-div" id="status-div2">
 		
 		</div>
-		<div class="current-status-div">
+		<div class="current-status-div" id="status-div3">
 		
 		</div>
 		<div class="search-children">

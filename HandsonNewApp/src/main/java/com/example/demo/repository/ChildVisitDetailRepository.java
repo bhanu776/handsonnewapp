@@ -12,5 +12,8 @@ public interface ChildVisitDetailRepository extends CrudRepository<ChildVisitDet
 	@Query("select cvd from ChildVisitDetails cvd where card_id=?1 and status = 0")
 	public List<ChildVisitDetails> getVisitDetailthroughCardId(String cardId);
 	
+	@Query("select cvd from ChildVisitDetails cvd where status = 1 and admin_id = 1")
+	public List<ChildVisitDetails> currentCheckedinChildren();
+	
 	
 }

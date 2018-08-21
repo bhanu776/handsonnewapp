@@ -1,3 +1,5 @@
+/* ==========================Add Child popup div========================================= */
+
 $(document).ready(function(){
 	$(".menu").mouseleave(function(){
 		$(".menu").animate({"margin-left":"-14%"}, 300);
@@ -24,10 +26,44 @@ $(document).ready(function(){
 	$(".close-floating-div").on('click',function(){
 		$(".floating-form-div").hide("scale",300);
 	})
+
+/* =======================================Advance Amount Page Checkbox Actions================================ */
+
+	$("#playzone").click(function(){
+		if(this.checked) {
+		   $("#library").prop("checked", false);
+		   $("#special").prop("checked", false);
+		   $("#visitor").prop("checked", false);
+		}
+   });
+
+   $("#library").click(function(){
+	   console.log("click")
+		if(this.checked) {
+	   $("#playzone").prop("checked", false);
+	   $("#special").prop("checked", false);
+	   $("#visitor").prop("checked", false);
+	   }
+   });
+
+   $("#special").click(function(){
+	if(this.checked) {
+	   $("#library").prop("checked", false);
+	   $("#playzone").prop("checked", false);
+	   $("#visitor").prop("checked", false);
+	   }
+   });
+   
+   $("#visitor").click(function(){
+	if(this.checked) {
+	   $("#library").prop("checked", false);
+	   $("#playzone").prop("checked", false);
+	   $("#special").prop("checked", false);
+	   }
+   });
 	
 	
 });
-
 
 /*========================================Settings==================================================*/
 
@@ -80,42 +116,6 @@ settingApp.controller("settingController",function($scope,$http){
 
 });
 
-
-
-$(document).ready(function(){
-	$("#playzone").click(function(){
-		 if(this.checked) {
-			$("#library").prop("checked", false);
-			$("#special").prop("checked", false);
-			$("#visitor").prop("checked", false);
-		 }
-	});
-
-	$("#library").click(function(){
-		console.log("click")
-		 if(this.checked) {
-		$("#playzone").prop("checked", false);
-		$("#special").prop("checked", false);
-		$("#visitor").prop("checked", false);
-		}
-	});
-
-	$("#special").click(function(){
-	 if(this.checked) {
-		$("#library").prop("checked", false);
-		$("#playzone").prop("checked", false);
-		$("#visitor").prop("checked", false);
-		}
-	});
-	
-	$("#visitor").click(function(){
-	 if(this.checked) {
-		$("#library").prop("checked", false);
-		$("#playzone").prop("checked", false);
-		$("#special").prop("checked", false);
-		}
-	});
-});
 
 
 

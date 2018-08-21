@@ -59,7 +59,7 @@
 	</div>
 	
 	<div class="floating-form-div">
-	<form th:action="@{/admin/save_membership}" th:object="${membership}" method="post">
+	<form th:action="@{/admin/}" th:object="${}" method="post">
 	<input type="hidden" name="id" value="{{memberDetails.id}}">
 	<input type="hidden" name="child_id" value=""> 
 	    <div class="detail-div">
@@ -68,6 +68,36 @@
 	    			<label class="header-label">Add Membership</label>
 	    			<label style="float: right;"><a class="close-floating-div"><img alt="" width="45" height="45" src="/images/closebtn.png"></a></label> 
 	    		</div>
+		    	<div class="h-line" style="width: 100%; height:30px;">
+			    	<div class=text-input-sm>
+			    		 <input type="text" name="child_name" class="input" autofocus="autofocus" value=""/>			    		
+			    	</div>
+			    	<div class="text-input-sm">
+			    		<input type="text" name="phone" class="input" placeholder="" value="">			    		
+			    	</div>
+			    	<div class="text-input-sm">
+			    		<input type="text" name="phone2" class="input" placeholder="End Date" value="">			    		
+			    	</div>
+			    	<div class=text-input-sm>
+			    		<input type="text"name="theme" class="input" placeholder="Hours" value="">			    		
+			    	</div>
+		    	</div>
+		    	
+		    	<div class="h-line" style="width: 100%; height:30px;">
+			    	<div class=text-input-sm>
+			    		 <input type="text" name="address" class="input" autofocus="autofocus" value=""/>			    		
+			    	</div>
+			    	<div class="text-input-sm">
+			    		<input type="text" name="location" class="input" placeholder="" value="">			    		
+			    	</div>
+			    	<div class="text-input-sm">
+			    		<input type="text" name="endDateStr" class="input" placeholder="End Date" value="">			    		
+			    	</div>
+			    	<div class=text-input-sm>
+			    		<input type="text"name="hours" class="input" placeholder="Hours" value="">			    		
+			    	</div>
+		    	</div>
+		    	
 		    	<div class="h-line" style="width: 100%; height:30px;">
 			    	<div class=text-input-sm>
 			    		 <input type="text" name="childName" class="input" autofocus="autofocus" value=""/>			    		

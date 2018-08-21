@@ -70,6 +70,10 @@ public class ChildDao {
 		return null;
 	}
 	
+	public List<ChildVisitDetails> getCheckedInChildren(){
+		return childVisitDetailRepository.currentCheckedinChildren();
+	}
+	
 	/*===================Check in Check out Transaction Details===========================*/
 	
 	public ChildVisitTransaction saveTransactionDetail(ChildVisitTransaction childVisitTransaction) {

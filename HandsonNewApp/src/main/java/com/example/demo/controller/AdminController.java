@@ -313,10 +313,19 @@ public class AdminController {
 		return "redirect:/admin/dashboard";
 	}
 	
+	/*====================================Child visit details===========================================*/
+	
+	@ResponseBody
+	@RequestMapping(value="checkedin_children/get")
+	public List<ChildVisitDetails> getCheckedInChildren(){
+		return childDao.getCheckedInChildren();
+	}
+	
 	/*====================================Membership====================================================*/
 	
 	@RequestMapping(value="membership_page",method=RequestMethod.GET)
-	public String membershipPage(Membership membership){
+	public String membershipPage(Membership membership,HttpSession session){
+		if(utilityDao.sessionExpired(session))return "redirect:/admin/login";
 		return "/child/membership";
 	}
 	

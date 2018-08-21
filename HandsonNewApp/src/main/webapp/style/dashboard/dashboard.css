@@ -1,9 +1,8 @@
 .current-status-div{
-	position:static;
 	width: 70%;
-	height: 200px;
+	height: 30px;
 	float:right;
-	border-bottom: 1px solid;
+	border: 1px solid;
 }
 
 

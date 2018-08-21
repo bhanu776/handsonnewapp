@@ -195,6 +195,8 @@ membership.controller("membershipController",function($scope,$http,NgTableParams
 	});
 });
 
+/* ===============================search child jq code here ==================================== */
+
 $(document).ready(function(){
 
 	$( "#search-child" ).autocomplete({

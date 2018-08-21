@@ -1,39 +1,24 @@
+$(document).ready(function(){
+    $( ".current-status-div" ).click(function( event ) {
+        var attr = event.currentTarget.id;
+        $( ".current-status-div" ).css( "height" , "30" );
+        $( "#"+attr ).css("height","500");
+      });
+});
 
-  /*  $( "#search-box" ).autocomplete({
-    	autoFocus:true,
-        source: function(request, response) {
-        	console.log(request.term);
-              $.ajax({
-                  url: "/admin/search_child",
-                  dataType: "json",
-                  data: 'keyword='+request.term,
-                  success: function( data, textStatus, jqXHR) {
-                      var items={};	  
-                      console.log(data);
-                      $.each(data,function(key,value){
-                      	items[value.id]=[value.firstname+" "+value.lastname];
-                      	console.log(data);
-                      });
-                      response($.map(items, function (value, key) {
-                          return {
-                              label: value[0],
-                              value: function(event,ui){
-                              	//$("input[name=child_id]").val(key);
-                              		return value[0];
-                              	}
-                          }
-                      }));
-                  },
-                  error: function(jqXHR, textStatus, errorThrown){
-                       console.log( textStatus);
-                  }
-              });
-          }
-    });
-*/
-	var dashboard = angular.module("dashboard",[]);
-	dashboard.controller('dashboardController',function($scope,$http){
-		
+var dashboard = angular.module("dashboard",[]);
+	dashboard.controller('dashboardController',function($scope, $http){
+        
+        $http({
+            method : "GET",
+            url : "checkedin_children/get"
+            }).then(function mySuccess(response) {
+                $scope.checkedinChildren = response.data;
+            }, function myError(response) {
+                $scope.error = response.statusText;
+                $scope.childDetails=[];
+            });
+        
 		$scope.searchChild = function(){
 			console.log($scope.keyword);
 			$http({
@@ -45,6 +30,10 @@
 			        $scope.error = response.statusText;
 			        $scope.childDetails=[];
 			    });
-		}
+        }
+        
+        
+        
+        
 	});
                  
