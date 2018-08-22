@@ -1,6 +1,8 @@
 package com.example.demo.dao;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ import com.example.demo.model.ChildVisitTransaction;
 import com.example.demo.repository.ChildRepository;
 import com.example.demo.repository.ChildVisitDetailRepository;
 import com.example.demo.repository.ChildVisitTransactionRepository;
+import com.example.demo.utility.UtilityDao;
+import com.example.demo.utility.UtilityDaoImpl;
 import com.example.pojo.ListFilter;
 
 @Service
@@ -26,6 +30,8 @@ public class ChildDao {
 	@Autowired
 	ChildVisitTransactionRepository chTransactionRepository;
 	
+	@Autowired
+	UtilityDaoImpl utilityDao;
 	
 	public ChildInfo addChild(ChildInfo childInfo){
 		return childRepository.save(childInfo);
@@ -71,7 +77,12 @@ public class ChildDao {
 	}
 	
 	public List<ChildVisitDetails> getCheckedInChildren(){
-		return childVisitDetailRepository.currentCheckedinChildren();
+		List<ChildVisitDetails> childVisitDetails = childVisitDetailRepository.currentCheckedinChildren();
+		childVisitDetails.forEach(visitDetails ->{
+			Map<String, Long> timeDiff = utilityDao.timeDifference(visitDetails.getStart_date(), new Date());
+			visitDetails.setStart_time(timeDiff.get("diffHours")+":"+timeDiff.get("diffMinutes")+":"+timeDiff.get("diffSeconds"));
+		});
+		return childVisitDetails;
 	}
 	
 	/*===================Check in Check out Transaction Details===========================*/

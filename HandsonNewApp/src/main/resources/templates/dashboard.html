@@ -15,6 +15,14 @@
 <script type="text/javascript" th:src="@{/script/dashboard/dashboard.js}"></script>
 
 <title>Dashboard</title>
+<style type="text/css">
+#status-div1{
+	height:540px;
+}
+.i-table tr:nth-child(1) {
+    height: 30px;
+}
+</style>
 </head>
 <body ng-app="dashboard" ng-controller="dashboardController">
 	<div th:replace="/fragments/header :: header">&nbsp;</div>
@@ -24,7 +32,6 @@
 		<div class="current-status-div" id="status-div1">
 			<table class="i-table">
 	  			<tr>
-	  				<th>Radio</th>
 	  				<th>Id</th>
 	  				<th>Child_Name</th>
 	  				<th>Socks_Pair</th>
@@ -32,19 +39,37 @@
 	  				<th>Time_Left</th>
 	  			</tr>
 	  			<tr ng-repeat="cc in checkedinChildren">
-	  				<td><input type="radio" name="childId" value="{{child.id}}" required="required"></td>
 	  				<td>{{cc.id}}</td>
 	  				<td>{{cc.child_name}}</td>
 	  				<td>{{cc.socks_pair_no}}</td>
 	  				<td>{{cc.start_date | date : format : shortDate}}</td>
+	  				<td>{{cc.start_time}}</td>
 	  			</tr>
   			</table>
 		</div>
 		<div class="current-status-div" id="status-div2">
-		
+			<table class="i-table">
+	  			<tr>
+	  				<th>Id</th>
+	  				<th>Child_Name</th>
+	  				<th>Socks_Pair</th>
+	  				<th>Date</th>
+	  				<th>Time_Left</th>
+	  			</tr>
+	  			
+  			</table>
 		</div>
 		<div class="current-status-div" id="status-div3">
-		
+			<table class="i-table">
+	  			<tr>
+	  				<th>Id</th>
+	  				<th>Child_Name</th>
+	  				<th>Socks_Pair</th>
+	  				<th>Date</th>
+	  				<th>Time_Left</th>
+	  			</tr>
+	  			
+  			</table>
 		</div>
 		<div class="search-children">
 			<div class="small-header">
