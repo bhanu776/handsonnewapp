@@ -1,8 +1,7 @@
 .current-status-div{
 	width: 70%;
-	height: 30px;
+	height: 31px;
 	float:right;
-	overflow: scroll;
 	background-color: white;
 }
 

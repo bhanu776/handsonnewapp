@@ -59,7 +59,7 @@
 	</div>
 	
 	<div class="floating-form-div">
-	<form th:action="@{/admin/}" th:object="${}" method="post">
+	<form th:action="@{/admin/}" th:object="${events}" method="post">
 	<input type="hidden" name="id" value="{{memberDetails.id}}">
 	<input type="hidden" name="child_id" value=""> 
 	    <div class="detail-div">
@@ -70,53 +70,75 @@
 	    		</div>
 		    	<div class="h-line" style="width: 100%; height:30px;">
 			    	<div class=text-input-sm>
-			    		 <input type="text" name="child_name" class="input" autofocus="autofocus" value=""/>			    		
+			    		 <input type="text" name="child_name" class="input" autofocus="autofocus" placeholder="Child Name" value=""/>			    		
 			    	</div>
 			    	<div class="text-input-sm">
-			    		<input type="text" name="phone" class="input" placeholder="" value="">			    		
+			    		<input type="text" name="phone" class="input" placeholder="Mobile" value="">			    		
 			    	</div>
 			    	<div class="text-input-sm">
 			    		<input type="text" name="phone2" class="input" placeholder="End Date" value="">			    		
 			    	</div>
 			    	<div class=text-input-sm>
-			    		<input type="text"name="theme" class="input" placeholder="Hours" value="">			    		
+			    		<input type="text"name="theme" class="input" placeholder="Theme" value="">			    		
 			    	</div>
 		    	</div>
 		    	
 		    	<div class="h-line" style="width: 100%; height:30px;">
 			    	<div class=text-input-sm>
-			    		 <input type="text" name="address" class="input" autofocus="autofocus" value=""/>			    		
+			    		 <input type="text" name="address" class="input" placeholder="Address" value=""/>			    		
 			    	</div>
 			    	<div class="text-input-sm">
-			    		<input type="text" name="location" class="input" placeholder="" value="">			    		
+			    		<input type="text" name="location" class="input" placeholder="Location" value="">			    		
 			    	</div>
 			    	<div class="text-input-sm">
-			    		<input type="text" name="endDateStr" class="input" placeholder="End Date" value="">			    		
+			    		<input type="text" name="organiser" class="input" placeholder="Organiser" value="">			    		
 			    	</div>
 			    	<div class=text-input-sm>
-			    		<input type="text"name="hours" class="input" placeholder="Hours" value="">			    		
+			    		<input type="text"name="organiser_contact" class="input" placeholder="Organiser Contact" value="">			    		
 			    	</div>
 		    	</div>
 		    	
 		    	<div class="h-line" style="width: 100%; height:30px;">
 			    	<div class=text-input-sm>
-			    		 <input type="text" name="childName" class="input" autofocus="autofocus" value=""/>			    		
+			    		 <input type="text" name="deposit" class="input" placeholder="Deposit" value=""/>			    		
 			    	</div>
 			    	<div class="text-input-sm">
-			    		<input type="text" name="startDateStr" class="input" placeholder="" value="">			    		
-			    	</div>
-			    	<div class="text-input-sm">
-			    		<input type="text" name="endDateStr" class="input" placeholder="End Date" value="">			    		
+			    		<input type="text" name="ground_rent" class="input" placeholder="Ground Rent" value="">			    		
 			    	</div>
 			    	<div class=text-input-sm>
-			    		<input type="text"name="hours" class="input" placeholder="Hours" value="">			    		
+			    		<input type="text"name="no_of_children" class="input" placeholder="No Of Children" value="">			    		
+			    	</div>
+			    	<div class=text-input-sm>
+			    		 <input type="text" name="no_of_adults" class="input" placeholder="No Of Adults" value=""/>			    		
+			    	</div>
+		    	</div>
+		    	
+		    	<div class="h-line" style="width: 100%; height:30px;">
+		    	
+			    	
+			    	<div class="text-input-sm">
+			    		<input type="text" name="food_par_head" class="input" placeholder="Food Per Head" value="">			    		
+			    	</div>
+			    	
+			    	<div class="text-input-sm">
+			    		<input type="text" name="entry_charge_child" class="input" placeholder="Entry Charge Child" value="">			    		
+			    	</div>
+			    	
+			    	<div class=text-input-sm>
+			    		<input type="text"name="entry_charge_adults" class="input" placeholder="Entry Charge Adults" value="">			    		
+			    	</div>
+			    	
+			    	<div class="text-input-sm">
+			    		<input type="text" name="remarks" class="input" placeholder="Remarks" value="">			    		
 			    	</div>
 		    	</div>
 		    	
 		    	<div class="h-line">
+		    	
 			    	<div class="text-input-sm">
 			    		<input type="submit" class="btn btn-primary" value="save">			    		
 			    	</div>
+			    	
 		    	</div>
 		    </div>
 		   </div>

@@ -1,8 +1,9 @@
 $(document).ready(function(){
     $( ".current-status-div" ).click(function( event ) {
         var attr = event.currentTarget.id;
-        $( ".current-status-div" ).css( "height" , "30" );
+        $( ".current-status-div" ).css( "height" , "31" );
         $( "#"+attr ).css("height","540");
+        $( "#"+attr ).css("overflow-y", "auto");
       });
 });
 

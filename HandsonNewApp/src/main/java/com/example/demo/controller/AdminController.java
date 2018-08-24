@@ -25,12 +25,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.example.demo.dao.ChildDao;
+import com.example.demo.dao.EventDao;
 import com.example.demo.dao.MembershipDao;
 import com.example.demo.dao.SettingsDao;
 import com.example.demo.dao.UserDao;
 import com.example.demo.model.ChildInfo;
 import com.example.demo.model.ChildVisitDetails;
 import com.example.demo.model.ChildVisitTransaction;
+import com.example.demo.model.Events;
 import com.example.demo.model.Membership;
 import com.example.demo.model.SetHolidayCalendar;
 import com.example.demo.model.Settings;
@@ -38,6 +40,8 @@ import com.example.demo.utility.CreateBillXLS;
 import com.example.demo.utility.UtilityDao;
 import com.example.pojo.ListFilter;
 import com.example.pojo.ResposnseHolidaysBO;
+
+import antlr.debug.Event;
 
 @Controller
 @RequestMapping("/admin/")
@@ -57,6 +61,9 @@ public class AdminController {
 	
 	@Autowired
 	MembershipDao membershipDao;
+	
+	@Autowired
+	EventDao eventDao;
 
 	@RequestMapping("/login")
 	public String login(HttpSession session){
@@ -330,8 +337,9 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="save_membership",method=RequestMethod.POST)
-	public String saveMembership(Membership membership){
-
+	public String saveMembership(Membership membership, HttpSession session){
+		if(utilityDao.sessionExpired(session))return "redirect:/admin/login";
+		
 		membership.setStart_date(utilityDao.uiDateStringInDate(membership.getStartDateStr()));
 		membership.setEnd_date(utilityDao.uiDateStringInDate(membership.getEndDateStr()));
 		
@@ -366,31 +374,39 @@ public class AdminController {
 	
 	
 	@RequestMapping(value="/delete_membership")
-	public String deleteMembbership(@RequestParam("id")int memberId){
+	public String deleteMembbership(@RequestParam("id")int memberId, HttpSession session){
+		if(utilityDao.sessionExpired(session))return "redirect:/admin/login";
 		 membershipDao.deleteMembership(memberId);
 		return "redirect:membership_page";
 	}
 	
-	
+		
 	/*======================================Event=======================================================*/
 	
 	@RequestMapping(value="/event_form")
-	public String eventForm() {
+	public String eventForm(Events events,HttpSession session) {
+		if(utilityDao.sessionExpired(session))return "redirect:/admin/login";
 		return "event/viewEvent";
 	}
 	
+	@RequestMapping(value="add_event",method=RequestMethod.POST)
+	public String addEvent(Events events){
+		eventDao.addEvent(events);
+		return "redirect:/admin/event_form";
+	}
 	
 	/*====================================Settings====================================================*/
 	
 	@RequestMapping(value="/settingpage")
-	public String settingPage(Settings settings,Model model){
+	public String settingPage(Settings settings,Model model, HttpSession session){
+		if(utilityDao.sessionExpired(session))return "redirect:/admin/login";
 		model.addAttribute("settings", settingsDao.getSettings(1));
 		return "master/settings";
 	}
 	
 	@RequestMapping(value="/addsetting",method=RequestMethod.POST)
-	public String addSetting(Settings settings){
-		System.out.println(settings.toString());
+	public String addSetting(Settings settings, HttpSession session){
+		if(utilityDao.sessionExpired(session))return "redirect:/admin/login";
 		settingsDao.saveSettings(settings);
 		return "redirect:/admin/settingpage";
 	}
@@ -410,7 +426,7 @@ public class AdminController {
 	public List<ResposnseHolidaysBO> saveHoliday(@PathVariable("date")Date date){
 		int day = date.getDate();
 		int month = date.getMonth();
-		//System.err.println("date = "+date.getDate()+"  month = "+date.getMonth());
+		
 		if(settingsDao.isDateExist(day, month) == 0)
 			settingsDao.saveHoliday(new SetHolidayCalendar(day, month));
 		else
