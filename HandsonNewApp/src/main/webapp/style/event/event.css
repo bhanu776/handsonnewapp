@@ -1,0 +1,16 @@
+thead {
+	background: #efefef;
+}
+table {
+  width: 100%;
+  border-spacing:0;
+  margin:0;
+  
+}
+table th , table td  {
+  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+}
+.table>thead:first-child>tr:first-child>th{
+	height: 10px;
+}
