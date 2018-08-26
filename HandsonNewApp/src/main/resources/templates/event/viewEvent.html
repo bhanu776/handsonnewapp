@@ -4,13 +4,14 @@
 
 <title>Event</title>
 
-<link rel="stylesheet" th:href="@{/style/master/style.css}">
 <link rel="stylesheet" th:href="@{/style/master/bootstrap.min.css}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" th:href="@{/style/master/style.css}">
 
 
 <script type="text/javascript" th:src="@{/script/angular-1.6.10/angular.min.js}"></script>
+<script type="text/javascript" th:src="@{/script/master/paging.js}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.js"></script>
 <script type="text/javascript" th:src="@{/script/master/jquery-3.3.1.js}" ></script>
 <script type="text/javascript" th:src="@{/script/master/jquery.min.js}" ></script>
@@ -19,9 +20,13 @@
 <script type="text/javascript" th:src="@{/script/master/bootstrap.min.js}" ></script>
 <script type="text/javascript" th:src="@{/script/master/script.js}" ></script>
 <script type="text/javascript" th:src="@{/script/event/event.js}" ></script>
-
+<style type="text/css">
+th.header {
+    width: 10%;
+}
+</style>
 </head>
-<body>
+<body ng-app="evenApp" ng-controller="eventCotroller">
 	<div th:replace="/fragments/header :: header">&nbsp;</div>
 	<div th:replace="/fragments/menu :: menu">&nbsp;</div>
 	
@@ -34,34 +39,35 @@
 			</div>
 		</div>
 		
-		<!-- <form action="">
+		<form action="">
 			<div id="scrollable-area">
 				<table ng-table="tableParams" class="table table-condensed table-bordered table-striped" fixed-table-headers="scrollable-area">
-				       <tr ng-repeat="member in $data">
-				      <td data-title="'Select'"><input type="radio" ng-click="setMemberId(member.id)" ng-value="member.id" name="id" required="required"></td>
-				      <td data-title="'Id'" sortable="'member.id'">{{member.id}}</td>
-				      <td data-title="'Image'" sortable="'member.child_id'">{{member.child_id}}</td>
-				      <td data-title="'Child_Name'" sortable="'member.child_name'">{{member.child_name}}</td>
-				      <td data-title="'Start_Date'" sortable="'member.start_date'">{{member.start_date | date : format : shortDate}}</td>
-				      <td data-title="'End_Date'" sortable="'member.end_date'">{{member.end_date | date : format : shortDate}}</td>
-				      <td data-title="'Time_Left'" sortable="'member.hours'">{{(member.rest_time/60)+':'+(member.rest_time%60)}}</td>
-				      <td data-title="'Updated_Date'" sortable="'member.updatedDate'">{{member.updatedDate | date : format : shortDate}}</td>
+				       <tr ng-repeat="event in $data">
+				      <td data-title="'Select'"><input type="radio" ng-click="setMemberId(event.id)" ng-value="event.id" name="id" required="required"></td>
+				      <td data-title="'Id'" sortable="'event.id'">{{event.id}}</td>
+				      <td data-title="'Child Name'" sortable="'event.child_name'">{{event.child_name}}</td>
+				      <td data-title="'Date'" sortable="'event.date'">{{event.date | date : format : shortDate}}</td>
+				      <td data-title="'Child Name'" sortable="'event.child_name'">{{event.child_name}}</td>
+				      <td data-title="'Deposit'" sortable="'event.deposit'">{{event.deposit}}</td>
+				      <td data-title="'No Of Adults'" sortable="'event.no_of_adults'">{{event.no_of_adults}}</td>
+				      <td data-title="'No Of Children'" sortable="'event.no_of_children'">{{event.no_of_children}}</td>
+				      <td data-title="'Mobile'" sortable="'event.phone'">{{event.phone}}</td>
+				      <td data-title="'Location'" sortable="'event.location'">{{event.location}}</td>
+				      <td data-title="'Theme'" sortable="'event.theme'">{{event.theme}}</td>
 				    </tr>
 				  </table>
 			</div>
 			<div class="common-footer" style="height: 50px;">
-				<div class="inline-button"><a ng-click="getMemberDetail()" class="btn btn-primary update-child">Update</a></div>
+				<div class="inline-button"><a ng-click="" class="btn btn-primary update-child">Update</a></div>
 				<div class="inline-button"><button th:formaction="@{/admin/delete_membership}" class="btn btn-primary">Delete</button></div>
 				<div class="inline-button"><a href="" class="btn btn-primary">User Info</a></div>
 			</div>
-			</form> -->
+			</form>
 				    	
 	</div>
 	
 	<div class="floating-form-div">
-	<form th:action="@{/admin/}" th:object="${events}" method="post">
-	<input type="hidden" name="id" value="{{memberDetails.id}}">
-	<input type="hidden" name="child_id" value=""> 
+	<form th:action="@{/admin/event/add}" th:object="${events}" method="post">
 	    <div class="detail-div">
 	    	<div style="width: 100%;">
 	    		<div class="h-line" style="border-bottom: 2px groove;">
@@ -76,7 +82,7 @@
 			    		<input type="text" name="phone" class="input" placeholder="Mobile" value="">			    		
 			    	</div>
 			    	<div class="text-input-sm">
-			    		<input type="text" name="phone2" class="input" placeholder="End Date" value="">			    		
+			    		<input type="text" name="phone2" class="input" placeholder="Alternate Mobile" value="">			    		
 			    	</div>
 			    	<div class=text-input-sm>
 			    		<input type="text"name="theme" class="input" placeholder="Theme" value="">			    		

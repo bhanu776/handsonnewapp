@@ -41,8 +41,6 @@ import com.example.demo.utility.UtilityDao;
 import com.example.pojo.ListFilter;
 import com.example.pojo.ResposnseHolidaysBO;
 
-import antlr.debug.Event;
-
 @Controller
 @RequestMapping("/admin/")
 public class AdminController {
@@ -383,17 +381,36 @@ public class AdminController {
 		
 	/*======================================Event=======================================================*/
 	
-	@RequestMapping(value="/event_form")
+	@RequestMapping(value="/event/form")
 	public String eventForm(Events events,HttpSession session) {
 		if(utilityDao.sessionExpired(session))return "redirect:/admin/login";
-		return "event/viewEvent";
+		return "/event/viewEvent";
 	}
 	
-	@RequestMapping(value="add_event",method=RequestMethod.POST)
+	@RequestMapping(value="/event/add",method=RequestMethod.POST)
 	public String addEvent(Events events){
 		eventDao.addEvent(events);
-		return "redirect:/admin/event_form";
+		return "redirect:/admin/event/form";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/event/list")
+	public List<Events> getEveentLisi(){
+		return eventDao.getEventList();
+	}
+	
+	@RequestMapping(value="/event/delete/{eventId}")
+	public boolean deleteEvent(@PathVariable("eventId")int eventId){
+		eventDao.deleteEvent(eventId);
+		return true;
+	}
+	
+	@RequestMapping(value="/event/get/{eventId}")
+	public Events getEvent(@PathVariable("eventId")int eventId){
+		return eventDao.getEvent(eventId);
+	}
+	
+	
 	
 	/*====================================Settings====================================================*/
 	
