@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -36,6 +37,7 @@ import com.example.demo.model.Events;
 import com.example.demo.model.Membership;
 import com.example.demo.model.SetHolidayCalendar;
 import com.example.demo.model.Settings;
+import com.example.demo.support.ChildSupportMethods;
 import com.example.demo.utility.CreateBillXLS;
 import com.example.demo.utility.UtilityDao;
 import com.example.pojo.ListFilter;
@@ -62,6 +64,9 @@ public class AdminController {
 	
 	@Autowired
 	EventDao eventDao;
+	
+	@Autowired
+	ChildSupportMethods childSupportMethods;
 
 	@RequestMapping("/login")
 	public String login(HttpSession session){
@@ -166,20 +171,27 @@ public class AdminController {
 	}
 	
 	/*=======================================Child Add Update Delete Operations=================================*/
-	
-	@RequestMapping(value="/addsiblingpage")
-	public String addSiblingPage(ChildInfo childInfo) {
-		return "";
-	}
-	
-	
+		
 	@RequestMapping(value="/addsiblingaction",method=RequestMethod.POST)
-	public String addSiblingAction(ChildInfo childInfo) {
-		return "";
+	public String addSiblingAction(ChildInfo childInfo) throws GeneralSecurityException {
+		Optional<ChildInfo> sibling = childDao.getChildInfo(childInfo.getSibling());
+		
+		if(!sibling.isPresent())
+			throw new GeneralSecurityException("Incorrect child id");
+			
+		childSupportMethods.prepareSiblingPojo(childInfo,sibling.get());
+		
+		childDao.addChild(childInfo);
+		
+		sibling.get().setStatus(1);
+		childDao.addChild(sibling.get());
+			
+		return "redirect:childview";
 	}
 	
 	@RequestMapping(value="/updatesibling")
 	public String updateSibblingg(@RequestParam("id")Integer id){
+		
 		return "";
 	}
 	
@@ -399,12 +411,13 @@ public class AdminController {
 		return eventDao.getEventList();
 	}
 	
-	@RequestMapping(value="/event/delete/{eventId}")
-	public boolean deleteEvent(@PathVariable("eventId")int eventId){
+	@RequestMapping(value="/event/delete")
+	public String deleteEvent(@RequestParam("eventId")int eventId){
 		eventDao.deleteEvent(eventId);
-		return true;
+		return "redirect:/admin/event/form";
 	}
 	
+	@ResponseBody
 	@RequestMapping(value="/event/get/{eventId}")
 	public Events getEvent(@PathVariable("eventId")int eventId){
 		return eventDao.getEvent(eventId);

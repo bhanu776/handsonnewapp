@@ -26,6 +26,7 @@ childApp.controller('childController',function($scope,$http,NgTableParams){
 
 	$scope.setChildId = function(id){
 		childId = id;
+		$scope.selectedChildId = id;
 	}
 	
     $scope.tableParams = new NgTableParams({count:20}, {counts: [],
@@ -198,6 +199,15 @@ membership.controller("membershipController",function($scope,$http,NgTableParams
 /* ===============================search child jq code here ==================================== */
 
 $(document).ready(function(){
+
+	$(".add-sibling-form, .update-sibling").on('click',function(){
+		$(".floating-form-div2").show("scale",300);
+	})
+	
+	$(".close-floating-div2").on('click',function(){
+		$(".floating-form-div2").hide("scale",300);
+	})
+
 
 	$( "#search-child" ).autocomplete({
     	autoFocus:true,
