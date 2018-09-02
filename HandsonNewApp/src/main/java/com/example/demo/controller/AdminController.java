@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.example.demo.dao.ChildDao;
 import com.example.demo.dao.EventDao;
 import com.example.demo.dao.MembershipDao;
+import com.example.demo.dao.ReportDao;
 import com.example.demo.dao.SettingsDao;
 import com.example.demo.dao.UserDao;
 import com.example.demo.model.ChildInfo;
@@ -67,6 +68,9 @@ public class AdminController {
 	
 	@Autowired
 	ChildSupportMethods childSupportMethods;
+	
+	@Autowired
+	ReportDao reportDao;
 
 	@RequestMapping("/login")
 	public String login(HttpSession session){
@@ -479,6 +483,21 @@ public class AdminController {
 			response.add(new ResposnseHolidaysBO(holiday.getDay(), holiday.getMonth(),utilityDao.currentYear(new Date())));
 		});
 		return response;
+	}
+	
+	
+	/*====================================================== Repors API ===============================================================*/
+	
+	@RequestMapping(value="/report/child_visit_report", method=RequestMethod.GET)
+	public String reportPage(){
+		
+		return "/reports/childVisitReport";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/report/child_visit_report/get", method=RequestMethod.GET)
+	public List<ChildVisitDetails> getChildVisitReport(){
+		return reportDao.getChildVisitReport();
 	}
 	
 	

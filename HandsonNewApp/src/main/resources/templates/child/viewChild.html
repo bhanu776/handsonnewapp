@@ -4,26 +4,20 @@
 <link rel="stylesheet" th:href="@{/style/master/style.css}">
 <link rel="stylesheet" th:href="@{/style/master/bootstrap.min.css}">
 <link rel="stylesheet" th:href="@{/style/child/child.css}">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.css">
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 
-<script type="text/javascript"
-	th:src="@{/script/angular-1.6.10/angular.min.js}"></script>
+<script type="text/javascript" th:src="@{/script/angular-1.6.10/angular.min.js}"></script>
 <script type="text/javascript" th:src="@{/script/master/paging.js}"></script>
 
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.js"></script>
 
-<script type="text/javascript"
-	th:src="@{/script/master/jquery-3.3.1.js}"></script>
+<script type="text/javascript" th:src="@{/script/master/jquery-3.3.1.js}"></script>
 <script type="text/javascript" th:src="@{/script/master/jquery.min.js}"></script>
 <script type="text/javascript" th:src="@{/script/master/jquery-ui.js}"></script>
 
-<script type="text/javascript"
-	th:src="@{/script/master/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/script/master/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/script/master/script.js}"></script>
 <script type="text/javascript" th:src="@{/script/child/child.js}"></script>
 
@@ -82,6 +76,7 @@ ul.pagination {
 						<td data-title="'Blood_Group'" sortable="'child.blood_group'">{{child.blood_group}}</td>
 						<td data-title="'Age'" sortable="'child.age'">{{child.age}}</td>
 						<td data-title="'Email'" sortable="'child.email'">{{child.email}}</td>
+						<td data-title="'Sibling'"><a ng-if="child.status == 1">show..</a></td>
 					</tr>
 				</table>
 
@@ -402,7 +397,7 @@ ul.pagination {
 			<div class="detail-div">
 				<div style="float: left; width: 70%;">
 					<div class="h-line">
-						<label>Child Details</label>
+						<label>Sibling Details</label>
 					</div>
 					<div class="h-line">
 						<div class=text-input-md>
