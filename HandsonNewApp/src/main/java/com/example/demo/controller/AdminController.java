@@ -303,7 +303,7 @@ public class AdminController {
 			
 			while(diffInMin>60) {
 				
-				if(utilityDao.isWeekend())
+				if(utilityDao.isWeekend() || settingsDao.isHoliday())
 					total = total + settings.getWeekend_secondhr_cost();
 				else
 					total = total + settings.getWeekday_secondhr_cost();

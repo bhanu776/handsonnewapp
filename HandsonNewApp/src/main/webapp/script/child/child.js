@@ -133,6 +133,7 @@ childApp.controller('childController', function ($scope, $http, NgTableParams) {
 
 var advanceAmount = angular.module("advanceAmount", []);
 advanceAmount.controller('advanceAmountController', function ($scope, $http) {
+	
 	$http({
 		method: "GET",
 		url: "/admin/getsettings"
