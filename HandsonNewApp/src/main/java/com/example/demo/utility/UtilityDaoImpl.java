@@ -2,6 +2,8 @@ package com.example.demo.utility;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -21,7 +23,7 @@ public class UtilityDaoImpl implements UtilityDao{
 		 Calendar calendar = Calendar.getInstance();
 	        calendar.setTime(new Date());
 	        day = calendar.get(Calendar.DAY_OF_WEEK);
-	        if(day==6|| day==7 || day==1);
+	        if(day==6|| day==7 || day==1)
 	        	isWeekend = true;
 		return isWeekend;
 	}
@@ -87,6 +89,20 @@ public class UtilityDaoImpl implements UtilityDao{
 	public int currentYear(Date date) {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy");
 		return Integer.parseInt(df.format(date));
+	}
+
+	@Override
+	public Map<String, Integer> getDayMonthYear() {
+		Map<String, Integer> dateMap = new HashMap<>();
+		
+		Date date = new Date();
+		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		
+		dateMap.put("year", localDate.getYear());
+		dateMap.put("month", localDate.getMonthValue());
+		dateMap.put("day", localDate.getDayOfMonth());
+		
+		return dateMap;
 	}
 	
 	

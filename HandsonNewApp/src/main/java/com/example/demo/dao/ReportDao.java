@@ -9,6 +9,7 @@ import com.example.demo.model.ChildVisitDetails;
 import com.example.demo.model.ChildVisitTransaction;
 import com.example.demo.repository.ChildVisitDetailRepository;
 import com.example.demo.repository.ChildVisitTransactionRepository;
+import com.example.pojo.ReportFilter;
 
 @Service
 public class ReportDao {
@@ -23,7 +24,13 @@ public class ReportDao {
 		return (List<ChildVisitTransaction>) chTransactionRepository.findAll();
 	}
 	
-	public List<ChildVisitDetails> getChildVisitReport(){
-		return (List<ChildVisitDetails>) chDetailRepository.findAll();
+	public List<ChildVisitDetails> getChildVisitReport(ReportFilter reportFilter){
+		
+		return chDetailRepository.filterdChildVisitDetails(reportFilter.getFromDate(), reportFilter.getToDate());
+	}
+	
+	public List<ChildVisitTransaction> getChildVisitTransactionReport(ReportFilter reportFilter){
+		
+		return chTransactionRepository.filterdChildTransactionDetails(reportFilter.getFromDate(), reportFilter.getToDate());
 	}
 }

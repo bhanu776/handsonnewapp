@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -25,6 +27,7 @@ public class ChildVisitTransaction {
 	private Float miscellaneous_cost = 0.0f;
 	private String comment;
 	private String date;
+	private Date update_date;
 	
 	public Integer getId() {
 		return id;
@@ -122,6 +125,13 @@ public class ChildVisitTransaction {
 	public void setExtra_socks(Float extra_socks) {
 		this.extra_socks = extra_socks;
 	}
+	public Date getUpdate_date() {
+		return update_date;
+	}
+	public void setUpdate_date(Date update_date) {
+		this.update_date = update_date;
+	}
+	
 	@Override
 	public String toString() {
 		return "ChildVisitTransaction [id=" + id + ", child_visit_id=" + child_visit_id + ", child_id=" + child_id

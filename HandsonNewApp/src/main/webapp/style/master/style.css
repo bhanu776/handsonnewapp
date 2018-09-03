@@ -36,7 +36,7 @@ a,a:hover,a:active,a:focus{
 	font-weight: bold;
 }
 
-.menu-li{
+.menu-li,.sub-menu-li{
 	margin-top: 5px;
 	height:30px;
 	color: white;
@@ -47,6 +47,15 @@ a,a:hover,a:active,a:focus{
 
 .menu-li:hover{
 	background-color: blue;
+}
+
+.sub-menu-li{
+	text-align: right;
+	color: thistle;
+}
+
+.sub-menu-li:hover{
+	background-color: blueviolet;
 }
 
 .menu-slide-button{
@@ -62,6 +71,15 @@ a,a:hover,a:active,a:focus{
 	z-index: 1;
 	background: black;
 }
+
+.report-list{
+	float: right;
+	width: 80%;
+	display: none;
+	margin-top: 20px;
+  }
+
+  /* ================================================================================== */
 
 .main-container{
 	margin-left: 2.5%;
@@ -214,4 +232,6 @@ a,a:hover,a:active,a:focus{
 	width: 90%;
 	height: 35px;
   }
+
+  
 

@@ -42,6 +42,7 @@ import com.example.demo.support.ChildSupportMethods;
 import com.example.demo.utility.CreateBillXLS;
 import com.example.demo.utility.UtilityDao;
 import com.example.pojo.ListFilter;
+import com.example.pojo.ReportFilter;
 import com.example.pojo.ResposnseHolidaysBO;
 
 @Controller
@@ -102,6 +103,7 @@ public class AdminController {
 	
 	@RequestMapping(value="/childview")
 	public String viewChild(HttpSession session){
+		
 		if(utilityDao.sessionExpired(session))
 			return "redirect:/admin/login";
 		
@@ -110,14 +112,16 @@ public class AdminController {
 	
 	@RequestMapping(value="/addchildpage")
 	public String addChildPage(ChildInfo childInfo,HttpSession session){
+		
 		if(utilityDao.sessionExpired(session))
 			return "redirect:/admin/login";
 		
 		return "child/addChild";
 	}
 	
-	@RequestMapping(value="/addchildaction",method=RequestMethod.POST)
-	public String addChildAction(ChildInfo childInfo,HttpSession session){
+	@RequestMapping(value="/addchildaction", method=RequestMethod.POST)
+	public String addChildAction(ChildInfo childInfo, HttpSession session){
+		
 		if(utilityDao.sessionExpired(session))
 			return "redirect:/admin/login";
 		
@@ -223,9 +227,10 @@ public class AdminController {
 		if(childDao.getChildVisitDetails(cardId)!=null){
 			return "redirect:scancardforchildcheckin?childId="+childId;
 		}
+		
 		Optional<ChildInfo> childInfo = childDao.getChildInfo(childId);
 		boolean isExist = membershipDao.isExist(childInfo.get().getId());
-				
+						
 		model.addAttribute("childDetail", childInfo.get());
 		model.addAttribute("isMember", String.valueOf(isExist));
 		model.addAttribute("cardId", cardId);
@@ -280,6 +285,7 @@ public class AdminController {
 		childVisitDetails.setStatus(1);
 		childVisitTransaction.setChild_name(childVisitDetails.getChild_name());
 		childVisitTransaction.setDate(utilityDao.javaDateToUiDate(new Date()));
+		childVisitTransaction.setUpdate_date(new Date());
 		
 		float total = 0.0f;
 		total = childVisitTransaction.getPlayzone_cost()+childVisitTransaction.getLibrary_cost();
@@ -332,6 +338,13 @@ public class AdminController {
 		
 		childDao.saveChildVisitDetail(childVisitDetails);
 		return "redirect:/admin/dashboard";
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="is_holiday_from_cal", method=RequestMethod.GET)
+	public boolean isHolidayForomCal(){
+		return settingsDao.isHoliday();
 	}
 	
 	/*====================================Child visit details===========================================*/
@@ -489,15 +502,25 @@ public class AdminController {
 	/*====================================================== Repors API ===============================================================*/
 	
 	@RequestMapping(value="/report/child_visit_report", method=RequestMethod.GET)
-	public String reportPage(){
-		
+	public String childVisitReportPage(){
 		return "/reports/childVisitReport";
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/report/child_visit_report/get", method=RequestMethod.GET)
-	public List<ChildVisitDetails> getChildVisitReport(){
-		return reportDao.getChildVisitReport();
+	@RequestMapping(value="/report/child_visit_report/get", method=RequestMethod.POST)
+	public List<ChildVisitDetails> getChildVisitFilterdReport(@RequestBody ReportFilter reportFilter){
+		return reportDao.getChildVisitReport(reportFilter);
+	}
+	
+	@RequestMapping(value="/report/visit_transaction_report", method=RequestMethod.GET)
+	public String visitTransactionReportPage(){
+		return "/reports/childTranactionReport";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/report/child_transaction_report/get", method=RequestMethod.POST)
+	public List<ChildVisitTransaction> getChildVisitTransactionReport(@RequestBody ReportFilter reportFilter){
+		return reportDao.getChildVisitTransactionReport(reportFilter);
 	}
 	
 	

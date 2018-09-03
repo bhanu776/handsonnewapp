@@ -47,7 +47,20 @@ th.header {
 			<div style="float: left;">
 				<label class="header-label">Report</label>
 			</div>
-
+			
+			<div style="float: right;">
+				<label><input type="submit" value="Apply" ng-click="applyDateFilter()"></label>
+			</div>
+			
+			<div style="float: right; margin-right: 5%;">
+				<label>To_Date</label>
+				<label><input type="date" name="to_date" ng-model="toDate"></label>
+			</div>
+			
+			<div style="float: right;">
+				<label>From_Date</label>
+				<label><input type="date" name="from_date" ng-model="fromDate"></label>
+			</div>
 
 		</div>
 		<form action="">
@@ -63,8 +76,6 @@ th.header {
 							required="required"></td>
 
 						<td data-title="'Id'" sortable="'childVisitReport.id'">{{childVisitReport.id}}</td>
-						
-						<td data-title="'Image'" sortable="'id'"></td>
 						
 						<td data-title="'Child_Name'"
 							sortable="'childVisitReport.child_name'">{{childVisitReport.child_name}}</td>

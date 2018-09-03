@@ -50,7 +50,7 @@
 				</div>
 			</div>
 			<div th:unless="${isMember}">
-			<div class="h-line" ng-if="settings.isWeekend">
+			<div class="h-line" ng-if="settings.isWeekend || isHoliday">
 				<div class="text-input-sm">
 					<label>Play Zone Cost ({{settings.settings.playzone_cost_weekend}})</label> 
 					<input type="checkbox" name="playzone_cost" id="playzone" value="{{settings.settings.playzone_cost_weekend}}">
@@ -69,7 +69,7 @@
 				</div>
 			</div>
 			
-			<div class="h-line" ng-if="!settings.isWeekend">
+			<div class="h-line" ng-if="!(settings.isWeekend || isHoliday)">
 				<div class="text-input-sm">
 					<label>Play Zone Cost ({{settings.settings.playzone_cost}})</label> 
 					<input type="checkbox" name="playzone" id="playzone" value="{{settings.settings.playzone_cost}}">

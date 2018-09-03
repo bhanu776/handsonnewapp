@@ -137,11 +137,21 @@ advanceAmount.controller('advanceAmountController', function ($scope, $http) {
 		method: "GET",
 		url: "/admin/getsettings"
 	}).then(function mySuccess(response) {
-		console.log(response);
 		$scope.settings = response.data;
 	}, function myError(response) {
 		$scope.error = response.statusText;
 	});
+
+
+	$http({
+		method: "GET",
+		url: "/admin/is_holiday_from_cal"
+	}).then(function mySuccess(response) {
+		$scope.isHoliday = response.data;
+	}, function myError(response) {
+		$scope.error = response.statusText;
+	});
+
 });
 
 

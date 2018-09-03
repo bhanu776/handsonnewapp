@@ -14,4 +14,5 @@ public interface UtilityDao {
 	public Date uiDateStringInDate(String date);
 	public String javaDateToUiDate(Date jDate);
 	public int currentYear(Date date);
+	public Map<String,Integer> getDayMonthYear();
 }

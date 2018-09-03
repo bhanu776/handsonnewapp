@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.example.demo.model.SetHolidayCalendar;
 import com.example.demo.model.Settings;
 import com.example.demo.repository.CalendarHolidayRepository;
 import com.example.demo.repository.SettingsRepository;
+import com.example.demo.utility.UtilityDao;
 
 @Service
 public class SettingsDao {
@@ -20,6 +22,9 @@ public class SettingsDao {
 	
 	@Autowired
 	CalendarHolidayRepository calendarHolidayRepository;
+	
+	@Autowired
+	UtilityDao utilityDao;
 	
 	public Settings saveSettings(Settings settings){
 		return settingsRepository.save(settings);
@@ -54,6 +59,16 @@ public class SettingsDao {
 	
 	public void deleteHoliday(int id){
 		calendarHolidayRepository.deleteById(id);
+	}
+	
+	public boolean isHoliday(){
+		Map<String, Integer> dateMap = utilityDao.getDayMonthYear();
+		List<SetHolidayCalendar> setHolidayCalendars = calendarHolidayRepository.getHolidayAccDate(dateMap.get("day"), dateMap.get("month"));
+		
+		if(!setHolidayCalendars.isEmpty())
+			return true;
+		else
+			return false;
 	}
 	
 }
