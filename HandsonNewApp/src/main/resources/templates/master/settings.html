@@ -8,9 +8,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
+<link rel="stylesheet" th:href="@{/style/master/bootstrap.css}"/>
+<link rel="stylesheet" th:href="@{/style/master/calendar.css}"/>
+
+<script th:src="@{/script/angular-1.6.10/angular.js}"></script>
+<script th:src="@{/script/master/calendar-tpls.min.js}"></script>	
 	
-	<!-- 
-<script type="text/javascript" th:src="@{/script/angular-1.6.10/angular.js}"></script> -->
+<script type="text/javascript" th:src="@{/script/angular-1.6.10/angular.js}"></script>
 <script type="text/javascript" th:src="@{/script/angular-1.6.10/angular.min.js}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.js"></script>
@@ -25,8 +29,13 @@
 <!-- <script type="text/javascript" th:src="@{/script/master/jquery.stickytableheaders.js}"></script> -->
 <style type="text/css">
 .h-line{
+text-align:left;
 border-bottom: 2px groove;
 }
+.main-container.ng-scope {
+    overflow: hidden;
+}
+
 </style>
 </head>
 <body ng-app="settingApp">
@@ -34,25 +43,26 @@ border-bottom: 2px groove;
 	<div th:replace="/fragments/menu :: menu">&nbsp;</div>
 	
 	<div class="main-container" ng-controller="settingController">
-		<div class="small-header">
+		<div class="small-header" style="height: 30px;">
 			<div style="float: left;"><label class="header-label">Price Details</label></div>
-		</div>
+		</div><br>
 		<form action="" th:action="@{/admin/addsetting}" th:object="${settings}" method="post"> 
-		<div class="detail-div" style="width: 100%;"> 
+		
+		<div class="detail-div"> 
 		
 			<div class="h-line" style="height: 70px;">
 				<div class="text-input-sm">
 					<label>Library Cost</label><br> <input type="text" name="library_cost" th:value="${settings.library_cost}">
 				</div>
 				<div class="text-input-sm">
-					<label>Library Weekend Cost</label> <input type="text" name="library_cost_weekend" th:value="${settings.library_cost_weekend}">
-				</div>
-			<!-- 	<div class="text-input-sm">
-					<label>Library Second Hr. Cost</label> <input type="text" name="">
+					<label>Library Weekend Cost</label><br> <input type="text" name="library_cost_weekend" th:value="${settings.library_cost_weekend}">
 				</div>
 				<div class="text-input-sm">
-					<label>Library Weekend Second Hr. Cost</label> <input type="text" name="">
-				</div> -->
+					<label>Socks</label><br> <input type="number" name="socks" th:value="${settings.socks}">
+				</div>
+				<div class="text-input-sm">
+					<label>Phone</label><br> <input type="text" name="phone" th:value="${settings.phone}">
+				</div>
 			</div>
 			
 			<div class="h-line" style="height: 70px;">
@@ -101,16 +111,18 @@ border-bottom: 2px groove;
 					<label>Grace Time</label><br> <input type="text" name="grace_time" th:value="${settings.grace_time}">
 				</div>
 				<div class="text-input-sm">
-					<label>Phone</label><br> <input type="text" name="phone" th:value="${settings.phone}">
+					<br><input type="submit" value="Save">
 				</div>
 			</div>
 		</div>
 		
-		<div class="detail-div"> 
-			<div class="h-line" style="height: 70px;">
-				<div class="text-input-sm">
-					<input type="submit" value="Save">
-				</div>
+		<div style="">
+			<div class="h-line" style="">
+				<calendar 
+					calendar-mode="mode" 
+					event-source="eventSource"
+					showEventDetail="true"
+					time-selected="onTimeSelected(selectedTime, events)">
 			</div>
 		</div>
 		</form>

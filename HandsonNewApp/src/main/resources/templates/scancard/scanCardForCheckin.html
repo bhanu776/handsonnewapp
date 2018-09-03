@@ -2,12 +2,72 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Check In</title>
+<script type="text/javascript" th:src="@{/script/master/jquery-3.3.1.js}"></script>
+<style type="text/css">
+	input[name=card_id]{
+		width: 1px;
+	}
+	
+	.cancle-image{
+	float: right;
+	margin-right: 10px;
+	margin-top: 10px;
+	}
+	
+	.placecard{
+		width: 40%;
+		height: 200px;
+		margin-left: 30%;
+		margin-top: 150px;
+		border: 2px groove #b3d1ff;
+		border-radius:10px;
+		box-shadow: 10px 10px 5px #888888;
+		text-shadow: 2px 2px 4px #000000;
+	}
+	.blink_me{
+	margin-left: 30%;
+	}
+	.msg{
+		margin-left: 35%;
+		margin-top: 30px;
+		width:30%;
+		height: 60px;
+		text-align:center;
+		text-shadow: 7px 10px 6px #006600;
+	}
+</style>
 </head>
 <body>
-	<form action="" th:action="@{/admin/addadvanceamountpage}" method="post">
-		<input type="hidden" name="childId" th:value="${childId}">
-		<input type="text" name="cardId"  autofocus="autofocus">
-		
-	</form>
+	<div>
+		<form action="" th:action="@{/admin/addadvanceamountpage}" method="post">
+			<input type="hidden" name="childId" th:value="${childId}">
+			<table>
+				<tr>
+					<td><input type="text" name="cardId" id="cardId" autofocus="autofocus" autocomplete="off"/></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div>
+	<div class="placecard">
+		<div style="margin-top: 50px;">
+			<a style="margin-top: 20px;"><font size="20" color="blue" class="blink_me">Place Card</font></a>
+		</div>
+	</div>
+	<div class="msg"><font size="10" color="red"><i th:text="${message}"></i></font></div>
+	</div>
+	
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(this).click(function(){
+				$('#cardId').focus();
+			});
+		});
+		$(".msg").fadeOut(2000);
+		(function blink() { 
+			  $('.blink_me').fadeOut(300).fadeIn(300, blink); 
+			})();
+	</script> 
 </body>
 </html>

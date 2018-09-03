@@ -39,7 +39,18 @@
 		<input type="hidden" name="child_id" th:value="${childDetail.id}">
 		<input type="hidden" name="child_name" th:value="${childDetail.firstname+' '+childDetail.lastname}">
 		<div class="detail-div">
-			<div class="h-line" ng-if="settings.isWeekend">
+			<div class="h-line" th:if="${isMember}">
+				<div class="text-input-sm">
+					<label>Play Zone Cost ({{settings.settings.membership_cost_playzone}})</label> 
+					<input type="checkbox" name="playzone_cost" id="playzone" value="{{settings.settings.membership_cost_playzone}}">
+				</div>
+				<div class="text-input-sm">
+					<label>Library Cost ({{settings.settings.membership_cost_library}})</label> 
+					<input type="checkbox" name="library_cost" id="library" value="{{settings.settings.membership_cost_library}}">
+				</div>
+			</div>
+			<div th:unless="${isMember}">
+			<div class="h-line" ng-if="settings.isWeekend || isHoliday">
 				<div class="text-input-sm">
 					<label>Play Zone Cost ({{settings.settings.playzone_cost_weekend}})</label> 
 					<input type="checkbox" name="playzone_cost" id="playzone" value="{{settings.settings.playzone_cost_weekend}}">
@@ -58,7 +69,7 @@
 				</div>
 			</div>
 			
-			<div class="h-line" ng-if="!settings.isWeekend">
+			<div class="h-line" ng-if="!(settings.isWeekend || isHoliday)">
 				<div class="text-input-sm">
 					<label>Play Zone Cost ({{settings.settings.playzone_cost}})</label> 
 					<input type="checkbox" name="playzone" id="playzone" value="{{settings.settings.playzone_cost}}">
@@ -76,6 +87,8 @@
 					<input type="checkbox" name="visitor" id="visitor" value="{{settings.settings.special_cost}}">
 				</div>			
 			</div>
+			</div>
+			
 			<div class="h-line">
 				<div class="text-input-sm">
 					<label>Discount ({{settings.settings.discount}})</label> 
@@ -83,8 +96,12 @@
 				</div>	
 				<div class="text-input-sm">
 					<label>Advance Amount</label> 
-					<input type="text" name="advance_amount" id="advance-amount">
-				</div>				
+					<input type="number" name="advance_amount" id="advance-amount">
+				</div>	
+				<div class="text-input-sm">
+					<label>Socks</label>
+					<input type="number" name="socks_pair_no" id="socks">
+				</div>			
 				<div class="text-input-sm">
 					<input type="submit">
 				</div>

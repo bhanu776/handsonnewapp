@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<link rel="stylesheet" th:href="@{/style/master/style.css}">
+<link rel="stylesheet" th:href="@{/style/master/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/style/report/report.css}">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.css">
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+
+<script type="text/javascript"
+	th:src="@{/script/angular-1.6.10/angular.min.js}"></script>
+<script type="text/javascript" th:src="@{/script/master/paging.js}"></script>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.js"></script>
+
+<script type="text/javascript"
+	th:src="@{/script/master/jquery-3.3.1.js}"></script>
+<script type="text/javascript" th:src="@{/script/master/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/script/master/jquery-ui.js}"></script>
+
+<script type="text/javascript"
+	th:src="@{/script/master/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/script/master/script.js}"></script>
+<script type="text/javascript" th:src="@{/script/report/report.js}"></script>
+
+<style>
+th.header {
+    width: 10%;
+}
+</style>
+
+<title>Report</title>
+
+</head>
+<body ng-app="childVisitReport"
+	ng-controller="childVisitReportController">
+	<div th:replace="/fragments/header :: header">&nbsp;</div>
+	<div th:replace="/fragments/menu :: menu">&nbsp;</div>
+
+	<div class="main-container" ng-init="init()">
+		<div class="small-header">
+			<div style="float: left;">
+				<label class="header-label">Report</label>
+			</div>
+			
+			<div style="float: right;">
+				<label><input type="submit" value="Apply" ng-click="applyDateFilter()"></label>
+			</div>
+			
+			<div style="float: right; margin-right: 5%;">
+				<label>To_Date</label>
+				<label><input type="date" name="to_date" ng-model="toDate"></label>
+			</div>
+			
+			<div style="float: right;">
+				<label>From_Date</label>
+				<label><input type="date" name="from_date" ng-model="fromDate"></label>
+			</div>
+
+		</div>
+		<form action="">
+			<div id="scrollable-area">
+				<table ng-table="tableParams"
+					class="table table-condensed table-bordered table-striped"
+					fixed-table-headers="scrollable-area">
+
+					<tr ng-repeat="childVisitReport in $data">
+
+						<td data-title="'Select'"><input type="radio" ng-click=""
+							ng-value="childVisitReport.id" name="childVisitId"
+							required="required"></td>
+
+						<td data-title="'Id'" sortable="'childVisitReport.id'">{{childVisitReport.id}}</td>
+						
+						<td data-title="'Child_Name'"
+							sortable="'childVisitReport.child_name'">{{childVisitReport.child_name}}</td>
+							
+						<td data-title="'Check_In_Date'"
+							sortable="'childVisitReport.start_date'">{{childVisitReport.start_date
+							| date : format : shortDate}}</td>
+							
+						<td data-title="'Check_Out_Date'"
+							sortable="'childVisitReport.end_date'">{{childVisitReport.end_date
+							| date : format : shortDate}}</td>
+							
+						<td data-title="'PlayZone_Cost'"
+							sortable="'childVisitReport.playzone_cost'">{{childVisitReport.playzone_cost}}</td>
+							
+						<td data-title="'Library_Cost'"
+							sortable="'childVisitReport.library_cost'">{{childVisitReport.library_cost}}</td>
+							
+						<td data-title="'Total_Sockes_Pair'"
+							sortable="'childVisitReport.socks_pair_no'">{{childVisitReport.socks_pair_no}}</td>
+							
+						<td data-title="'Socks_Cost'"
+							sortable="'childVisitReport.socks_cost'">{{childVisitReport.socks_cost}}</td>
+
+					</tr>
+				</table>
+
+				<div paging page="currentPage" page-size="pageSize" total="total"
+					paging-action="DoCtrlPagingAct('Paging Clicked', page, pageSize, total)">
+				</div>
+
+			</div>
+			<div class="common-footer" style="height: 50px;"></div>
+		</form>
+	</div>
+</body>
+</html>

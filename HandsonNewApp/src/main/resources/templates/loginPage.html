@@ -1,9 +1,47 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<link rel="stylesheet" th:href="@{/style/master/style.css}">
+<link rel="stylesheet" th:href="@{/style/master/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/style/child/child.css}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+
+<script type="text/javascript" th:src="@{/script/angular-1.6.10/angular.min.js}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.js"></script>
+ 
+<script type="text/javascript" th:src="@{/script/master/jquery-3.3.1.js}" ></script>
+<script type="text/javascript" th:src="@{/script/master/jquery.min.js}" ></script>
+<script type="text/javascript" th:src="@{/script/master/jquery-ui.js}"></script>	
+
+<script type="text/javascript" th:src="@{/script/master/bootstrap.min.js}" ></script>
+<script type="text/javascript" th:src="@{/script/master/script.js}" ></script>
+<script type="text/javascript" th:src="@{/script/child/child.js}"></script>
 <title>LoginPage</title>
 </head>
 <body>
-	<h1>LoginPage</h1>
+
+	<div th:replace="/fragments/header :: header">&nbsp;</div>
+	<div class="main-container">
+		<div class="login-div">
+		<div class="h-line" style="height: 70px;">
+			<div style="float: left;"><label class="header-label">Login</label></div>
+			<div style="float: right;">
+				<button class="add-child-form btn btn-success">Add User</button>
+			</div>
+		</div>
+		<form action="" th:action="@{/admin/loginaction}">
+			<ul class="login-ul">
+				<li class="login-li"><input type="text" name="uname" class="login-text" autofocus="autofocus" placeholder="Usre Name"></li>				
+				
+				<li class="login-li"><input type="password" name="password" class="login-text" placeholder="Password"></li>
+				
+				<li class="login-li"><input type="submit" value="login" class="btn btn-primary"/></li>
+			</ul>
+		</form>
+		</div>
+	</div>
 </body>
 </html>

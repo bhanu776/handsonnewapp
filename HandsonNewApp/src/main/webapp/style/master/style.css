@@ -36,7 +36,7 @@ a,a:hover,a:active,a:focus{
 	font-weight: bold;
 }
 
-.menu-li{
+.menu-li,.sub-menu-li{
 	margin-top: 5px;
 	height:30px;
 	color: white;
@@ -47,6 +47,15 @@ a,a:hover,a:active,a:focus{
 
 .menu-li:hover{
 	background-color: blue;
+}
+
+.sub-menu-li{
+	text-align: right;
+	color: thistle;
+}
+
+.sub-menu-li:hover{
+	background-color: blueviolet;
 }
 
 .menu-slide-button{
@@ -63,13 +72,22 @@ a,a:hover,a:active,a:focus{
 	background: black;
 }
 
+.report-list{
+	float: right;
+	width: 80%;
+	display: none;
+	margin-top: 20px;
+  }
+
+  /* ================================================================================== */
+
 .main-container{
 	margin-left: 2.5%;
 	width: 95%;
 	height: 600px;
 	z-index: 0;
 	font-family: Arial;
-	font-size: 12px;	
+	font-size: 12px;
 }
 
 .floating-form-div{
@@ -88,7 +106,6 @@ a,a:hover,a:active,a:focus{
 
 .detail-div{
 	width: 100%;
-	height: 169px;
 }
 
 .small-header{
@@ -115,6 +132,14 @@ a,a:hover,a:active,a:focus{
 .text-input-sm{
 	float: left;
 	width: 20%;
+	height: 35px;
+	margin-left: 3%;
+	margin-top: 10px;
+}
+
+.text-input-ssm{
+	float: left;
+	width: 5%;
 	height: 35px;
 	margin-left: 3%;
 	margin-top: 10px;
@@ -181,4 +206,32 @@ a,a:hover,a:active,a:focus{
 	background-color: #203775;
 	color: white;
   }
+
+
+  .login-div{
+	  margin-top: 100px;
+	  margin-left: 33%;
+	  width: 30%;
+	  height: 250px;
+	  border: 2px groove #203775;
+	  text-align: center;
+  }
+
+  .login-ul{
+	padding: 0px;
+	width: 100%;
+  }
+
+  .login-li{
+	margin-top: 10px;
+	list-style: none;
+	width: 100%;
+  }
+
+  .login-text{
+	width: 90%;
+	height: 35px;
+  }
+
+  
 
