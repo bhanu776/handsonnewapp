@@ -472,7 +472,7 @@ public class AdminController {
 	@RequestMapping(value="/set_calendar_holiday/{date}",method=RequestMethod.GET)
 	public List<ResposnseHolidaysBO> saveHoliday(@PathVariable("date")Date date){
 		int day = date.getDate();
-		int month = date.getMonth();
+		int month = date.getMonth()+1;
 		
 		if(settingsDao.isDateExist(day, month) == 0)
 			settingsDao.saveHoliday(new SetHolidayCalendar(day, month));
@@ -482,7 +482,7 @@ public class AdminController {
 		List<SetHolidayCalendar> holidayCalendarList = settingsDao.getHolidayList();
 		List<ResposnseHolidaysBO> response = new ArrayList<>();
 		holidayCalendarList.forEach(holiday -> {
-			response.add(new ResposnseHolidaysBO(holiday.getDay(), holiday.getMonth(),utilityDao.currentYear(new Date())));
+			response.add(new ResposnseHolidaysBO(holiday.getDay(), holiday.getMonth()-1,utilityDao.currentYear(new Date())));
 		});
 		return response;
 	}
@@ -493,7 +493,7 @@ public class AdminController {
 		List<SetHolidayCalendar> holidayCalendarList = settingsDao.getHolidayList();
 		List<ResposnseHolidaysBO> response = new ArrayList<>();
 		holidayCalendarList.forEach(holiday -> {
-			response.add(new ResposnseHolidaysBO(holiday.getDay(), holiday.getMonth(),utilityDao.currentYear(new Date())));
+			response.add(new ResposnseHolidaysBO(holiday.getDay(), holiday.getMonth()-1,utilityDao.currentYear(new Date())));
 		});
 		return response;
 	}
