@@ -1,3 +1,5 @@
+var baseUrl = "/admin";
+
 var childVisitReport = angular.module("childVisitReport", ["ngTable", "bw.paging"]);
 
 childVisitReport.controller('childVisitReportController', function ($scope, $http, NgTableParams) {
@@ -9,10 +11,12 @@ childVisitReport.controller('childVisitReportController', function ($scope, $htt
         $scope.fromDate = new Date();
         $scope.toDate = new Date();
 
+        callServerGetApi(baseUrl+"/is_admin", "", "", $http, $scope).then((result)=>$scope.isAdmin = result);
+
         $scope.tableParams = new NgTableParams({ count: 20 }, {
             counts: [],
             getData: function () {
-                return callServerPostApi("/admin/report/child_visit_report/get", "", filter($scope.fromDate, $scope.toDate), $http, $scope);
+                return callServerPostApi(baseUrl+"/report/child_visit_report/get", "", filter($scope.fromDate, $scope.toDate), $http, $scope);
             }
         });
 
@@ -22,9 +26,16 @@ childVisitReport.controller('childVisitReportController', function ($scope, $htt
         $scope.tableParams = new NgTableParams({ count: 20 }, {
             counts: [],
             getData: function () {
-                return callServerPostApi("/admin/report/child_visit_report/get", "", filter($scope.fromDate, $scope.toDate), $http, $scope);
+                return callServerPostApi(baseUrl+"/report/child_visit_report/get", "", filter($scope.fromDate, $scope.toDate), $http, $scope);
             }
         });
+    }
+
+    $scope.deleteChildVisitDetail = (id) => {
+        callServerGetApi(baseUrl+"/report/child_visit_report/delete/", id, "", $http, $scope)
+        .then(() => {
+            $scope.applyDateFilter();
+        })
     }
 
 });
@@ -40,22 +51,30 @@ childTransactionReport.controller('childTransactionReportController', function (
         $scope.fromDate = new Date();
         $scope.toDate = new Date();
 
+        callServerGetApi(baseUrl+"/is_admin", "", "", $http, $scope).then((result)=>$scope.isAdmin = result);
         $scope.tableParams = new NgTableParams({ count: 20 }, {
             counts: [],
             getData: function () {
-                return callServerPostApi("/admin/report/child_transaction_report/get", "", filter($scope.fromDate, $scope.toDate), $http, $scope);
+                return callServerPostApi(baseUrl+"/report/child_transaction_report/get", "", filter($scope.fromDate, $scope.toDate), $http, $scope);
             }
         });
 
-        $scope.applyDateFilter = () => {
-            $scope.tableParams = new NgTableParams({ count: 20 }, {
-                counts: [],
-                getData: function () {
-                    return callServerPostApi("/admin/report/child_transaction_report/get", "", filter($scope.fromDate, $scope.toDate), $http, $scope);
-                }
-            });
-        }
+    }
+    
+    $scope.applyDateFilter = () => {
+        $scope.tableParams = new NgTableParams({ count: 20 }, {
+            counts: [],
+            getData: function () {
+                return callServerPostApi(baseUrl+"/report/child_transaction_report/get", "", filter($scope.fromDate, $scope.toDate), $http, $scope);
+            }
+        });
+    }
 
+    $scope.deleteChildTransactionDetail = (id) => {
+        callServerGetApi(baseUrl+"/report/child_transaction_report/delete/", id, "", $http, $scope)
+        .then(() => {
+            $scope.applyDateFilter();
+        })
     }
 
 });

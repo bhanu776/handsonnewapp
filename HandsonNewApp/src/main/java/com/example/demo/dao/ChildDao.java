@@ -84,14 +84,27 @@ public class ChildDao {
 		return childVisitDetails;
 	}
 	
+	public boolean deleteChildVisitDetail(int id){
+		childVisitDetailRepository.deleteById(id);
+		return true;
+	}
+	
 	/*===================Check in Check out Transaction Details===========================*/
 	
 	public ChildVisitTransaction saveTransactionDetail(ChildVisitTransaction childVisitTransaction) {
+		
 		return chTransactionRepository.save(childVisitTransaction);
 	}
 	
 	public List<ChildVisitTransaction> getAllTransactionDetails(){
+		
 		return (List<ChildVisitTransaction>) chTransactionRepository.findAll();
+	}
+	
+	public boolean deleteChildTransactionDetail(int id){
+		
+		chTransactionRepository.deleteById(id);
+		return true;
 	}
 	
 	

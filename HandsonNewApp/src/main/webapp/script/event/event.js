@@ -1,3 +1,4 @@
+var baseUrl = "/admin";
 var childApp = angular.module("evenApp", ["ngTable", "bw.paging"]);
 
 childApp.controller('eventCotroller', function ($scope, $http, NgTableParams) {
@@ -11,12 +12,12 @@ childApp.controller('eventCotroller', function ($scope, $http, NgTableParams) {
 
     $scope.tableParams = new NgTableParams({ count: 20 }, {
         counts: [], getData: function () {
-            return callServerGetApi("/admin/event/list", "", "", $http);
+            return callServerGetApi(baseUrl+"/event/list", "", "", $http, $scope);
         }
     });
 
     $scope.getEventDetail = () => {
-        callServerGetApi("/admin/event/get/", eventId, "", $http)
+        callServerGetApi(baseUrl+"/event/get/", eventId, "", $http, $scope)
             .then(function (success) {
                 $scope.eventDetail = success;
             });
@@ -25,7 +26,7 @@ childApp.controller('eventCotroller', function ($scope, $http, NgTableParams) {
 });
 
 
-callServerGetApi = (url, path_variable, request_data, $http) => {
+callServerGetApi = (url, path_variable, request_data, $http, $scope) => {
     return $http({
         method: "GET",
         data: request_data,

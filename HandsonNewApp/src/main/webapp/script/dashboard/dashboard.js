@@ -1,3 +1,5 @@
+var baseUrl = "/handson/admin";
+
 $(document).ready(function () {
     $(".current-status-div").click(function (event) {
         var attr = event.currentTarget.id;
@@ -34,7 +36,7 @@ dashboard.controller('dashboardController', function ($scope, $http, $interval) 
         console.log($scope.keyword);
         $http({
             method: "GET",
-            url: "/admin/search_child/" + $scope.keyword
+            url: "search_child/" + $scope.keyword
         }).then(function mySuccess(response) {
             $scope.childDetails = response.data;
         }, function myError(response) {

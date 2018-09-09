@@ -1,3 +1,4 @@
+var baseUrl = "/admin";
 /* =============================Child Details===================================================== */
 var childApp = angular.module("childApp", ["ngTable", "bw.paging"]);
 
@@ -12,7 +13,7 @@ childApp.controller('childController', function ($scope, $http, NgTableParams) {
 		// $scope.total = this.total;
 		$http({
 			method: "GET",
-			url: "/admin/child_list_count/get"
+			url: "child_list_count/get"
 		}).then(function mySuccess(response) {
 			console.log(response.data);
 			$scope.total = response.data;
@@ -36,7 +37,7 @@ childApp.controller('childController', function ($scope, $http, NgTableParams) {
 			return $http({
 				method: "post",
 				data: { startPage: 1, limit: 12 },
-				url: "/admin/getchilddetails"
+				url: "getchilddetails"
 			}).then(function mySuccess(response) {
 				return response.data;
 			}, function myError(response) {
@@ -48,7 +49,7 @@ childApp.controller('childController', function ($scope, $http, NgTableParams) {
 	$scope.getChildDetails = function () {
 		$http({
 			method: "GET",
-			url: "/admin/getchildinfo/" + childId
+			url: "getchildinfo/" + childId
 		}).then(function mySuccess(response) {
 			console.log(response.data);
 			$scope.childInfo = response.data;
@@ -65,7 +66,7 @@ childApp.controller('childController', function ($scope, $http, NgTableParams) {
 					return $http({
 						method: "post",
 						data: { startPage: 1, limit: 12 },
-						url: "/admin/getchilddetails"
+						url: "getchilddetails"
 					}).then(function mySuccess(response) {
 						return response.data;
 					}, function myError(response) {
@@ -80,7 +81,7 @@ childApp.controller('childController', function ($scope, $http, NgTableParams) {
 				getData: function () {
 					return $http({
 						method: "GET",
-						url: "/admin/search_child/" + $scope.searchKeyword
+						url: "search_child/" + $scope.searchKeyword
 					}).then(function mySuccess(response) {
 						return response.data;
 					}, function myError(response) {
@@ -101,7 +102,7 @@ childApp.controller('childController', function ($scope, $http, NgTableParams) {
 				return $http({
 					method: "post",
 					data: { start: startPage, limit: pageSize },
-					url: "/admin/getchilddetails"
+					url: "getchilddetails"
 				}).then(function mySuccess(response) {
 					return response.data;
 				}, function myError(response) {
@@ -136,7 +137,7 @@ advanceAmount.controller('advanceAmountController', function ($scope, $http) {
 	
 	$http({
 		method: "GET",
-		url: "/admin/getsettings"
+		url: "getsettings"
 	}).then(function mySuccess(response) {
 		$scope.settings = response.data;
 	}, function myError(response) {
@@ -146,7 +147,7 @@ advanceAmount.controller('advanceAmountController', function ($scope, $http) {
 
 	$http({
 		method: "GET",
-		url: "/admin/is_holiday_from_cal"
+		url: "is_holiday_from_cal"
 	}).then(function mySuccess(response) {
 		$scope.isHoliday = response.data;
 	}, function myError(response) {
@@ -162,7 +163,7 @@ var playzonebilling = angular.module("playzonebilling", []);
 playzonebilling.controller("playzoneBillingController", function ($scope, $http) {
 	/*$http({
         method : "GET",
-        url : "/admin/playzonebillingdetails"
+        url : "/playzonebillingdetails"
 	    }).then(function mySuccess(response) {
 	    	console.log(response);
 	    	$scope.settings = response.data;
@@ -186,7 +187,7 @@ membership.controller("membershipController", function ($scope, $http, NgTablePa
 
 		return $http({
 			method: "GET",
-			url: "/admin/membership/get/" + memberId
+			url: "membership/get/" + memberId
 		}).then(function mySuccess(response) {
 			console.log(response.data);
 			$scope.memberDetails = response.data;
@@ -201,7 +202,7 @@ membership.controller("membershipController", function ($scope, $http, NgTablePa
 			// ajax request to api
 			return $http({
 				method: "GET",
-				url: "/admin/membership_list/get"
+				url: "membership_list/get"
 			}).then(function mySuccess(response) {
 				console.log(response.data);
 				return response.data;
@@ -230,7 +231,7 @@ $(document).ready(function () {
 		source: function (request, response) {
 			//console.log(request.term);
 			$.ajax({
-				url: "/admin/search_child/" + request.term,
+				url: "search_child/" + request.term,
 				dataType: "json",
 				success: function (data, textStatus, jqXHR) {
 					var items = {};

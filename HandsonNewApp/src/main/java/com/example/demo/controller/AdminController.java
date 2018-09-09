@@ -80,23 +80,37 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/loginaction")
-	public String loginAction(HttpSession session,@RequestParam("uname")String userName,@RequestParam("password")String password){
+	public String loginAction(HttpSession session,@RequestParam("uname") String userName,@RequestParam("password") String password){
 		String role = userDao.getRole(userName, password);
 		
 		if(StringUtils.isEmpty(role))
 			return "redirect:login";
 		
 		session.setAttribute("admin_id", 1);
-		session.setAttribute("user", role);
+		session.setAttribute("user_type", role);
+		
 		return "redirect:dashboard";
 	}
 	
 	@RequestMapping("/dashboard")
 	public String dashboard(HttpSession session){
+		
 		if(utilityDao.sessionExpired(session))
 			return "redirect:/admin/login";
 		
 		return "dashboard";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/is_admin", method=RequestMethod.GET)
+	public boolean isAdmin(HttpSession session){
+		
+		String userType = (String) session.getAttribute("user_type");
+		
+		if(userType.equalsIgnoreCase("admin"))
+			return true;
+		else
+			return false;
 	}
 	
 	/*=======================================Child Add Update Delete Operations================================*/
@@ -350,10 +364,11 @@ public class AdminController {
 	/*====================================Child visit details===========================================*/
 	
 	@ResponseBody
-	@RequestMapping(value="checkedin_children/get")
+	@RequestMapping(value="checkedin_children/get", method=RequestMethod.GET)
 	public List<ChildVisitDetails> getCheckedInChildren(){
 		return childDao.getCheckedInChildren();
 	}
+	
 	
 	/*====================================Membership====================================================*/
 	
@@ -502,7 +517,11 @@ public class AdminController {
 	/*====================================================== Repors API ===============================================================*/
 	
 	@RequestMapping(value="/report/child_visit_report", method=RequestMethod.GET)
-	public String childVisitReportPage(){
+	public String childVisitReportPage(HttpSession session){
+
+		if(utilityDao.sessionExpired(session))
+			return "redirect:/admin/login";
+		
 		return "/reports/childVisitReport";
 	}
 	
@@ -513,7 +532,11 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/report/visit_transaction_report", method=RequestMethod.GET)
-	public String visitTransactionReportPage(){
+	public String visitTransactionReportPage(HttpSession session){
+
+		if(utilityDao.sessionExpired(session))
+			return "redirect:/admin/login";
+		
 		return "/reports/childTranactionReport";
 	}
 	
@@ -523,6 +546,17 @@ public class AdminController {
 		return reportDao.getChildVisitTransactionReport(reportFilter);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/report/child_visit_report/delete/{id}", method=RequestMethod.GET)
+	public boolean deleteChildVisitDetail(@PathVariable("id")int id){
+		return childDao.deleteChildVisitDetail(id);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/report/child_transaction_report/delete/{id}", method=RequestMethod.GET)
+	public boolean deleteChildTransactionDetail(@PathVariable("id")int id){
+		return childDao.deleteChildTransactionDetail(id);
+	}
 	
 	/*http://ng-table.com/#/formatting/demo-cell-values*/
 }

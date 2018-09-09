@@ -90,6 +90,8 @@
 
 
 						<td data-title="'Socks_Cost'" sortable="'visitTransactionReport.socks_cost'">{{visitTransactionReport.socks_cost}}</td>
+						
+						<td ng-if="isAdmin" data-title="'Delete'"><a ng-click="deleteChildTransactionDetail(visitTransactionReport.id)">delete</a></td>
 
 					</tr>
 				</table>

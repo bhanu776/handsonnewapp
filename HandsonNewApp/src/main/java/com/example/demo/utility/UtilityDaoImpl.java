@@ -46,7 +46,7 @@ public class UtilityDaoImpl implements UtilityDao{
 		if(session.isNew())
 			return true;
 			else{
-				String user = (String) session.getAttribute("user");
+				String user = (String) session.getAttribute("user_type");
 				if(user!=null && (user.equalsIgnoreCase("admin") || user.equalsIgnoreCase("user"))){
 					return false;
 				}else
@@ -58,7 +58,7 @@ public class UtilityDaoImpl implements UtilityDao{
 	public boolean isAdmin(HttpSession session) {
 		if(session!=null)
 		{
-			String user = (String) session.getAttribute("user");
+			String user = (String) session.getAttribute("user_type");
 			if(user.equalsIgnoreCase("admin"))
 				return true;
 		}

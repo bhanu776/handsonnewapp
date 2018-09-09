@@ -99,6 +99,8 @@ th.header {
 							
 						<td data-title="'Socks_Cost'"
 							sortable="'childVisitReport.socks_cost'">{{childVisitReport.socks_cost}}</td>
+							
+						<td ng-if="isAdmin" data-title="'Delete'"><a ng-click="deleteChildVisitDetail(childVisitReport.id)">delete</a></td>
 
 					</tr>
 				</table>

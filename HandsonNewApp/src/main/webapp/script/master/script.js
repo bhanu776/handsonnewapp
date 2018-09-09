@@ -1,3 +1,4 @@
+var baseUrl = "/admin";
 /* ==========================Add Child popup div========================================= */
 
 $(document).ready(function () {
@@ -75,12 +76,13 @@ $(document).ready(function () {
 /*========================================Settings==================================================*/
 
 var settingApp = angular.module("settingApp", ['ui.rCalendar']);
+
 settingApp.controller("settingController", function ($scope, $http) {
 	$scope.eventSource = [];
 
 	$http({
 		method: "GET",
-		url: "/admin/getsettings"
+		url: baseUrl+"/getsettings"
 	}).then(function mySuccess(response) {
 		console.log(response);
 		return response.data;
@@ -90,7 +92,7 @@ settingApp.controller("settingController", function ($scope, $http) {
 
 	$http({
 		method: "GET",
-		url: "/admin/get_calendar_holiday"
+		url: baseUrl+"/get_calendar_holiday"
 	}).then(function mySuccess(response) {
 		$scope.eventSource = [];
 		response.data.forEach(date => {
@@ -106,7 +108,7 @@ settingApp.controller("settingController", function ($scope, $http) {
 		console.log(selectedTime);
 		$http({
 			method: "GET",
-			url: "/admin/set_calendar_holiday/" + selectedTime
+			url: baseUrl+"/set_calendar_holiday/" + selectedTime
 		}).then(function mySuccess(response) {
 			$scope.eventSource = [];
 			response.data.forEach(date => {

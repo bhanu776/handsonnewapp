@@ -9,7 +9,8 @@ import com.example.demo.model.ChildInfo;
 
 public interface ChildRepository extends CrudRepository<ChildInfo, Integer>{
 	
-	@Query(value = "select * from child_info cf where concat(cf.firstname,' ',cf.lastname)  like %?1% limit 15", nativeQuery = true)
+	@Query(value = "select * from child_info cf where concat(cf.firstname,' ',cf.lastname)  like %?1% "
+			+ "or cf.phone like %?1% limit 15", nativeQuery = true)
 	public List<ChildInfo> searchChildByName(String keyword);
 	
 	@Query(value = "select * from child_info cf ORDER BY cf.id DESC LIMIT ?2 OFFSET ?1", nativeQuery = true)
