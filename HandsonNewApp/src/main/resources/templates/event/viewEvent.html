@@ -1,155 +1,239 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 
-<title>Event</title>
+	<title>Event</title>
 
-<link rel="stylesheet" th:href="@{/style/master/bootstrap.min.css}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.css">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<link rel="stylesheet" th:href="@{/style/master/style.css}">
-<link rel="stylesheet" th:href="@{/style/event/event.css}">
+	<link rel="stylesheet" th:href="@{/style/master/bootstrap.min.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<link rel="stylesheet" th:href="@{/style/master/style.css}">
+	<link rel="stylesheet" th:href="@{/style/event/event.css}">
 
 
-<script type="text/javascript" th:src="@{/script/angular-1.6.10/angular.min.js}"></script>
-<script type="text/javascript" th:src="@{/script/master/paging.js}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.js"></script>
-<script type="text/javascript" th:src="@{/script/master/jquery-3.3.1.js}" ></script>
-<script type="text/javascript" th:src="@{/script/master/jquery.min.js}" ></script>
-<script type="text/javascript" th:src="@{/script/master/jquery-ui.js}"></script>	
+	<script type="text/javascript" th:src="@{/script/angular-1.6.10/angular.min.js}"></script>
+	<script type="text/javascript" th:src="@{/script/master/paging.js}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.js"></script>
+	<script type="text/javascript" th:src="@{/script/master/jquery-3.3.1.js}"></script>
+	<script type="text/javascript" th:src="@{/script/master/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/script/master/jquery-ui.js}"></script>
 
-<script type="text/javascript" th:src="@{/script/master/bootstrap.min.js}" ></script>
-<script type="text/javascript" th:src="@{/script/master/script.js}" ></script>
-<script type="text/javascript" th:src="@{/script/event/event.js}" ></script>
-<style type="text/css">
-th.header {
-    width: 10%;
-}
-</style>
+	<script type="text/javascript" th:src="@{/script/master/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/script/master/script.js}"></script>
+	<script type="text/javascript" th:src="@{/script/event/event.js}"></script>
+	<style type="text/css">
+		th.header,
+		th,
+		td {
+			width: 10%;
+		}
+	</style>
 </head>
-<body ng-app="evenApp" ng-controller="eventCotroller">
+
+<body ng-app="evenApp" ng-controller="eventCotroller" ng-init="init()">
 	<div th:replace="/fragments/header :: header">&nbsp;</div>
 	<div th:replace="/fragments/menu :: menu">&nbsp;</div>
-	
-	<div class="main-container" >
-	
+
+	<div class="main-container">
+
 		<div class="small-header">
 			<div style="float: left;"><label class="header-label">Event Details</label></div>
 			<div style="float: right;">
-				<button class="add-child-form btn btn-success" ng-click = "eventDetail = {}">Create Event</button>
+				<button class="add-child-form btn btn-success" ng-click="eventDetail = {}">Create Event</button>
 			</div>
 		</div>
-		
+
 		<form action="">
 			<div id="scrollable-area">
 				<table ng-table="tableParams" class="table table-condensed table-bordered table-striped" fixed-table-headers="scrollable-area">
-				       <tr ng-repeat="event in $data">
-				      <td data-title="'Select'"><input type="radio" ng-click="setEventId(event.id)" ng-value="event.id" name="eventId" required="required"></td>
-				      <td data-title="'Id'" sortable="'event.id'">{{event.id}}</td>
-				      <td data-title="'Child Name'" sortable="'event.child_name'">{{event.child_name}}</td>
-				      <td data-title="'Date'" sortable="'event.date'">{{event.date | date : format : shortDate}}</td>
-				      <td data-title="'Deposit'" sortable="'event.deposit'">{{event.deposit}}</td>
-				      <td data-title="'No Of Adults'" sortable="'event.no_of_adults'">{{event.no_of_adults}}</td>
-				      <td data-title="'No Of Children'" sortable="'event.no_of_children'">{{event.no_of_children}}</td>
-				      <td data-title="'Mobile'" sortable="'event.phone'">{{event.phone}}</td>
-				      <td data-title="'Location'" sortable="'event.location'">{{event.location}}</td>
-				      <td data-title="'Theme'" sortable="'event.theme'">{{event.theme}}</td>
-				    </tr>
-				  </table>
+					<tr ng-repeat="event in $data">
+						<td data-title="'Select'"><input type="radio" ng-click="setEventId(event.id)" ng-value="event.id" name="eventId"
+							 required="required"></td>
+						<td data-title="'Id'" sortable="'event.id'">{{event.id}}</td>
+						<td data-title="'Child Name'" sortable="'event.child_name'">{{event.child_name}}</td>
+						<td data-title="'Date'" sortable="'event.date'">{{event.date | date : format : shortDate}}</td>
+						<td data-title="'Deposit'" sortable="'event.deposit'">{{event.deposit}}</td>
+						<td data-title="'No Of Adults'" sortable="'event.no_of_adults'">{{event.no_of_adults}}</td>
+						<td data-title="'No Of Children'" sortable="'event.no_of_children'">{{event.no_of_children}}</td>
+						<td data-title="'Mobile'" sortable="'event.phone'">{{event.phone}}</td>
+						<td data-title="'Location'" sortable="'event.location'">{{event.location}}</td>
+						<td data-title="'Theme'" sortable="'event.theme'">{{event.theme}}</td>
+					</tr>
+				</table>
 			</div>
 			<div class="common-footer" style="height: 50px;">
 				<div class="inline-button"><a ng-click="getEventDetail()" class="btn btn-primary update-child">Update</a></div>
 				<div class="inline-button"><button th:formaction="@{/admin/event/delete}" class="btn btn-primary">Delete</button></div>
-			</div>			
-			</form>
-				    	
+				<div class="inline-button"><a class="btn btn-primary pop-up-div" ng-click="getEventDetail()">Transaction</a></div>
+			</div>
+		</form>
+
 	</div>
-	
+
 	<div class="floating-form-div">
-	<form th:action="@{/admin/event/add}" th:object="${events}" method="post">
-		<input type="hidden" name = "id" value="{{eventDetail.id}}">
-	    <div class="detail-div">
-	    	<div style="width: 100%;">
-	    		<div class="h-line" style="border-bottom: 2px groove;">
-	    			<label class="header-label">Add Membership</label>
-	    			<label style="float: right;"><a class="close-floating-div"><img alt="" width="45" height="45" src="/images/closebtn.png"></a></label> 
-	    		</div>
-		    	<div class="h-line" style="width: 100%; height:30px;">
-			    	<div class=text-input-sm>
-			    		 <input type="text" name="child_name" class="input" autofocus="autofocus" placeholder="Child Name" value="{{eventDetail.child_name}}"/>			    		
-			    	</div>
-			    	<div class="text-input-sm">
-			    		<input type="text" name="phone" class="input" placeholder="Mobile" value="{{eventDetail.phone}}">			    		
-			    	</div>
-			    	<div class="text-input-sm">
-			    		<input type="text" name="phone2" class="input" placeholder="Alternate Mobile" value="{{eventDetail.phone2}}">			    		
-			    	</div>
-			    	<div class=text-input-sm>
-			    		<input type="text"name="theme" class="input" placeholder="Theme" value="{{eventDetail.theme}}">			    		
-			    	</div>
-		    	</div>
-		    	
-		    	<div class="h-line" style="width: 100%; height:30px;">
-			    	<div class=text-input-sm>
-			    		 <input type="text" name="address" class="input" placeholder="Address" value="{{eventDetail.address}}"/>			    		
-			    	</div>
-			    	<div class="text-input-sm">
-			    		<input type="text" name="location" class="input" placeholder="Location" value="{{eventDetail.location}}">			    		
-			    	</div>
-			    	<div class="text-input-sm">
-			    		<input type="text" name="organiser" class="input" placeholder="Organiser" value="{{eventDetail.organiser}}">			    		
-			    	</div>
-			    	<div class=text-input-sm>
-			    		<input type="text"name="organiser_contact" class="input" placeholder="Organiser Contact" value="{{eventDetail.organiser_contact}}">			    		
-			    	</div>
-		    	</div>
-		    	
-		    	<div class="h-line" style="width: 100%; height:30px;">
-			    	<div class=text-input-sm>
-			    		 <input type="text" name="deposit" class="input" placeholder="Deposit" value="{{eventDetail.deposit}}"/>			    		
-			    	</div>
-			    	<div class="text-input-sm">
-			    		<input type="text" name="ground_rent" class="input" placeholder="Ground Rent" value="{{eventDetail.ground_rent}}">			    		
-			    	</div>
-			    	<div class=text-input-sm>
-			    		<input type="text"name="no_of_children" class="input" placeholder="No Of Children" value="{{eventDetail.no_of_children}}">			    		
-			    	</div>
-			    	<div class=text-input-sm>
-			    		 <input type="text" name="no_of_adults" class="input" placeholder="No Of Adults" value="{{eventDetail.no_of_adults}}"/>			    		
-			    	</div>
-		    	</div>
-		    	
-		    	<div class="h-line" style="width: 100%; height:30px;">
-		    	
-			    	
-			    	<div class="text-input-sm">
-			    		<input type="text" name="food_par_head" class="input" placeholder="Food Per Head" value="{{eventDetail.food_par_head}}">			    		
-			    	</div>
-			    	
-			    	<div class="text-input-sm">
-			    		<input type="text" name="entry_charge_child" class="input" placeholder="Entry Charge Child" value="{{eventDetail.entry_charge_child}}">			    		
-			    	</div>
-			    	
-			    	<div class=text-input-sm>
-			    		<input type="text"name="entry_charge_adults" class="input" placeholder="Entry Charge Adults" value="{{eventDetail.entry_charge_adults}}">			    		
-			    	</div>
-			    	
-			    	<div class="text-input-sm">
-			    		<input type="text" name="remarks" class="input" placeholder="Remarks" value="{{eventDetail.remarks}}">			    		
-			    	</div>
-		    	</div>
-		    	
-		    	<div class="h-line">
-		    	
-			    	<div class="text-input-sm">
-			    		<input type="submit" class="btn btn-primary" value="save">			    		
-			    	</div>
-			    	
-		    	</div>
-		    </div>
-		   </div>
-		   </form>
-		 </div>
-			    
+		<form th:action="@{/admin/event/add}" th:object="${events}" method="post">
+			<input type="hidden" name="id" value="{{eventDetail.id}}">
+			<div class="detail-div">
+				<div style="width: 100%;">
+					<div class="h-line" style="border-bottom: 2px groove;">
+						<label class="header-label">Add Event</label>
+						<label style="float: right;"><a class="close-floating-div"><img alt="" width="45" height="45" src="/images/closebtn.png"></a></label>
+					</div>
+					<div class="h-line" style="width: 100%; height:30px;">
+						<div class=text-input-sm>
+							<input type="text" name="child_name" class="input" autofocus="autofocus" placeholder="Child Name" value="{{eventDetail.child_name}}" />
+						</div>
+						<div class="text-input-sm">
+							<input type="text" name="phone" class="input" placeholder="Mobile" value="{{eventDetail.phone}}">
+						</div>
+						<div class="text-input-sm">
+							<input type="text" name="phone2" class="input" placeholder="Alternate Mobile" value="{{eventDetail.phone2}}">
+						</div>
+						<div class=text-input-sm>
+							<input type="text" name="theme" class="input" placeholder="Theme" value="{{eventDetail.theme}}">
+						</div>
+					</div>
+
+					<div class="h-line" style="width: 100%; height:30px;">
+						<div class=text-input-sm>
+							<input type="text" name="address" class="input" placeholder="Address" value="{{eventDetail.address}}" />
+						</div>
+						<div class="text-input-sm">
+							<input type="text" name="location" class="input" placeholder="Location" value="{{eventDetail.location}}">
+						</div>
+						<div class="text-input-sm">
+							<input type="text" name="organiser" class="input" placeholder="Organiser" value="{{eventDetail.organiser}}">
+						</div>
+						<div class=text-input-sm>
+							<input type="text" name="organiser_contact" class="input" placeholder="Organiser Contact" value="{{eventDetail.organiser_contact}}">
+						</div>
+					</div>
+
+					<div class="h-line" style="width: 100%; height:30px;">
+						<div class=text-input-sm>
+							<input type="text" name="deposit" class="input" placeholder="Deposit" value="{{eventDetail.deposit}}" />
+						</div>
+						<div class="text-input-sm">
+							<input type="text" name="ground_rent" class="input" placeholder="Ground Rent" value="{{eventDetail.ground_rent}}">
+						</div>
+						<div class=text-input-sm>
+							<input type="text" name="no_of_children" class="input" placeholder="No Of Children" value="{{eventDetail.no_of_children}}">
+						</div>
+						<div class=text-input-sm>
+							<input type="text" name="no_of_adults" class="input" placeholder="No Of Adults" value="{{eventDetail.no_of_adults}}" />
+						</div>
+					</div>
+
+					<div class="h-line" style="width: 100%; height:30px;">
+
+
+						<div class="text-input-sm">
+							<input type="text" name="food_par_head" class="input" placeholder="Food Per Head" value="{{eventDetail.food_par_head}}">
+						</div>
+
+						<div class="text-input-sm">
+							<input type="text" name="entry_charge_child" class="input" placeholder="Entry Charge Child" value="{{eventDetail.entry_charge_child}}">
+						</div>
+
+						<div class=text-input-sm>
+							<input type="text" name="entry_charge_adults" class="input" placeholder="Entry Charge Adults" value="{{eventDetail.entry_charge_adults}}">
+						</div>
+
+						<div class="text-input-sm">
+							<input type="text" name="remarks" class="input" placeholder="Remarks" value="{{eventDetail.remarks}}">
+						</div>
+					</div>
+
+					<div class="h-line">
+
+						<div class="text-input-sm">
+							<input type="date" name="date" class="input" placeholder="Date" value="{{eventDetail.date}}">
+						</div>
+
+						<div class="text-input-sm">
+							<input type="submit" class="btn btn-primary" value="save">
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div class="floating-form-div2">
+		<form th:action="@{/event/transaction/save}" th:object="${eventTransaction}">
+			<div class="detail-div">
+				<div style="width: 100%;">
+					<div class="h-line" style="border-bottom: 2px groove;">
+						<label class="header-label">Event Transaction</label>
+						<label style="float: right;"><a class="close-floating-div2"><img alt="" width="45" height="45" src="/images/closebtn.png"></a></label>
+					</div>
+					<div class="h-line" style="width: 100%; height:30px;">
+						<div class="current-status-div" id="status-div3">
+							<table class="i-table">
+								<tr>
+									<th>Total_Child</th>
+									<td>{{eventDetail.no_of_children}}</td>
+									<th>Entry_Charge</th>
+									<td>{{eventDetail.entry_charge_child}}</td>
+									<th>Food_Par_Head</th>
+									<td>{{eventDetail.food_par_head}}</td>
+									<th>Total</th>
+									<td>{{totalChargeChildren}}</td>
+								</tr>
+								<tr>
+									<th>Total_Adult</th>
+									<td>{{eventDetail.no_of_adults}}</td>
+									<th>Entry_Charge</th>
+									<td>{{eventDetail.entry_charge_adults}}</td>
+									<th>Food_Par_Head</th>
+									<td>{{eventDetail.food_par_head}}</td>
+									<th>Total</th>
+									<td>{{totalChargeAdults}}</td>
+								</tr>
+								<tr>
+									<th></th>
+									<td></td>
+									<th></th>
+									<td></td>
+									<th></th>
+									<td></td>
+									<th>Ground_Rent</th>
+									<td>{{eventDetail.ground_rent}}</td>
+								</tr>
+								<tr>
+									<th></th>
+									<td></td>
+									<th></th>
+									<td></td>
+									<th></th>
+									<td></td>
+									<th>Grand_Total</th>
+									<td></td>
+								</tr>
+								<tr>
+									<th>Socks</th>
+									<td><input type="number" ng-model="extraSocks"></td>
+									<th>Miscellaneous</th>
+									<td><input type="number" ng-model="miscellaneous"></td>
+									<th>Canteen Charge</th>
+									<td><input type="number" ng-model="canteenCharge"></td>
+									<th>GrandTotal</th>
+									<td>{{grandTotal + extraSocks + miscellaneous + canteenCharge}}</td>
+								</tr>
+							</table>
+							<div class="common-footer" style="height: 50px;">
+								<div class="inline-button"><a ng-click="saveAndSettle()" class="btn btn-primary close-floating-div">Save & Settle</a></div>								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+
+	</div>
+
 </body>
+
 </html>

@@ -14,3 +14,16 @@ table th , table td  {
 .table>thead:first-child>tr:first-child>th{
 	height: 10px;
 }
+
+.floating-form-div2{
+	position: absolute;
+	top:0;
+	margin-top:70px;
+	margin-left:10%;
+	width: 80%;
+	height: 550px;
+	border: 1px solid;
+	background: white;
+	display:none;
+	z-index: 0;
+}

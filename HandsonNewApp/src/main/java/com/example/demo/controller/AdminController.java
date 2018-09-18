@@ -34,6 +34,7 @@ import com.example.demo.dao.UserDao;
 import com.example.demo.model.ChildInfo;
 import com.example.demo.model.ChildVisitDetails;
 import com.example.demo.model.ChildVisitTransaction;
+import com.example.demo.model.EventTransaction;
 import com.example.demo.model.Events;
 import com.example.demo.model.Membership;
 import com.example.demo.model.SetHolidayCalendar;
@@ -433,6 +434,10 @@ public class AdminController {
 	
 	@RequestMapping(value="/event/add",method=RequestMethod.POST)
 	public String addEvent(Events events){
+	/*	
+		Date date = utilityDao.uiDateStringInDate(events.getDate());
+		events.setDate(utilityDao.javaDateToUiDate(date));*/
+		
 		eventDao.addEvent(events);
 		return "redirect:/admin/event/form";
 	}
@@ -455,6 +460,25 @@ public class AdminController {
 		return eventDao.getEvent(eventId);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/event/transaction/save")
+	public boolean saveEventTransaction(@RequestBody EventTransaction eventTransaction){
+		
+		Events events = eventDao.getEvent(eventTransaction.getEvent_id());
+		
+		eventTransaction.setDate(utilityDao.javaDateToUiDate(new Date()));
+		eventDao.saveEventTransaction(eventTransaction);
+		events.setPayment_status(1);
+		eventDao.addEvent(events);
+		
+		return true;				
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/event/todays_event")
+	public List<Events> getTodaysEvent(){
+		return eventDao.getTodaysEvent();
+	}
 	
 	
 	/*====================================Settings====================================================*/

@@ -1,4 +1,4 @@
-var baseUrl = "/handson/admin";
+var baseUrl = "/admin";
 
 $(document).ready(function () {
     $(".current-status-div").click(function (event) {
@@ -16,14 +16,24 @@ dashboard.controller('dashboardController', function ($scope, $http, $interval) 
 
     $http({
         method: "GET",
-        url: "checkedin_children/get"
+        url: baseUrl+"/checkedin_children/get"
     }).then(function mySuccess(response) {
         $scope.checkedinChildren = response.data;
         $scope.currentActiveChildren = response.data.length;
     }, function myError(response) {
         $scope.error = response.statusText;
         $scope.childDetails = [];
-    })
+    });
+
+    $http({
+        method: "GET",
+        url: baseUrl+"/event/todays_event"
+    }).then((response)=>{
+        $scope.todaysEvent = response.data;
+    },(response)=>{
+        $scope.error = response.statusText;
+        $scope.todaysEvent = [];
+    });
 
     $interval(() => {
         $scope.checkedinChildren.forEach(d=>{
@@ -36,7 +46,7 @@ dashboard.controller('dashboardController', function ($scope, $http, $interval) 
         console.log($scope.keyword);
         $http({
             method: "GET",
-            url: "search_child/" + $scope.keyword
+            url: baseUrl+"/search_child/" + $scope.keyword
         }).then(function mySuccess(response) {
             $scope.childDetails = response.data;
         }, function myError(response) {
@@ -44,6 +54,7 @@ dashboard.controller('dashboardController', function ($scope, $http, $interval) 
             $scope.childDetails = [];
         });
     }
+
 });
 
 timedifference = (startDate) =>{

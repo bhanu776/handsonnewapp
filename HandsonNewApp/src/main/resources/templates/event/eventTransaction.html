@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Event Transaction</title>
+
+	<link rel="stylesheet" th:href="@{/style/master/bootstrap.min.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<link rel="stylesheet" th:href="@{/style/master/style.css}">
+	<link rel="stylesheet" th:href="@{/style/event/event.css}">
+
+
+	<script type="text/javascript" th:src="@{/script/angular-1.6.10/angular.min.js}"></script>
+	<script type="text/javascript" th:src="@{/script/master/paging.js}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.js"></script>
+	<script type="text/javascript" th:src="@{/script/master/jquery-3.3.1.js}"></script>
+	<script type="text/javascript" th:src="@{/script/master/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/script/master/jquery-ui.js}"></script>
+
+	<script type="text/javascript" th:src="@{/script/master/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/script/master/script.js}"></script>
+	<script type="text/javascript" th:src="@{/script/event/event.js}"></script>
+	<style type="text/css">
+		th.header {
+			width: 10%;
+		}
+	</style>
+</head>
+
+<body ng-app="evenTransactionApp" ng-controller="eventTransactionCotroller">
+
+	<div th:replace="/fragments/header :: header">&nbsp;</div>
+	<div th:replace="/fragments/menu :: menu">&nbsp;</div>
+
+	<div class="main-container">
+
+		<div class="small-header">
+			<div style="float: left;"><label class="header-label">Event Details</label></div>
+			<div style="float: right;">
+				<button class="add-child-form btn btn-success" ng-click="">Create Event</button>
+			</div>
+		</div>
+
+		<form th:action="@{/admin/event/add}" th:object="${events}" method="post">
+			<div class="detail-div">
+				<div style="width: 100%;">
+					<div class="h-line" style="border-bottom: 2px groove;">
+						<label class="header-label">Event Transaction</label>
+						<label style="float: right;"><a class="close-floating-div"><img alt="" width="45" height="45" src="/images/closebtn.png"></a></label>
+					</div>
+					<div class="h-line" style="width: 100%; height:30px;">
+						<div class=text-input-sm>
+							<input type="text" name="child_name" class="input" autofocus="autofocus" placeholder="Child Name" value="" />
+						</div>
+						<div class="text-input-sm">
+							<input type="text" name="phone" class="input" placeholder="Mobile" value="">
+						</div>
+						<div class="text-input-sm">
+							<input type="text" name="phone2" class="input" placeholder="Alternate Mobile" value="">
+						</div>
+						<div class=text-input-sm>
+							<input type="text" name="theme" class="input" placeholder="Theme" value="">
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+
+	</div>
+
+
+</body>
+
+</html>
